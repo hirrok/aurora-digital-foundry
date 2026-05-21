@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+const base       = import.meta.env.BASE_URL.replace(/\/$/, '') + '/';
+const clientBase = base + 'clients/aliya-surf-camp/';
+const rooms = [
+  {
+    name: "Standard AC Room",
+    desc: "Clean, air-conditioned room with hot water, TV, and private bath. Great for solo surfers or couples.",
+    amenities: ["Air conditioning", "Hot water", "TV", "Private bathroom", "Free WiFi"],
+    img: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    name: "Beachfront View Room",
+    desc: "Wake up to Pacific sunrise. Ocean-facing balcony with direct view of Sabang Beach.",
+    amenities: ["Ocean view balcony", "Air conditioning", "Hot water", "TV", "Private bathroom"],
+    img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    name: "Dormitory / Bunk",
+    desc: "Budget-friendly bunk beds for solo travelers and surf groups. Shared bathroom facilities.",
+    amenities: ["Bunk beds", "Shared bathroom", "Locker storage", "Fan or AC options"],
+    img: "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=900&q=80",
+  },
+];
+---
+<BaseLayout title="Rooms — Aliya Surf Camp | Baler, Aurora">
+  <div class="pt-24 pb-16 md:pb-24">
+    <div class="max-w-6xl mx-auto px-4">
+      <p class="text-sunset font-body font-semibold text-sm uppercase tracking-widest mb-2 mt-8">Accommodation</p>
+      <h1 class="section-title text-5xl mb-2">Rooms & Rates</h1>
+      <p class="text-gray-600 font-body mb-12 max-w-xl">
+        Comfortable, clean, and steps from the surf. All rooms designed for the beach lifestyle.
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {rooms.map(room => (
+          <div class="border border-gray-100 shadow-sm overflow-hidden">
+            <div class="h-52 overflow-hidden">
+              <img src={room.img} alt={room.name}
+                   class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"/>
+            </div>
+            <div class="p-6 bg-white">
+              <h2 class="font-display font-bold text-ocean text-lg mb-2">{room.name}</h2>
+              <p class="text-gray-600 font-body text-sm mb-4">{room.desc}</p>
+              <ul class="text-gray-500 font-body text-xs space-y-1 mb-4">
+                {room.amenities.map(a => <li>· {a}</li>)}
+              </ul>
+              <p class="text-sunset font-semibold text-sm mb-4">
+                TODO: Add rate — <span class="text-gray-400 italic text-xs">placeholder</span>
+              </p>
+              <a href={clientBase + 'contact'} class="btn-primary text-xs py-3 w-full block text-center">
+                Inquire / Book
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div class="mt-12 bg-foam p-8 border-l-4 border-sunset">
+        <p class="font-body text-gray-700 text-sm">
+          <strong>Group bookings?</strong> Contact us directly for group rates and package deals.
+          We accommodate surf groups, family trips, and corporate retreats.
+        </p>
+        <a href={clientBase + 'contact'} class="mt-4 btn-primary text-xs py-3 inline-block">
+          Contact for Group Rates
+        </a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

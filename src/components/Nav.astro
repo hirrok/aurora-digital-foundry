@@ -1,0 +1,65 @@
+---
+import client from '../data/client.json';
+const base     = import.meta.env.BASE_URL.replace(/\/$/, '') + '/';
+const clientBase = base + client.clientPath + '/';
+
+const links = [
+  { label: 'Rooms',   href: clientBase + 'rooms' },
+  { label: 'Surf',    href: clientBase + 'surf' },
+  { label: 'Dining',  href: clientBase + 'dining' },
+  { label: 'Contact', href: clientBase + 'contact' },
+];
+---
+<header class="fixed top-0 left-0 right-0 z-50 bg-ocean/95 backdrop-blur-sm">
+  <nav class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+    <a href={clientBase} class="font-display font-bold text-xl text-white tracking-tight">
+      ALIYA <span class="text-sand">SURF CAMP</span>
+    </a>
+    <!-- Desktop Nav -->
+    <ul class="hidden md:flex items-center gap-8">
+      {links.map(l => (
+        <li>
+          <a href={l.href}
+             class="text-white/80 hover:text-sand font-body font-medium text-sm uppercase tracking-wider transition-colors">
+            {l.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+    <a href={clientBase + 'contact'}
+       class="hidden md:inline-block btn-primary text-xs py-3 px-6">
+      Book / Inquire
+    </a>
+    <!-- Mobile Menu Toggle -->
+    <button id="menu-toggle" class="md:hidden text-white p-2" aria-label="Open menu">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+  </nav>
+  <!-- Mobile Drawer -->
+  <div id="mobile-menu" class="hidden md:hidden bg-ocean border-t border-white/10">
+    <ul class="px-4 py-4 space-y-3">
+      {links.map(l => (
+        <li>
+          <a href={l.href}
+             class="block text-white/80 hover:text-sand font-body text-sm uppercase tracking-wider py-2">
+            {l.label}
+          </a>
+        </li>
+      ))}
+      <li class="pt-2">
+        <a href={clientBase + 'contact'} class="btn-primary block text-center text-xs py-3">
+          Book / Inquire
+        </a>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const menu   = document.getElementById('mobile-menu');
+  toggle?.addEventListener('click', () => menu?.classList.toggle('hidden'));
+</script>

@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+const base       = import.meta.env.BASE_URL.replace(/\/$/, '') + '/';
+const clientBase = base + 'clients/aliya-surf-camp/';
+
+const menuSections = [
+  {
+    category: "Filipino Classics",
+    items: [
+      { name: "Bulalo", desc: "Slow-cooked beef shank and bone marrow soup. A Baler staple.", price: "TODO" },
+      { name: "Tocino", desc: "Sweet-cured pork with garlic rice and egg.", price: "TODO" },
+      { name: "Tapa", desc: "Cured beef with sinangag and itlog.", price: "TODO" },
+      { name: "Sinigang", desc: "Tamarind broth with your choice of protein.", price: "TODO" },
+    ]
+  },
+  {
+    category: "Bar & Snacks",
+    items: [
+      { name: "Pizza", desc: "Wood-fired style. Ask for today's toppings.", price: "TODO" },
+      { name: "Nachos & Dips", desc: "Crowd-pleaser after a long session.", price: "TODO" },
+      { name: "Fries & Rice Meals", desc: "Quick fuel for hungry surfers.", price: "TODO" },
+    ]
+  },
+  {
+    category: "Drinks",
+    items: [
+      { name: "San Miguel Beer", desc: "Pale Pilsen · Light · Flavored variants", price: "TODO" },
+      { name: "Spirits & Cocktails", desc: "Ask the bartender for today's specials.", price: "TODO" },
+      { name: "Fresh Buko / Juice", desc: "Straight from the coconut.", price: "TODO" },
+    ]
+  },
+];
+---
+<BaseLayout title="Dining — Aliya Surf Camp | Baler, Aurora">
+  <div class="pt-24 pb-16 md:pb-24">
+
+    <!-- Header -->
+    <div class="relative h-64 mb-16 overflow-hidden">
+      <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1600&q=80"
+           alt="Aliya restaurant" class="w-full h-full object-cover"/>
+      <div class="absolute inset-0 bg-ocean/70 flex flex-col justify-end p-8 md:p-16">
+        <p class="text-sand font-body text-sm uppercase tracking-widest mb-2">Restaurant & Bar</p>
+        <h1 class="font-display font-bold text-white text-4xl">Eat. Drink. Stay.</h1>
+      </div>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-4">
+      <p class="text-gray-600 font-body max-w-xl mb-12">
+        Filipino comfort food and cold drinks at the beach. Open to guests and walk-ins.
+        Prices below are placeholders — TODO: update with real menu and rates.
+      </p>
+
+      {menuSections.map(section => (
+        <div class="mb-12">
+          <h2 class="font-display font-bold text-ocean text-2xl mb-6 border-b-2 border-sand pb-2">
+            {section.category}
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {section.items.map(item => (
+              <div class="flex justify-between items-start p-4 bg-foam">
+                <div>
+                  <p class="font-body font-semibold text-gray-800">{item.name}</p>
+                  <p class="text-gray-500 font-body text-xs mt-1">{item.desc}</p>
+                </div>
+                <p class="text-sunset font-body font-semibold text-sm whitespace-nowrap ml-4">{item.price}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      <div class="bg-ocean text-white p-8 mt-8">
+        <p class="font-display font-bold text-xl mb-2">Group Dining & Events</p>
+        <p class="text-white/80 font-body text-sm mb-4">
+          Hosting a group? The restaurant accommodates functions and events.
+          Contact us to arrange.
+        </p>
+        <a href={clientBase + 'contact'} class="btn-outline text-xs py-3 inline-block">Contact Us</a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

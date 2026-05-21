@@ -1,0 +1,57 @@
+---
+// Aurora Digital Foundry — Demo Index
+// Lists all active client demos for internal use.
+const base = import.meta.env.BASE_URL.replace(/\/$/, '') + '/';
+
+const demos = [
+  {
+    name:    'Aliya Surf Camp',
+    town:    'Baler, Aurora',
+    url:     base + 'clients/aliya-surf-camp/',
+    status:  'Demo',
+    vertical:'Tourism · Stay · Surf',
+  },
+  // Add more demos here as you build them
+];
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aurora Digital Foundry — Demo Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Karla:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Karla', sans-serif; background: #0a0a12; color: #f0f0f0; min-height: 100vh; padding: 3rem 1.5rem; }
+    .logo { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; color: #fcbf49; margin-bottom: 0.25rem; }
+    .subtitle { font-size: 0.8rem; color: #666; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 3rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; max-width: 900px; }
+    .card { background: #141420; border: 1px solid #222; padding: 1.5rem; }
+    .card-name { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 0.25rem; }
+    .card-town { font-size: 0.8rem; color: #888; margin-bottom: 0.5rem; }
+    .card-vertical { font-size: 0.75rem; color: #f77f00; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
+    .badge { display: inline-block; background: #f77f00; color: #fff; font-size: 0.65rem; font-weight: 700; padding: 0.2rem 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
+    .btn { display: block; text-align: center; background: #003566; color: #fff; padding: 0.75rem; font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 700; text-decoration: none; text-transform: uppercase; letter-spacing: 0.15em; transition: background 0.2s; }
+    .btn:hover { background: #0077b6; }
+    .add-card { border: 1px dashed #333; padding: 1.5rem; display: flex; align-items: center; justify-content: center; color: #444; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <p class="logo">AURORA DIGITAL FOUNDRY</p>
+  <p class="subtitle">Internal Demo Dashboard</p>
+  <div class="grid">
+    {demos.map(d => (
+      <div class="card">
+        <p class="card-name">{d.name}</p>
+        <p class="card-town">{d.town}</p>
+        <p class="card-vertical">{d.vertical}</p>
+        <span class="badge">{d.status}</span>
+        <a href={d.url} class="btn">View Demo →</a>
+      </div>
+    ))}
+    <div class="add-card">+ Next client demo</div>
+  </div>
+</body>
+</html>

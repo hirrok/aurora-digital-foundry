@@ -1,0 +1,176 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+const base       = import.meta.env.BASE_URL.replace(/\/$/, '') + '/';
+const clientBase = base + 'clients/aliya-surf-camp/';
+
+const IMG_HERO   = "https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=1600&q=80";
+const IMG_BEACH  = "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80";
+const IMG_ROOM   = "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=900&q=80";
+const IMG_FOOD   = "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=900&q=80";
+const IMG_SURF   = "https://images.unsplash.com/photo-1455729552865-3658a5d39692?auto=format&fit=crop&w=900&q=80";
+---
+<BaseLayout title="Aliya Surf Camp — Surf. Stay. Chill. | Baler, Aurora">
+
+  <!-- HERO -->
+  <section class="relative h-screen min-h-[600px] flex items-end pb-16 md:pb-24">
+    <div class="absolute inset-0 overflow-hidden">
+      <img src={IMG_HERO} alt="Surfing at Sabang Beach, Baler"
+           class="w-full h-full object-cover object-center" loading="eager" />
+      <div class="absolute inset-0 bg-gradient-to-t from-ocean/90 via-ocean/40 to-transparent"></div>
+    </div>
+    <div class="relative z-10 max-w-6xl mx-auto px-4 w-full">
+      <p class="text-sand font-body font-semibold text-sm uppercase tracking-[0.3em] mb-3">
+        Sabang Beach · Baler, Aurora
+      </p>
+      <h1 class="font-display font-extrabold text-white text-5xl md:text-7xl leading-none mb-6">
+        SURF.<br/>STAY.<br/>CHILL.
+      </h1>
+      <p class="text-white/80 font-body text-lg max-w-md mb-8">
+        Beachfront surf camp on the Pacific. Lessons for all levels,
+        comfortable rooms, and cold drinks after the session.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a href={clientBase + 'contact'} class="btn-primary">Book / Inquire</a>
+        <a href={clientBase + 'surf'} class="btn-outline">View Surf Lessons</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY ALIYA -->
+  <section class="bg-foam py-16 md:py-24">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="section-title text-center">Not a 5-Star Hotel.<br/>Something Better.</h2>
+      <p class="text-center text-gray-600 font-body max-w-xl mx-auto mb-12">
+        Clean rooms, real surf instructors, Pacific views, and cold San Mig on tap.
+        That's the Aliya way.
+      </p>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        {[
+          { icon: "🏄", label: "Surf School", desc: "All levels · certified instructors" },
+          { icon: "🌊", label: "Beachfront", desc: "Steps from Sabang Beach" },
+          { icon: "🍽️", label: "Restaurant & Bar", desc: "Filipino classics & cold drinks" },
+          { icon: "🏊", label: "Pool", desc: "Freshwater pool on-site" },
+        ].map(item => (
+          <div class="bg-white rounded-sm p-6 shadow-sm">
+            <div class="text-4xl mb-3">{item.icon}</div>
+            <p class="font-display font-bold text-ocean text-sm uppercase tracking-wide mb-1">{item.label}</p>
+            <p class="text-gray-500 font-body text-xs">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ROOMS PREVIEW -->
+  <section class="py-16 md:py-24 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex items-end justify-between mb-10">
+        <h2 class="section-title mb-0">Rooms</h2>
+        <a href={clientBase + 'rooms'} class="text-wave font-body font-semibold text-sm hover:text-ocean transition-colors">
+          View All Rooms →
+        </a>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="group overflow-hidden">
+          <div class="h-64 overflow-hidden">
+            <img src={IMG_ROOM} alt="AC Room with ocean view"
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+          </div>
+          <div class="bg-foam p-6">
+            <p class="font-display font-bold text-ocean text-lg mb-1">Standard AC Room</p>
+            <p class="text-gray-600 font-body text-sm mb-3">
+              Air-conditioned · Hot water · TV · Balcony option
+            </p>
+            <p class="text-sunset font-body font-semibold text-sm">
+              TODO: Add rates — <span class="text-gray-400 italic text-xs">placeholder only</span>
+            </p>
+            <a href={clientBase + 'contact'} class="mt-4 btn-primary text-xs py-3">Inquire Now</a>
+          </div>
+        </div>
+        <div class="group overflow-hidden">
+          <div class="h-64 overflow-hidden">
+            <img src={IMG_BEACH} alt="Beachfront view from Aliya"
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+          </div>
+          <div class="bg-foam p-6">
+            <p class="font-display font-bold text-ocean text-lg mb-1">Beachfront View Room</p>
+            <p class="text-gray-600 font-body text-sm mb-3">
+              Ocean-facing balcony · Wake up to Pacific sunrises
+            </p>
+            <p class="text-sunset font-body font-semibold text-sm">
+              TODO: Add rates — <span class="text-gray-400 italic text-xs">placeholder only</span>
+            </p>
+            <a href={clientBase + 'contact'} class="mt-4 btn-primary text-xs py-3">Inquire Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SURF PREVIEW -->
+  <section class="py-16 md:py-24 bg-ocean text-white">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row gap-10 items-center">
+      <div class="flex-1">
+        <p class="text-sand font-body font-semibold text-sm uppercase tracking-widest mb-3">Surf School</p>
+        <h2 class="font-display font-bold text-white text-4xl md:text-5xl mb-5 leading-tight">
+          Learn to Surf<br/>at Sabang.
+        </h2>
+        <p class="text-white/70 font-body mb-6">
+          Certified instructors. Beginner through intermediate.
+          Board rentals available. First-timers welcome.
+        </p>
+        <a href={clientBase + 'surf'} class="btn-outline">See Lesson Packages</a>
+      </div>
+      <div class="flex-1 h-72 md:h-80 overflow-hidden">
+        <img src={IMG_SURF} alt="Surf lesson at Sabang Beach"
+             class="w-full h-full object-cover"/>
+      </div>
+    </div>
+  </section>
+
+  <!-- DINING PREVIEW -->
+  <section class="py-16 md:py-24 bg-white">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row gap-10 items-center">
+      <div class="flex-1 h-72 md:h-80 overflow-hidden">
+        <img src={IMG_FOOD} alt="Aliya restaurant and bar"
+             class="w-full h-full object-cover"/>
+      </div>
+      <div class="flex-1">
+        <p class="text-sunset font-body font-semibold text-sm uppercase tracking-widest mb-3">Restaurant & Bar</p>
+        <h2 class="section-title">Eat Well.<br/>Drink Cold.</h2>
+        <p class="text-gray-600 font-body mb-4">
+          Filipino comfort food, cold drinks, and the Pacific in front of you.
+          Open to guests and walk-ins.
+        </p>
+        <ul class="text-gray-700 font-body text-sm space-y-1 mb-6">
+          <li>🍲 Bulalo · Tocino · Tapa</li>
+          <li>🍕 Pizza · Snacks · Bar bites</li>
+          <li>🍺 Cold beer · Spirits · Fresh juice</li>
+        </ul>
+        <a href={clientBase + 'dining'} class="btn-primary">View Menu</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAP + CTA -->
+  <section class="bg-foam py-16 md:py-24">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="section-title text-center">Find Us in Baler</h2>
+      <p class="text-center text-gray-600 font-body mb-10">
+        Button St., Brgy. Sabang, Baler, Aurora · On the beach road.
+      </p>
+      <div class="w-full h-64 md:h-80 bg-wave/20 border border-wave/30 flex items-center justify-center mb-10">
+        <p class="text-ocean font-body text-sm text-center px-4">
+          TODO: Embed Google Maps here<br/>
+          <span class="text-xs text-gray-400">Replace with: iframe src="Google Maps Embed URL"</span>
+        </p>
+      </div>
+      <div class="text-center">
+        <a href={clientBase + 'contact'} class="btn-primary text-base py-5 px-12">
+          Book or Inquire Now
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

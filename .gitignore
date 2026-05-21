@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+*.log
+.env
+setup.mjs
+restructure.mjs
+fix-nav.mjs
+fix-contact.mjs

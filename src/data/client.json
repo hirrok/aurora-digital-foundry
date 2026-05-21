@@ -1,0 +1,19 @@
+{
+  "name": "Aliya Surf Camp",
+  "slug": "aliya-surf-camp",
+  "town": "Baler",
+  "province": "Aurora",
+  "tagline": "Surf. Stay. Chill.",
+  "address": "Button St., Brgy. Sabang, Baler, Aurora",
+  "phone": "TODO: Add phone number",
+  "email": "TODO: Add email address",
+  "facebook": "https://facebook.com/aliyasurfcamp",
+  "mapUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.3!2d121.763!3d15.756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sSabang+Beach+Baler!5e0!3m2!1sen!2sph!4v1",
+  "hours": "Open Daily · Front Desk: 7AM–10PM",
+  "vertical": "tourism-stay-surf",
+  "cta": "Book / Inquire",
+  "contentStatus": "demo-placeholders",
+  "assetStatus": "placeholders-only",
+  "launchStatus": "demo",
+  "clientPath": "clients/aliya-surf-camp"
+}

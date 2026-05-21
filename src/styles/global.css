@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Karla:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { font-family: 'Karla', sans-serif; scroll-behavior: smooth; }
+  h1, h2, h3 { font-family: 'Syne', sans-serif; }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-block bg-sunset text-white font-display font-bold px-8 py-4 rounded-none
+           tracking-wider uppercase text-sm transition-all duration-200
+           hover:bg-orange-600 hover:translate-y-[-2px] active:translate-y-0;
+  }
+  .btn-outline {
+    @apply inline-block border-2 border-white text-white font-display font-bold px-8 py-4
+           tracking-wider uppercase text-sm transition-all duration-200
+           hover:bg-white hover:text-ocean;
+  }
+  .section-title {
+    @apply font-display text-3xl md:text-4xl font-bold text-ocean mb-4;
+  }
+  .placeholder-note {
+    @apply text-xs text-orange-500 font-body italic mt-1;
+  }
+}

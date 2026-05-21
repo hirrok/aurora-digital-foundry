@@ -1,0 +1,35 @@
+---
+import client from '../data/client.json';
+const base       = import.meta.env.BASE_URL.replace(/\/$/, '') + '/';
+const clientBase = base + client.clientPath + '/';
+const year       = new Date().getFullYear();
+---
+<footer class="bg-ocean text-white">
+  <div class="max-w-6xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div>
+      <a href={clientBase} class="font-display font-bold text-lg mb-2 block">
+        ALIYA <span class="text-sand">SURF CAMP</span>
+      </a>
+      <p class="text-white/60 text-sm font-body">{client.tagline}</p>
+      <p class="text-white/60 text-sm font-body mt-3">{client.address}</p>
+    </div>
+    <div>
+      <p class="font-display font-bold text-sand text-sm uppercase tracking-wider mb-3">Hours</p>
+      <p class="text-white/80 text-sm font-body">{client.hours}</p>
+    </div>
+    <div>
+      <p class="font-display font-bold text-sand text-sm uppercase tracking-wider mb-3">Connect</p>
+      <a href={client.facebook} target="_blank" rel="noopener noreferrer"
+         class="text-white/80 hover:text-sand text-sm font-body block mb-2 transition-colors">
+        Facebook
+      </a>
+      <p class="text-white/60 text-sm font-body">{client.phone}</p>
+    </div>
+  </div>
+  <div class="border-t border-white/10 px-4 py-4 max-w-6xl mx-auto">
+    <p class="text-white/30 text-xs font-body">
+      © {year} {client.name} · {client.town}, {client.province}
+      · Site by <a href="https://github.com/hirrok" class="hover:text-sand transition-colors">Aurora Digital Foundry</a>
+    </p>
+  </div>
+</footer>
