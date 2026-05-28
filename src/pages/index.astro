@@ -1,17 +1,24 @@
 ---
 // Aurora Digital Foundry — Demo Index
-// Lists all active client demos for internal use.
 const base = import.meta.env.BASE_URL.replace(/\/$/, '') + '/';
 
 const demos = [
   {
-    name:    'Aliya Surf Camp',
-    town:    'Baler, Aurora',
-    url:     base + 'clients/aliya-surf-camp/',
-    status:  'Demo',
-    vertical:'Tourism · Stay · Surf',
+    name:     'Aliya Surf Camp',
+    town:     'Baler, Aurora',
+    url:      base + 'clients/aliya-surf-camp/',
+    status:   'Demo',
+    vertical: 'Tourism · Stay · Surf',
+    template: 'Tide',
   },
-  // Add more demos here as you build them
+  {
+    name:     'Ecopetrol Aurora',
+    town:     'Maria Aurora, Aurora',
+    url:      base + 'clients/ecopetrol-aurora/',
+    status:   'Pre-Demo',
+    vertical: 'Energy · Fuel · LPG',
+    template: 'Volt',
+  },
 ];
 ---
 <!DOCTYPE html>
@@ -31,8 +38,11 @@ const demos = [
     .card { background: #141420; border: 1px solid #222; padding: 1.5rem; }
     .card-name { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 0.25rem; }
     .card-town { font-size: 0.8rem; color: #888; margin-bottom: 0.5rem; }
-    .card-vertical { font-size: 0.75rem; color: #f77f00; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
-    .badge { display: inline-block; background: #f77f00; color: #fff; font-size: 0.65rem; font-weight: 700; padding: 0.2rem 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
+    .card-vertical { font-size: 0.75rem; color: #f77f00; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.4rem; }
+    .card-template { font-size: 0.7rem; color: #555; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
+    .badge { display: inline-block; font-size: 0.65rem; font-weight: 700; padding: 0.2rem 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
+    .badge-demo { background: #f77f00; color: #fff; }
+    .badge-predemo { background: #333; color: #aaa; }
     .btn { display: block; text-align: center; background: #003566; color: #fff; padding: 0.75rem; font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 700; text-decoration: none; text-transform: uppercase; letter-spacing: 0.15em; transition: background 0.2s; }
     .btn:hover { background: #0077b6; }
     .add-card { border: 1px dashed #333; padding: 1.5rem; display: flex; align-items: center; justify-content: center; color: #444; font-size: 0.85rem; }
@@ -47,7 +57,8 @@ const demos = [
         <p class="card-name">{d.name}</p>
         <p class="card-town">{d.town}</p>
         <p class="card-vertical">{d.vertical}</p>
-        <span class="badge">{d.status}</span>
+        <p class="card-template">Template: {d.template}</p>
+        <span class={`badge ${d.status === 'Demo' ? 'badge-demo' : 'badge-predemo'}`}>{d.status}</span>
         <a href={d.url} class="btn">View Demo →</a>
       </div>
     ))}
