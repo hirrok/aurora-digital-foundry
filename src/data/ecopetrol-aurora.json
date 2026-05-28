@@ -1,0 +1,108 @@
+{
+  "lastUpdated": "TODO — update this date each time prices change",
+  "disclaimer": "Prices subject to change per DOE guidelines. Last updated manually by Ecopetrol Aurora staff.",
+  "fuels": [
+    { "type": "Unleaded Gasoline (RON 91)", "price": "TODO", "unit": "per liter" },
+    { "type": "Premium Gasoline (RON 95)", "price": "TODO", "unit": "per liter" },
+    { "type": "Diesel",                    "price": "TODO", "unit": "per liter" },
+    { "type": "Premium Diesel",            "price": "TODO", "unit": "per liter" }
+  ],
+  "branches": [
+    {
+      "id": "maria-aurora-main",
+      "name": "Maria Aurora (Main)",
+      "tag": "Flagship · LPG Showroom",
+      "address": "TODO — verify address, Brgy. 02, Maria Aurora, Aurora",
+      "phone": "TODO",
+      "hours": "TODO",
+      "products": ["Gasoline", "Diesel", "LPG / Solane"],
+      "hasLPG": true,
+      "mapsEmbed": "TODO — Google Maps embed URL",
+      "status": "open"
+    },
+    {
+      "id": "maria-aurora-detailen",
+      "name": "Maria Aurora (Detailen)",
+      "tag": "LPG Showroom",
+      "address": "TODO — Detailen, Maria Aurora, Aurora",
+      "phone": "TODO",
+      "hours": "TODO",
+      "products": ["Gasoline", "Diesel", "LPG / Solane"],
+      "hasLPG": true,
+      "mapsEmbed": "TODO",
+      "status": "open"
+    },
+    {
+      "id": "maria-aurora-uno",
+      "name": "Maria Aurora (Uno)",
+      "tag": "LPG Showroom",
+      "address": "TODO — Maria Aurora, Aurora",
+      "phone": "TODO",
+      "hours": "TODO",
+      "products": ["Gasoline", "Diesel", "LPG / Solane"],
+      "hasLPG": true,
+      "mapsEmbed": "TODO",
+      "status": "open"
+    },
+    {
+      "id": "baler-ne",
+      "name": "Baler (NE)",
+      "tag": "Along national highway",
+      "address": "TODO — Baler, Aurora",
+      "phone": "TODO",
+      "hours": "TODO",
+      "products": ["Gasoline", "Diesel"],
+      "hasLPG": false,
+      "mapsEmbed": "TODO",
+      "status": "open"
+    },
+    {
+      "id": "baler-pingit",
+      "name": "Baler (Pingit)",
+      "tag": "Northern Baler corridor",
+      "address": "TODO — Pingit, Baler, Aurora",
+      "phone": "TODO",
+      "hours": "TODO",
+      "products": ["Gasoline", "Diesel"],
+      "hasLPG": false,
+      "mapsEmbed": "TODO",
+      "status": "open"
+    },
+    {
+      "id": "dipaculao-south",
+      "name": "Dipaculao (South)",
+      "tag": "South Dipaculao branch",
+      "address": "TODO — Dipaculao, Aurora",
+      "phone": "TODO",
+      "hours": "TODO",
+      "products": ["Gasoline", "Diesel"],
+      "hasLPG": false,
+      "mapsEmbed": "TODO",
+      "status": "open"
+    },
+    {
+      "id": "san-luis",
+      "name": "San Luis",
+      "tag": "LPG Showroom",
+      "address": "TODO — San Luis, Aurora",
+      "phone": "TODO",
+      "hours": "TODO",
+      "products": ["Gasoline", "Diesel", "LPG / Solane"],
+      "hasLPG": true,
+      "mapsEmbed": "TODO",
+      "status": "open"
+    },
+    {
+      "id": "dinadiawan",
+      "name": "Dinadiawan",
+      "tag": "Coastal corridor",
+      "address": "TODO — Dinadiawan, Aurora",
+      "phone": "TODO",
+      "hours": "TODO",
+      "products": ["Gasoline", "Diesel"],
+      "hasLPG": false,
+      "mapsEmbed": "TODO",
+      "status": "open"
+    }
+  ]
+}

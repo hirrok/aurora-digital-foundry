@@ -1,0 +1,179 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import siteData from '../../../data/ecopetrol-aurora.json';
+const base = '/aurora-digital-foundry/clients/ecopetrol-aurora';
+const branches = siteData.branches;
+---
+
+<BaseLayout
+  title="Contact — Ecopetrol Aurora"
+  description="Contact Ecopetrol Aurora. Find a branch, send an inquiry, or reach our emergency hotline. Fuel and LPG services across Aurora Province.">
+
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  </Fragment>
+
+  <style>
+    .fd { font-family: 'Barlow Condensed', sans-serif; }
+    .fb { font-family: 'DM Sans', sans-serif; }
+    :root { --er: #C41E1E; --eg: #1B5E20; --ed: #0F1923; }
+    .form-input {
+      width: 100%; border: 1px solid #d1d5db; border-radius: 0.375rem;
+      padding: 0.625rem 0.875rem; font-size: 0.875rem;
+      font-family: 'DM Sans', sans-serif; background: white;
+    }
+    .form-input:focus { outline: 2px solid var(--er); outline-offset: 1px; }
+    .form-label { display: block; font-size: 0.75rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em; color: #374151;
+      margin-bottom: 0.375rem; font-family: 'Barlow Condensed', sans-serif; }
+  </style>
+
+  <!-- Emergency Strip -->
+  <div style="background:var(--er)" class="text-white text-center text-sm py-2 px-4 fd tracking-widest uppercase">
+    ⚡ Emergency Hotline: <span class="ml-1 font-bold">TODO — Add branch emergency contact</span>
+  </div>
+
+  <nav class="bg-white border-b border-gray-100 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 flex items-center justify-between h-16">
+      <a href={base + '/'} class="fd text-xl font-black tracking-wider uppercase" style="color:var(--er)">
+        ECOPETROL <span class="text-gray-400 font-normal text-sm">AURORA</span>
+      </a>
+      <div class="hidden md:flex items-center gap-6 text-sm font-medium fb text-gray-700">
+        <a href={base + '/branches'} class="hover:text-red-700 transition-colors">Branches</a>
+        <a href={base + '/prices'} class="hover:text-red-700 transition-colors">Fuel Prices</a>
+        <a href={base + '/lpg'} class="hover:text-red-700 transition-colors">LPG / Solane</a>
+        <a href={base + '/fleet'} class="hover:text-red-700 transition-colors">Fleet Accounts</a>
+        <a href={base + '/about'} class="hover:text-red-700 transition-colors">About</a>
+        <a href={base + '/contact'} style="background:var(--er)" class="text-white px-4 py-2 rounded font-semibold hover:opacity-90 transition-opacity">Contact Us</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <section style="background:var(--ed)" class="text-white py-16 px-4">
+    <div class="max-w-4xl mx-auto">
+      <p class="fd text-sm tracking-[0.2em] uppercase mb-2" style="color:var(--er)">Get In Touch</p>
+      <h1 class="fd text-5xl md:text-6xl font-black uppercase">CONTACT<br/>ECOPETROL</h1>
+    </div>
+  </section>
+
+  <!-- Contact Grid -->
+  <section class="bg-gray-50 py-16 px-4">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-10">
+
+      <!-- Inquiry Form -->
+      <div class="bg-white rounded-xl p-8 border border-gray-200 shadow-sm">
+        <div class="fd text-2xl font-black text-gray-900 uppercase mb-6">SEND AN INQUIRY</div>
+        <form action="https://formspree.io/f/TODO-CONTACT" method="POST" class="space-y-4">
+          <div>
+            <label class="form-label">Your Name *</label>
+            <input type="text" name="name" required placeholder="Full name" class="form-input" />
+          </div>
+          <div>
+            <label class="form-label">Phone Number *</label>
+            <input type="tel" name="phone" required placeholder="09XX XXX XXXX" class="form-input" />
+          </div>
+          <div>
+            <label class="form-label">Email (optional)</label>
+            <input type="email" name="email" placeholder="your@email.com" class="form-input" />
+          </div>
+          <div>
+            <label class="form-label">Inquiry Type</label>
+            <select name="inquiry_type" class="form-input">
+              <option>General Inquiry</option>
+              <option>Fuel / Branch Question</option>
+              <option>LPG / Solane Delivery</option>
+              <option>Fleet Account</option>
+              <option>Careers</option>
+              <option>Complaint or Concern</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label">Nearest Branch</label>
+            <select name="branch" class="form-input">
+              <option value="">Select branch (optional)</option>
+              {branches.map(b => <option value={b.id}>{b.name}</option>)}
+            </select>
+          </div>
+          <div>
+            <label class="form-label">Message *</label>
+            <textarea name="message" required rows="4" placeholder="Your question or message..." class="form-input"></textarea>
+          </div>
+          <input type="hidden" name="_subject" value="Website Inquiry — Ecopetrol Aurora" />
+          <button type="submit" style="background:var(--er)" class="w-full text-white fd font-bold py-3 uppercase tracking-widest hover:opacity-90 transition-opacity rounded">
+            SEND MESSAGE
+          </button>
+          <p class="fb text-xs text-gray-400 text-center">TODO: Replace Formspree ID before going live</p>
+        </form>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="space-y-6">
+        <!-- Emergency -->
+        <div class="rounded-xl p-6 border-2 text-white" style="background:var(--er); border-color:var(--er)">
+          <div class="fd text-xl font-black uppercase mb-2">⚡ EMERGENCY HOTLINE</div>
+          <div class="fd text-3xl font-black mb-1">TODO</div>
+          <p class="fb text-red-100 text-sm">For fuel emergencies, LPG safety concerns, and after-hours assistance</p>
+        </div>
+
+        <!-- Head Office -->
+        <div class="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
+          <div class="fd text-lg font-black text-gray-900 uppercase mb-3">Main Office</div>
+          <div class="fb text-sm text-gray-700 space-y-2">
+            <div class="flex gap-2 items-start"><span>📍</span><span>TODO — Maria Aurora, Aurora Province</span></div>
+            <div class="flex gap-2 items-start"><span>📞</span><span>TODO — Main contact number</span></div>
+            <div class="flex gap-2 items-start"><span>✉️</span><span>TODO — Email address</span></div>
+            <div class="flex gap-2 items-start"><span>🕐</span><span>TODO — Office hours</span></div>
+          </div>
+        </div>
+
+        <!-- Social -->
+        <div class="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
+          <div class="fd text-lg font-black text-gray-900 uppercase mb-3">Find Us Online</div>
+          <a href="TODO" class="flex items-center gap-3 fb text-sm text-blue-700 hover:text-blue-900 transition-colors">
+            <span class="text-xl">📘</span>
+            <span>Facebook Page → TODO</span>
+          </a>
+          <p class="fb text-xs text-gray-400 mt-3">TODO: Add Facebook page URL and replace all TODO fields</p>
+        </div>
+
+        <!-- Branch Quick List -->
+        <div class="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
+          <div class="fd text-lg font-black text-gray-900 uppercase mb-3">All Branches</div>
+          <div class="space-y-2">
+            {branches.map(b => (
+              <div class="flex items-center justify-between py-1 border-b border-gray-50">
+                <span class="fb text-sm text-gray-700">{b.name}</span>
+                <span class="fb text-xs text-gray-400">{b.phone}</span>
+              </div>
+            ))}
+          </div>
+          <a href={base + '/branches'} class="fb text-xs mt-3 inline-block font-semibold hover:opacity-80" style="color:var(--er)">
+            Full branch details + maps →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="background:var(--ed)" class="text-gray-400 pt-10 pb-6">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex flex-col md:flex-row items-center justify-between text-sm fb">
+        <div class="fd text-lg font-black text-white mb-2 md:mb-0">ECOPETROL <span style="color:var(--er)">AURORA</span></div>
+        <div class="flex gap-6 text-gray-500">
+          <a href={base + '/'} class="hover:text-white transition-colors">Home</a>
+          <a href={base + '/branches'} class="hover:text-white transition-colors">Branches</a>
+          <a href={base + '/prices'} class="hover:text-white transition-colors">Prices</a>
+          <a href={base + '/fleet'} class="hover:text-white transition-colors">Fleet</a>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 mt-6 pt-4 text-xs text-center text-gray-600 fb">
+        © 2026 Ecopetrol Aurora · Site by <a href="https://github.com/hirrok" class="hover:text-white">Aurora Digital Foundry</a>
+      </div>
+    </div>
+  </footer>
+
+</BaseLayout>

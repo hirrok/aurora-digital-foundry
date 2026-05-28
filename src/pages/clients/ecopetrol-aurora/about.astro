@@ -1,0 +1,177 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+const base = '/aurora-digital-foundry/clients/ecopetrol-aurora';
+---
+
+<BaseLayout
+  title="About — Ecopetrol Aurora"
+  description="About Ecopetrol Aurora. Aurora Province's trusted multi-branch fuel and LPG network. DOE-licensed, Solane-authorized, and community-rooted.">
+
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  </Fragment>
+
+  <style>
+    .fd { font-family: 'Barlow Condensed', sans-serif; }
+    .fb { font-family: 'DM Sans', sans-serif; }
+    :root { --er: #C41E1E; --eg: #1B5E20; --ed: #0F1923; }
+  </style>
+
+  <div style="background:var(--er)" class="text-white text-center text-sm py-2 px-4 fd tracking-widest uppercase">
+    ⚡ Emergency Hotline: <span class="ml-1 font-bold">TODO — Add branch emergency contact</span>
+  </div>
+
+  <nav class="bg-white border-b border-gray-100 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 flex items-center justify-between h-16">
+      <a href={base + '/'} class="fd text-xl font-black tracking-wider uppercase" style="color:var(--er)">
+        ECOPETROL <span class="text-gray-400 font-normal text-sm">AURORA</span>
+      </a>
+      <div class="hidden md:flex items-center gap-6 text-sm font-medium fb text-gray-700">
+        <a href={base + '/branches'} class="hover:text-red-700 transition-colors">Branches</a>
+        <a href={base + '/prices'} class="hover:text-red-700 transition-colors">Fuel Prices</a>
+        <a href={base + '/lpg'} class="hover:text-red-700 transition-colors">LPG / Solane</a>
+        <a href={base + '/fleet'} class="hover:text-red-700 transition-colors">Fleet Accounts</a>
+        <a href={base + '/about'} class="font-bold" style="color:var(--er)">About</a>
+        <a href={base + '/contact'} style="background:var(--er)" class="text-white px-4 py-2 rounded font-semibold hover:opacity-90 transition-opacity">Contact Us</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <section style="background:var(--ed)" class="text-white py-16 px-4">
+    <div class="max-w-4xl mx-auto">
+      <p class="fd text-sm tracking-[0.2em] uppercase mb-2" style="color:var(--er)">Our Story</p>
+      <h1 class="fd text-5xl md:text-6xl font-black uppercase">ROOTED IN AURORA.<br/>BUILT TO LAST.</h1>
+    </div>
+  </section>
+
+  <!-- Story -->
+  <section class="bg-white py-16 px-4">
+    <div class="max-w-4xl mx-auto">
+      <div class="grid md:grid-cols-2 gap-12 items-start">
+        <div>
+          <p class="fd text-sm tracking-[0.2em] uppercase mb-2" style="color:var(--er)">Who We Are</p>
+          <h2 class="fd text-3xl font-black text-gray-900 uppercase mb-4">AURORA'S FUEL NETWORK</h2>
+          <div class="fb text-gray-700 space-y-3 text-base leading-relaxed">
+            <p>
+              Ecopetrol Aurora is a multi-branch fuel and LPG operation serving communities 
+              across Aurora Province. With stations in Maria Aurora, Baler, Dipaculao, San Luis, 
+              Dinadiawan, and beyond, we supply the province's households, businesses, 
+              government agencies, and fleets.
+            </p>
+            <p>
+              We are an authorized Solane LPG showroom operator through 
+              <strong>Lara Integrated Industries Inc.</strong>, providing residential and 
+              commercial LPG delivery alongside our fuel retail network.
+            </p>
+            <p class="text-gray-500 text-sm italic">
+              TODO: Insert founding year, family story, and key milestones with client approval.
+            </p>
+          </div>
+        </div>
+        <div>
+          <img
+            src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=900&q=80"
+            alt="Ecopetrol Aurora fuel station"
+            class="rounded-xl w-full object-cover h-64 shadow-lg"
+          />
+          <div class="mt-4 grid grid-cols-2 gap-4 text-center">
+            <div class="bg-gray-50 rounded-lg p-4 border border-gray-100">
+              <div class="fd text-4xl font-black" style="color:var(--er)">8+</div>
+              <div class="fb text-sm text-gray-500 mt-1">Branches in Aurora</div>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-4 border border-gray-100">
+              <div class="fd text-2xl font-black text-gray-900">TODO</div>
+              <div class="fb text-sm text-gray-500 mt-1">Years in Aurora</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust & Compliance -->
+  <section class="bg-gray-50 py-16 px-4">
+    <div class="max-w-4xl mx-auto">
+      <p class="fd text-sm tracking-[0.2em] uppercase mb-2 text-center" style="color:var(--er)">Compliance & Credentials</p>
+      <h2 class="fd text-3xl font-black text-gray-900 uppercase mb-10 text-center">OPERATING BY THE BOOK</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-white rounded-xl p-6 border border-gray-200 text-center shadow-sm">
+          <div class="text-3xl mb-3">⚡</div>
+          <div class="fd font-black text-gray-900 uppercase mb-2">DOE Licensed</div>
+          <p class="fb text-sm text-gray-500">Department of Energy licensed fuel retailer. All branches maintain valid operating certificates.</p>
+          <p class="fb text-xs text-amber-600 mt-2">TODO: Confirm COC status per branch before inserting specifics</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 border border-gray-200 text-center shadow-sm">
+          <div class="text-3xl mb-3">🟢</div>
+          <div class="fd font-black text-gray-900 uppercase mb-2">Solane Partner</div>
+          <p class="fb text-sm text-gray-500">Authorized Solane LPG showroom operator. Multiple showroom locations across Aurora Province.</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 border border-gray-200 text-center shadow-sm">
+          <div class="text-3xl mb-3">🏛️</div>
+          <div class="fd font-black text-gray-900 uppercase mb-2">Gov Supplier</div>
+          <p class="fb text-sm text-gray-500">Experienced in government procurement supply, including district engineering requirements in Aurora.</p>
+          <p class="fb text-xs text-amber-600 mt-2">TODO: Confirm with client before publishing specifics</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Safety Commitment -->
+  <section style="background:var(--ed)" class="text-white py-16 px-4">
+    <div class="max-w-4xl mx-auto">
+      <p class="fd text-sm tracking-[0.2em] uppercase mb-2" style="color:var(--er)">Safety First</p>
+      <h2 class="fd text-3xl font-black uppercase mb-6">OUR SAFETY COMMITMENT</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        {[
+          { title: "Trained Personnel", body: "All branch staff trained in DOE-required safety protocols, PPE use, and emergency response procedures." },
+          { title: "Site Safety Standards", body: "Stations maintained to PNS safety requirements for liquid petroleum retail outlets." },
+          { title: "LPG Safety", body: "Proper handling, storage, and delivery of Solane LPG cylinders per safety regulations." },
+          { title: "Emergency Protocols", body: "Each branch has an emergency contact and escalation procedure. Hotline available." }
+        ].map(item => (
+          <div class="border border-gray-700 rounded-lg p-5">
+            <div class="fd font-bold text-white uppercase mb-2">{item.title}</div>
+            <p class="fb text-gray-400 text-sm">{item.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Careers -->
+  <section class="bg-white py-12 px-4 border-b border-gray-100">
+    <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      <div>
+        <p class="fd text-sm tracking-[0.2em] uppercase mb-1" style="color:var(--er)">Join the Team</p>
+        <h2 class="fd text-2xl font-black text-gray-900 uppercase">WE'RE LOOKING FOR GOOD PEOPLE</h2>
+        <p class="fb text-gray-500 text-sm mt-1">Reliable, hardworking, and growth-oriented. If that's you — reach out.</p>
+      </div>
+      <a href={base + '/contact'}
+         style="background:var(--er)"
+         class="flex-shrink-0 text-white fd font-bold px-6 py-3 uppercase tracking-wider hover:opacity-90 transition-opacity whitespace-nowrap">
+        INQUIRE ABOUT CAREERS
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="background:var(--ed)" class="text-gray-400 pt-10 pb-6">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex flex-col md:flex-row items-center justify-between text-sm fb">
+        <div class="fd text-lg font-black text-white mb-2 md:mb-0">ECOPETROL <span style="color:var(--er)">AURORA</span></div>
+        <div class="flex gap-6 text-gray-500">
+          <a href={base + '/'} class="hover:text-white transition-colors">Home</a>
+          <a href={base + '/branches'} class="hover:text-white transition-colors">Branches</a>
+          <a href={base + '/fleet'} class="hover:text-white transition-colors">Fleet</a>
+          <a href={base + '/contact'} class="hover:text-white transition-colors">Contact</a>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 mt-6 pt-4 text-xs text-center text-gray-600 fb">
+        © 2026 Ecopetrol Aurora · Site by <a href="https://github.com/hirrok" class="hover:text-white">Aurora Digital Foundry</a>
+      </div>
+    </div>
+  </footer>
+
+</BaseLayout>

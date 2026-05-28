@@ -1,0 +1,23 @@
+{
+  "client": "Ecopetrol Aurora",
+  "slug": "ecopetrol-aurora",
+  "template": "Volt",
+  "vertical": "energy-retail",
+  "status": "pre-demo",
+  "package": "Pro",
+  "setupFeeRange": "PHP 35,000–45,000",
+  "maintenanceTier": "Operator",
+  "maintenanceMonthly": "PHP 7,500",
+  "primaryLocation": "Maria Aurora, Aurora",
+  "branchCount": "8+",
+  "legalEntity": "Lara Integrated Industries Inc. (unconfirmed — verify)",
+  "decisionContact": "Jherico Aragon Lara (unconfirmed role — verify)",
+  "lpgPartner": "Solane",
+  "phone": "TODO",
+  "email": "TODO",
+  "facebook": "TODO",
+  "liveDemo": "https://hirrok.github.io/aurora-digital-foundry/clients/ecopetrol-aurora/",
+  "repoPath": "src/pages/clients/ecopetrol-aurora/",
+  "pages": ["index", "branches", "prices", "lpg", "fleet", "about", "contact"],
+  "lastUpdated": "2026-05-28"
+}
