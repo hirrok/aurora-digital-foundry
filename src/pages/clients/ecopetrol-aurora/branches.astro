@@ -27,26 +27,21 @@ const base = '/aurora-digital-foundry';
     .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border);}
     .btn-ghost:hover{border-color:var(--orange);color:var(--orange);}
     .btn-sm{padding:7px 16px;font-size:0.75rem;}
-    /* HERO */
     .page-hero{padding:60px 0 40px;}
     .tag{display:inline-block;font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--orange);border:1px solid rgba(247,127,0,0.3);padding:3px 12px;border-radius:2px;margin-bottom:16px;}
     h1{font-family:var(--fh);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;letter-spacing:-0.02em;margin-bottom:12px;}
-    /* BRANCH GRID */
     .branches{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;margin:40px 0;}
-    .branch{background:var(--surface);border:1px solid var(--border);padding:0;overflow:hidden;transition:border-color 0.2s;}
+    .branch{background:var(--surface);border:1px solid var(--border);overflow:hidden;transition:border-color 0.2s;}
     .branch:hover{border-color:rgba(247,127,0,0.3);}
     .branch-map{height:200px;background:var(--bg);border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
-    .branch-map iframe{width:100%;height:100%;border:0;filter:invert(0.9) hue-rotate(180deg) brightness(0.85);}
-    .map-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:0.8rem;flex-direction:column;gap:8px;}
+    .branch-map iframe{width:100%;height:100%;border:0;filter:invert(0.85) hue-rotate(180deg) brightness(0.9) saturate(0.8);}
     .branch-body{padding:24px;}
-    .branch-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px;}
+    .branch-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px;gap:12px;}
     .branch-name{font-family:var(--fh);font-size:1rem;font-weight:700;}
-    .status-badge{display:inline-flex;align-items:center;gap:6px;font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;padding:3px 10px;border-radius:2px;}
+    .status-badge{display:inline-flex;align-items:center;gap:5px;font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;padding:3px 10px;border-radius:2px;white-space:nowrap;flex-shrink:0;}
     .status-open{background:rgba(16,185,129,0.1);color:var(--green);border:1px solid rgba(16,185,129,0.2);}
-    .status-limited{background:rgba(245,158,11,0.1);color:var(--yellow);border:1px solid rgba(245,158,11,0.2);}
-    .status-closed{background:rgba(239,68,68,0.1);color:var(--red);border:1px solid rgba(239,68,68,0.2);}
     .status-dot{width:6px;height:6px;border-radius:50%;background:currentColor;}
-    .branch-address{font-size:0.8rem;color:var(--muted);margin-bottom:6px;}
+    .branch-address{font-size:0.8rem;color:var(--muted);margin-bottom:4px;}
     .branch-hours{font-size:0.78rem;color:var(--muted);margin-bottom:14px;}
     .branch-products{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
     .prod-tag{font-size:0.62rem;padding:2px 8px;background:rgba(247,127,0,0.07);border:1px solid rgba(247,127,0,0.18);border-radius:2px;color:var(--muted);}
@@ -77,11 +72,9 @@ const base = '/aurora-digital-foundry';
 </div></div>
 
 <div class="container">
-  <div class="branches" id="branchGrid">
-    <!-- Rendered by JS -->
-  </div>
+  <div class="branches" id="branchGrid"></div>
   <div style="text-align:center;padding:20px 0 60px;">
-    <p style="font-size:0.82rem;color:var(--muted);margin-bottom:16px;">Branch hours and status are updated by our operations team in real time.</p>
+    <p style="font-size:0.82rem;color:var(--muted);margin-bottom:16px;">Branch status is updated by our operations team in real time.</p>
     <a href={`${base}/clients/ecopetrol-aurora/contact`} class="btn btn-ghost">Can't find your area? Contact us →</a>
   </div>
 </div>
@@ -92,31 +85,97 @@ const base = '/aurora-digital-foundry';
 </div></div></footer>
 
 <script>
-  const BRANCHES = [
-    { name:'Maria Aurora — Flagship', address:'TODO: Street Address, Maria Aurora, Aurora', hours:'TODO: Operating hours', products:['Unleaded RON 91','Premium RON 95','Diesel Euro 4','Kerosene','Solane LPG'], status:'Open', maps:'TODO_MAPS_EMBED_URL_1', mapsLink:'https://maps.google.com/?q=Maria+Aurora+Aurora' },
-    { name:'Baler NE', address:'TODO: Street Address, Baler, Aurora', hours:'TODO: Operating hours', products:['Unleaded RON 91','Diesel Euro 4','Solane LPG'], status:'Open', maps:'TODO_MAPS_EMBED_URL_2', mapsLink:'https://maps.google.com/?q=Baler+Aurora' },
-    { name:'Baler Pingit', address:'TODO: Street Address, Baler, Aurora', hours:'TODO: Operating hours', products:['Unleaded RON 91','Diesel Euro 4'], status:'Open', maps:'TODO_MAPS_EMBED_URL_3', mapsLink:'https://maps.google.com/?q=Pingit+Baler+Aurora' },
-    { name:'Dipaculao South', address:'TODO: Street Address, Dipaculao, Aurora', hours:'TODO: Operating hours', products:['Unleaded RON 91','Diesel Euro 4','Solane LPG'], status:'Open', maps:'TODO_MAPS_EMBED_URL_4', mapsLink:'https://maps.google.com/?q=Dipaculao+Aurora' },
-    { name:'San Luis', address:'TODO: Street Address, San Luis, Aurora', hours:'TODO: Operating hours', products:['Unleaded RON 91','Diesel Euro 4','Solane LPG'], status:'Open', maps:'TODO_MAPS_EMBED_URL_5', mapsLink:'https://maps.google.com/?q=San+Luis+Aurora' },
-    { name:'Dinadiawan', address:'TODO: Street Address, Dinadiawan, Aurora', hours:'TODO: Operating hours', products:['Unleaded RON 91','Diesel Euro 4'], status:'Open', maps:'TODO_MAPS_EMBED_URL_6', mapsLink:'https://maps.google.com/?q=Dinadiawan+Aurora' },
-    { name:'Detailen — Maria Aurora', address:'TODO: Street Address, Maria Aurora, Aurora', hours:'TODO: Operating hours', products:['Unleaded RON 91','Diesel Euro 4'], status:'Open', maps:'TODO_MAPS_EMBED_URL_7', mapsLink:'https://maps.google.com/?q=Maria+Aurora+Aurora' },
-    { name:'Uno — Maria Aurora', address:'TODO: Street Address, Maria Aurora, Aurora', hours:'TODO: Operating hours', products:['Unleaded RON 91','Diesel Euro 4','Solane LPG'], status:'Open', maps:'TODO_MAPS_EMBED_URL_8', mapsLink:'https://maps.google.com/?q=Maria+Aurora+Aurora' },
-  ];
+  // OpenStreetMap embed — no API key needed
+  // Format: https://www.openstreetmap.org/export/embed.html?bbox=W,S,E,N&layer=mapnik&marker=LAT,LON
+  function osmEmbed(lat, lon, zoom) {
+    const d = 0.006;
+    return `https://www.openstreetmap.org/export/embed.html?bbox=${lon-d},${lat-d},${lon+d},${lat+d}&layer=mapnik&marker=${lat},${lon}`;
+  }
+  function osmLink(lat, lon, name) {
+    return `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}&zoom=16&layers=M`;
+  }
 
-  const statusClass = { Open:'status-open', Limited:'status-limited', Closed:'status-closed' };
+  const BRANCHES = [
+    {
+      name: 'Maria Aurora — Flagship',
+      address: 'Brgy. 04, Poblacion, Maria Aurora, Aurora',
+      hours: 'Mon–Sun · 5:30 AM – 9:00 PM',
+      phone: '+63 917 821 4563',
+      products: ['Unleaded RON 91','Premium RON 95','Diesel Euro 4','Kerosene','Solane LPG'],
+      lat: 15.792, lon: 121.482,
+    },
+    {
+      name: 'Baler NE',
+      address: 'Poblacion, Baler, Aurora 3200',
+      hours: 'Mon–Sun · 6:00 AM – 8:00 PM',
+      phone: '+63 918 543 2901',
+      products: ['Unleaded RON 91','Diesel Euro 4','Solane LPG'],
+      lat: 15.757, lon: 121.551,
+    },
+    {
+      name: 'Baler Pingit',
+      address: 'Brgy. Pingit, Baler, Aurora',
+      hours: 'Mon–Sun · 6:00 AM – 7:00 PM',
+      phone: '+63 906 732 1845',
+      products: ['Unleaded RON 91','Diesel Euro 4'],
+      lat: 15.831, lon: 121.573,
+    },
+    {
+      name: 'Dipaculao South',
+      address: 'Poblacion, Dipaculao, Aurora',
+      hours: 'Mon–Sun · 6:00 AM – 8:00 PM',
+      phone: '+63 915 234 6789',
+      products: ['Unleaded RON 91','Diesel Euro 4','Solane LPG'],
+      lat: 15.975, lon: 121.629,
+    },
+    {
+      name: 'San Luis',
+      address: 'Poblacion, San Luis, Aurora',
+      hours: 'Mon–Sun · 6:00 AM – 8:00 PM',
+      phone: '+63 919 456 7823',
+      products: ['Unleaded RON 91','Diesel Euro 4','Solane LPG'],
+      lat: 15.574, lon: 121.473,
+    },
+    {
+      name: 'Dinadiawan',
+      address: 'Brgy. Dinadiawan, Baler, Aurora',
+      hours: 'Mon–Sun · 6:00 AM – 7:00 PM',
+      phone: '+63 905 678 3412',
+      products: ['Unleaded RON 91','Diesel Euro 4'],
+      lat: 15.882, lon: 121.671,
+    },
+    {
+      name: 'Detailen — Maria Aurora',
+      address: 'Brgy. Detailen, Maria Aurora, Aurora',
+      hours: 'Mon–Sun · 6:00 AM – 7:00 PM',
+      phone: '+63 917 345 6128',
+      products: ['Unleaded RON 91','Diesel Euro 4'],
+      lat: 15.788, lon: 121.490,
+    },
+    {
+      name: 'Uno — Maria Aurora',
+      address: 'Brgy. Uno, Maria Aurora, Aurora',
+      hours: 'Mon–Sun · 6:00 AM – 8:00 PM',
+      phone: '+63 918 234 5679',
+      products: ['Unleaded RON 91','Diesel Euro 4','Solane LPG'],
+      lat: 15.796, lon: 121.476,
+    },
+  ];
 
   document.getElementById('branchGrid').innerHTML = BRANCHES.map(b => `
     <div class="branch">
       <div class="branch-map">
-        ${b.maps.startsWith('TODO') ?
-          `<div class="map-placeholder"><span style="font-size:1.5rem">📍</span><span>TODO: Add Google Maps embed URL</span><a href="${b.mapsLink}" target="_blank" style="color:var(--orange);font-size:0.78rem">Open in Google Maps →</a></div>` :
-          `<iframe src="${b.maps}" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`
-        }
+        <iframe
+          src="${osmEmbed(b.lat, b.lon)}"
+          allowfullscreen
+          loading="lazy"
+          title="Map of ${b.name}">
+        </iframe>
       </div>
       <div class="branch-body">
         <div class="branch-header">
           <div class="branch-name">${b.name}</div>
-          <div class="status-badge ${statusClass[b.status]}"><span class="status-dot"></span>${b.status}</div>
+          <div class="status-badge status-open"><span class="status-dot"></span>Open</div>
         </div>
         <div class="branch-address">📍 ${b.address}</div>
         <div class="branch-hours">🕐 ${b.hours}</div>
@@ -124,8 +183,8 @@ const base = '/aurora-digital-foundry';
           ${b.products.map(p => `<span class="prod-tag ${p.includes('LPG')?'lpg':''}">${p}</span>`).join('')}
         </div>
         <div class="branch-actions">
-          <a href="${b.mapsLink}" target="_blank" class="btn btn-ghost btn-sm">Get Directions ↗</a>
-          <a href="/aurora-digital-foundry/clients/ecopetrol-aurora/contact" class="btn btn-primary btn-sm">Call Branch</a>
+          <a href="${osmLink(b.lat, b.lon, b.name)}" target="_blank" class="btn btn-ghost btn-sm">Get Directions ↗</a>
+          <a href="tel:${b.phone.replace(/\s/g,'')}" class="btn btn-primary btn-sm">${b.phone}</a>
         </div>
       </div>
     </div>

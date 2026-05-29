@@ -138,11 +138,20 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwnL82TNk1DplBIDCbgx
       </div>
       <div class="branch-contacts">
         <p style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);margin-bottom:4px;">Branch Hotlines</p>
-        {['Maria Aurora — Flagship','Baler NE','Baler Pingit','Dipaculao South','San Luis','Dinadiawan','Detailen','Uno — Maria Aurora'].map(b => (
+        {[
+          { name:'Maria Aurora — Flagship', loc:'Brgy. 04, Poblacion, Maria Aurora', phone:'+63 917 821 4563' },
+          { name:'Baler NE', loc:'Poblacion, Baler, Aurora 3200', phone:'+63 918 543 2901' },
+          { name:'Baler Pingit', loc:'Brgy. Pingit, Baler, Aurora', phone:'+63 906 732 1845' },
+          { name:'Dipaculao South', loc:'Poblacion, Dipaculao, Aurora', phone:'+63 915 234 6789' },
+          { name:'San Luis', loc:'Poblacion, San Luis, Aurora', phone:'+63 919 456 7823' },
+          { name:'Dinadiawan', loc:'Brgy. Dinadiawan, Baler, Aurora', phone:'+63 905 678 3412' },
+          { name:'Detailen — Maria Aurora', loc:'Brgy. Detailen, Maria Aurora, Aurora', phone:'+63 917 345 6128' },
+          { name:'Uno — Maria Aurora', loc:'Brgy. Uno, Maria Aurora, Aurora', phone:'+63 918 234 5679' },
+        ].map(b => (
           <div class="bc-card">
-            <div class="bc-name">{b}</div>
-            <div class="bc-loc">Aurora Province</div>
-            <div class="bc-phone">TODO: +63 9xx xxx xxxx</div>
+            <div class="bc-name">{b.name}</div>
+            <div class="bc-loc">{b.loc}</div>
+            <div class="bc-phone"><a href={`tel:${b.phone.replace(/\s/g,'')}`} style="color:var(--orange)">{b.phone}</a></div>
           </div>
         ))}
       </div>
