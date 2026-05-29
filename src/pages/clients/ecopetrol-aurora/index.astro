@@ -9,8 +9,8 @@ const base = "/aurora-digital-foundry/clients/ecopetrol-aurora";
   @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap');
   :root {
     --blue:#005BAC; --blue-dark:#003D80; --blue-light:#1A73C8;
-    --green:#1A5C2A; --white:#FFFFFF; --off-white:#F7F7F5;
-    --charcoal:#111111; --gray:#444444; --border:#E0E0E0;
+    --navy:#002D6E; --white:#FFFFFF; --off-white:#F5F8FC;
+    --charcoal:#111111; --gray:#444444; --border:#D0DCE8;
     --fd:'Barlow Condensed',sans-serif; --fb:'Barlow',sans-serif;
   }
   * { box-sizing:border-box; margin:0; padding:0; }
@@ -37,7 +37,7 @@ const base = "/aurora-digital-foundry/clients/ecopetrol-aurora";
   .btn-red:hover { background:var(--blue-light); }
   .btn-outline { background:transparent; color:var(--white); font-family:var(--fd); font-size:0.95rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:0.85rem 2rem; border:2px solid rgba(255,255,255,0.4); text-decoration:none; display:inline-block; transition:border-color 0.2s; }
   .btn-outline:hover { border-color:var(--white); }
-  .btn-green { background:var(--white); color:var(--green); font-family:var(--fd); font-size:0.9rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:0.8rem 1.75rem; text-decoration:none; display:inline-block; }
+  .btn-green { background:var(--white); color:var(--navy); font-family:var(--fd); font-size:0.9rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:0.8rem 1.75rem; text-decoration:none; display:inline-block; }
   .price-ticker { background:var(--blue); color:var(--white); padding:1.25rem 2rem; display:flex; align-items:center; gap:2rem; flex-wrap:wrap; justify-content:center; }
   .ticker-label { font-family:var(--fd); font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; opacity:0.8; white-space:nowrap; }
   .ticker-items { display:flex; gap:2rem; flex-wrap:wrap; justify-content:center; }
@@ -50,7 +50,7 @@ const base = "/aurora-digital-foundry/clients/ecopetrol-aurora";
   .audience-split { display:grid; grid-template-columns:1fr 1fr; }
   .audience-card { padding:4rem 3rem; display:flex; flex-direction:column; gap:1.25rem; }
   .audience-card.b2c { background:var(--off-white); }
-  .audience-card.b2b { background:var(--green); color:var(--white); }
+  .audience-card.b2b { background:var(--navy); color:var(--white); }
   .audience-tag { font-family:var(--fd); font-size:0.7rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; }
   .b2c .audience-tag { color:var(--blue); }
   .b2b .audience-tag { color:rgba(255,255,255,0.7); }
@@ -82,9 +82,9 @@ const base = "/aurora-digital-foundry/clients/ecopetrol-aurora";
   .branch-address { font-size:0.85rem; color:var(--gray); line-height:1.5; }
   .product-tags { display:flex; gap:0.4rem; flex-wrap:wrap; }
   .tag { font-family:var(--fd); font-size:0.7rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:0.2rem 0.5rem; background:var(--off-white); color:var(--charcoal); border:1px solid var(--border); }
-  .tag.lpg { background:#E8F5EC; color:var(--green); border-color:#B8DFC2; }
+  .tag.lpg { background:#EBF2FF; color:var(--navy); border-color:#B8CCF0; }
   .branch-link { font-family:var(--fd); font-size:0.8rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--blue); text-decoration:none; border-bottom:1px solid var(--blue); padding-bottom:1px; }
-  .lpg-callout { background:var(--green); color:var(--white); padding:5rem 2rem; }
+  .lpg-callout { background:var(--navy); color:var(--white); padding:5rem 2rem; }
   .lpg-inner { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center; }
   .lpg-inner .section-eyebrow { color:rgba(255,255,255,0.6); }
   .lpg-inner .section-eyebrow::before { background:rgba(255,255,255,0.6); }
