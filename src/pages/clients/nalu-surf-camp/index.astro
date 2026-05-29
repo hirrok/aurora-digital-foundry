@@ -1,276 +1,1143 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-
-const client = {
-  name: "Nalu Surf Camp",
-  tagline: "Surf. Sleep. Bonfire.",
-  address: "57A Labasin St., Brgy. Sabang, Baler, Aurora",
-  phone: "+63 917 817 2606",
-  hours: "Check-in 14:00 · Check-out 12:00 · Front Desk 24hrs",
-  facebook: "https://facebook.com/NaluSurfCamp",
-  messenger: "https://m.me/NaluSurfCamp",
-  slug: "nalu-surf-camp",
-};
+// Nalu Surf Camp — Home
+// Aurora Digital Foundry · demo mode · scratch build
+const title = "Nalu Surf Camp — Stay Wild. Surf Daily. Gather Nightly.";
+const description = "26 nipa hut rooms, surf lessons, pool, and a free bonfire every night. Brgy. Sabang, Baler, Aurora.";
+const base = "/aurora-digital-foundry/clients/nalu-surf-camp";
 ---
 
-<BaseLayout
-  title="Nalu Surf Camp — Surf. Sleep. Bonfire. | Baler, Aurora"
-  description="57A Labasin St., Brgy. Sabang, Baler, Aurora · Beachfront nipa huts, surf lessons, Nalu Snack Bar, and free bonfire every night."
-  client={client}
->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  <!-- HERO -->
-  <section class="hero">
-    <img
-      src="https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=1600&q=80"
-      alt="Surfing at Sabang Beach, Baler"
-      class="hero__img"
-    />
-    <div class="hero__overlay">
-      <p class="hero__eyebrow">Sabang Beach · Baler, Aurora</p>
-      <h1 class="hero__headline">
-        SURF.<br />SLEEP.<br />BONFIRE.
-      </h1>
-      <p class="hero__sub">
-        Beachfront nipa huts on the Pacific. Surf lessons for all levels,<br />
-        26 rooms, Nalu Snack Bar, and a free bonfire every night.
-      </p>
-      <div class="hero__ctas">
-        <a href={`/aurora-digital-foundry/clients/${client.slug}/contact`} class="btn btn--primary">Book / Inquire</a>
-        <a href={`/aurora-digital-foundry/clients/${client.slug}/surf`} class="btn btn--ghost">View Surf Lessons</a>
-      </div>
-    </div>
-  </section>
+    :root {
+      --earth:    #2C1F14;
+      --bark:     #4A2E1A;
+      --amber:    #C4822A;
+      --gold:     #E8A94A;
+      --sand:     #F2E8D5;
+      --salt:     #FAF6EE;
+      --ash:      #8C7B6B;
+      --wave:     #2E5F6B;
+      --foam:     #FFFFFF;
+      --serif:    'Playfair Display', Georgia, serif;
+      --sans:     'DM Sans', system-ui, sans-serif;
+    }
 
-  <!-- PILLARS -->
-  <section class="pillars container">
-    <h2 class="section-title">Not Just a Surf Camp.<br />A Whole Vibe.</h2>
-    <p class="section-sub">
-      26 nipa hut rooms, a pool, all-day dining, acoustic nights,<br />
-      and cold beers by the bonfire. Pet-friendly. Always.
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--salt);
+      color: var(--earth);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2rem;
+      background: rgba(44, 31, 20, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .nav-brand {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--sand);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0.85;
+      transition: opacity 0.2s;
+    }
+
+    .nav-links a:hover { opacity: 1; color: var(--gold); }
+
+    .nav-cta {
+      background: var(--amber) !important;
+      color: var(--foam) !important;
+      padding: 0.5rem 1.25rem !important;
+      border-radius: 2px;
+      opacity: 1 !important;
+      font-weight: 500 !important;
+    }
+
+    .nav-cta:hover { background: var(--gold) !important; }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.25rem;
+    }
+
+    .hamburger { display: flex; flex-direction: column; gap: 5px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--sand); border-radius: 2px; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 6rem 2rem 4rem;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1506953823976-52e1fdc0149a?auto=format&fit=crop&w=1800&q=80');
+      background-size: cover;
+      background-position: center 40%;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(28, 16, 8, 0.92) 0%,
+        rgba(28, 16, 8, 0.55) 45%,
+        rgba(28, 16, 8, 0.25) 100%
+      );
+    }
+
+    .hero-content {
+      position: relative;
+      max-width: 780px;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-headline {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 900;
+      line-height: 1.0;
+      color: var(--foam);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-headline em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: rgba(242, 232, 213, 0.85);
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--amber);
+      color: var(--foam);
+      text-decoration: none;
+      padding: 0.9rem 2rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover { background: var(--gold); }
+
+    .btn-ghost {
+      display: inline-block;
+      border: 1px solid rgba(242, 232, 213, 0.45);
+      color: var(--sand);
+      text-decoration: none;
+      padding: 0.9rem 2rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      right: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(242, 232, 213, 0.5);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, rgba(242,232,213,0.4), transparent);
+    }
+
+    /* ── CAMP STRIP ── */
+    .camp-strip {
+      background: var(--earth);
+      padding: 3rem 2rem;
+    }
+
+    .camp-strip-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .camp-fact {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .camp-fact-icon {
+      font-size: 1.75rem;
+      line-height: 1;
+    }
+
+    .camp-fact-label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .camp-fact-value {
+      font-size: 0.85rem;
+      color: rgba(242, 232, 213, 0.7);
+    }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 5rem 2rem; }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 1rem;
+    }
+
+    .section-heading {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      line-height: 1.1;
+      color: var(--earth);
+      margin-bottom: 1.25rem;
+    }
+
+    .section-heading em { font-style: italic; color: var(--amber); }
+
+    .section-body {
+      font-size: 1rem;
+      color: var(--ash);
+      max-width: 560px;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── ROOMS ── */
+    .rooms-section { background: var(--salt); }
+
+    .rooms-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .room-card {
+      background: var(--foam);
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid rgba(74, 46, 26, 0.1);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .room-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(44, 31, 20, 0.1);
+    }
+
+    .room-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+    }
+
+    .room-body {
+      padding: 1.5rem;
+    }
+
+    .room-type {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.4rem;
+    }
+
+    .room-name {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--earth);
+      margin-bottom: 0.5rem;
+    }
+
+    .room-features {
+      font-size: 0.85rem;
+      color: var(--ash);
+      margin-bottom: 1.25rem;
+      line-height: 1.6;
+    }
+
+    .room-rate {
+      font-size: 0.8rem;
+      color: var(--ash);
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+
+    .btn-sm {
+      display: inline-block;
+      background: var(--earth);
+      color: var(--sand);
+      text-decoration: none;
+      padding: 0.6rem 1.25rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+
+    .btn-sm:hover { background: var(--bark); }
+
+    /* ── BONFIRE ── */
+    .bonfire-section {
+      background: var(--earth);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bonfire-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url('https://images.unsplash.com/photo-1475483768296-6163e08872a1?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      opacity: 0.18;
+    }
+
+    .bonfire-inner {
+      position: relative;
+      max-width: 740px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .bonfire-icon {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      display: block;
+      filter: drop-shadow(0 0 24px rgba(196, 130, 42, 0.6));
+    }
+
+    .bonfire-heading {
+      font-family: var(--serif);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 900;
+      font-style: italic;
+      color: var(--gold);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+
+    .bonfire-body {
+      font-size: 1.05rem;
+      color: rgba(242, 232, 213, 0.8);
+      line-height: 1.8;
+      max-width: 560px;
+      margin: 0 auto 2rem;
+    }
+
+    .bonfire-tags {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      display: inline-block;
+      border: 1px solid rgba(196, 130, 42, 0.4);
+      color: var(--gold);
+      padding: 0.4rem 1rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-radius: 100px;
+    }
+
+    /* ── SURF ── */
+    .surf-section {
+      background: var(--wave);
+    }
+
+    .surf-section .section-heading { color: var(--foam); }
+    .surf-section .section-label { color: var(--gold); }
+    .surf-section .section-body { color: rgba(255,255,255,0.7); }
+
+    .surf-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      margin-top: 1rem;
+    }
+
+    .surf-img {
+      border-radius: 4px;
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+    }
+
+    .surf-packages {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .surf-pkg {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 4px;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .surf-pkg-name {
+      font-weight: 500;
+      color: var(--foam);
+      font-size: 0.95rem;
+    }
+
+    .surf-pkg-detail {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.55);
+      margin-top: 0.2rem;
+    }
+
+    .surf-pkg-rate {
+      font-family: var(--serif);
+      font-size: 0.9rem;
+      color: var(--gold);
+      font-style: italic;
+      white-space: nowrap;
+    }
+
+    /* ── DINING ── */
+    .dining-section { background: var(--sand); }
+
+    .dining-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      margin-top: 1rem;
+    }
+
+    .dining-img {
+      border-radius: 4px;
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      display: block;
+    }
+
+    .dining-features {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin: 1.5rem 0 2rem;
+    }
+
+    .dining-feat {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .dining-feat-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+
+    .dining-feat-text strong {
+      display: block;
+      font-weight: 500;
+      color: var(--earth);
+      font-size: 0.9rem;
+    }
+
+    .dining-feat-text span {
+      font-size: 0.82rem;
+      color: var(--ash);
+    }
+
+    /* ── MAP ── */
+    .map-section { background: var(--foam); padding: 4rem 2rem; }
+
+    .map-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 3rem;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .map-placeholder {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: rgba(44, 31, 20, 0.06);
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      color: var(--ash);
+      font-size: 0.85rem;
+      text-align: center;
+      border: 1px dashed rgba(74, 46, 26, 0.2);
+      padding: 2rem;
+    }
+
+    .map-placeholder-icon { font-size: 2.5rem; opacity: 0.5; }
+
+    .map-info { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    .map-info h2 {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--earth);
+    }
+
+    .map-detail {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      font-size: 0.9rem;
+      color: var(--ash);
+    }
+
+    .map-detail-icon { font-size: 1.2rem; flex-shrink: 0; }
+
+    .map-detail strong { color: var(--earth); display: block; font-weight: 500; margin-bottom: 0.15rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--earth);
+      color: var(--sand);
+      padding: 3rem 2rem;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .footer-brand {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-tagline {
+      font-size: 0.85rem;
+      color: rgba(242, 232, 213, 0.55);
+      margin-bottom: 1.25rem;
+      line-height: 1.6;
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .footer-socials a {
+      display: inline-block;
+      border: 1px solid rgba(196, 130, 42, 0.35);
+      color: var(--gold);
+      padding: 0.35rem 0.85rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .footer-socials a:hover { background: rgba(196, 130, 42, 0.15); border-color: var(--gold); }
+
+    .footer-col h4 {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+
+    .footer-col ul li { font-size: 0.85rem; color: rgba(242, 232, 213, 0.65); }
+
+    .footer-col ul li a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul li a:hover { color: var(--sand); }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 2.5rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(242, 232, 213, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: rgba(242, 232, 213, 0.4);
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .footer-bottom a { color: var(--amber); text-decoration: none; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-toggle { display: block; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 64px; left: 0; right: 0;
+        background: var(--earth);
+        padding: 1.5rem 2rem;
+        gap: 1.25rem;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      }
+      .nav-links.open li { border-bottom: 1px solid rgba(242,232,213,0.08); padding-bottom: 0.75rem; }
+      .nav-links.open .nav-cta { border: none; background: var(--amber) !important; padding: 0.65rem 1.25rem !important; display: inline-block; width: fit-content; }
+      .surf-grid { grid-template-columns: 1fr; }
+      .dining-grid { grid-template-columns: 1fr; }
+      .map-grid { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .hero-scroll { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      nav { padding: 1rem 1.25rem; }
+      .hero { padding: 5rem 1.25rem 3rem; }
+      section { padding: 3.5rem 1.25rem; }
+      .camp-strip { padding: 2rem 1.25rem; }
+      .rooms-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href={base + "/"} class="nav-brand">NALU SURF CAMP</a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href={base + "/rooms"}>Rooms</a></li>
+    <li><a href={base + "/surf"}>Surf</a></li>
+    <li><a href={base + "/dining"}>Dining</a></li>
+    <li><a href={base + "/contact"} class="nav-cta">Book / Inquire</a></li>
+  </ul>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+    <span class="hamburger"><span></span><span></span><span></span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" aria-label="Hero">
+  <div class="hero-bg" role="img" aria-label="Surfer at Sabang Beach, Baler"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">Brgy. Sabang · Baler, Aurora · Est. on the break</span>
+    <h1 class="hero-headline">
+      Stay Wild.<br>
+      Surf Daily.<br>
+      <em>Gather Nightly.</em>
+    </h1>
+    <p class="hero-sub">
+      26 nipa hut rooms steps from Sabang Beach. Surf lessons for every level.
+      A pool. A snack bar. And every night — a fire on the beach.
     </p>
-    <div class="pillars__grid">
-      <div class="pillar">
-        <span class="pillar__icon">🏄</span>
-        <h3>Surf School</h3>
-        <p>All levels · Beginner to Instructor · Board rentals</p>
-      </div>
-      <div class="pillar">
-        <span class="pillar__icon">🌿</span>
-        <h3>Nipa Hut Rooms</h3>
-        <p>26 rooms · Native-inspired · Garden & sea view options</p>
-      </div>
-      <div class="pillar">
-        <span class="pillar__icon">🍽️</span>
-        <h3>Nalu Snack Bar</h3>
-        <p>All-day dining · Complimentary breakfast · Walk-ins welcome</p>
-      </div>
-      <div class="pillar">
-        <span class="pillar__icon">🔥</span>
-        <h3>Free Bonfire</h3>
-        <p>Every night · Acoustic nights · The Baler ritual</p>
-      </div>
-      <div class="pillar">
-        <span class="pillar__icon">🏊</span>
-        <h3>Pool</h3>
-        <p>Freshwater pool on-site · Open to guests</p>
-      </div>
-      <div class="pillar">
-        <span class="pillar__icon">🐾</span>
-        <h3>Pet-Friendly</h3>
-        <p>Dogs welcome · Bring the whole family</p>
-      </div>
+    <div class="hero-actions">
+      <a href={base + "/contact"} class="btn-primary">Book Your Stay</a>
+      <a href={base + "/rooms"} class="btn-ghost">View Rooms</a>
     </div>
-  </section>
+  </div>
+  <div class="hero-scroll" aria-hidden="true">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
 
-  <!-- ROOMS PREVIEW -->
-  <section class="rooms-preview container">
-    <div class="section-header">
-      <h2 class="section-title">Rooms</h2>
-      <a href={`/aurora-digital-foundry/clients/${client.slug}/rooms`} class="section-link">View All Rooms →</a>
+<!-- CAMP STRIP -->
+<div class="camp-strip">
+  <div class="camp-strip-inner">
+    <div class="camp-fact">
+      <span class="camp-fact-icon">🏡</span>
+      <span class="camp-fact-label">26 Rooms</span>
+      <span class="camp-fact-value">Nipa hut styles</span>
     </div>
-    <div class="cards">
+    <div class="camp-fact">
+      <span class="camp-fact-icon">🏄</span>
+      <span class="camp-fact-label">Surf School</span>
+      <span class="camp-fact-value">All levels</span>
+    </div>
+    <div class="camp-fact">
+      <span class="camp-fact-icon">🔥</span>
+      <span class="camp-fact-label">Free Bonfire</span>
+      <span class="camp-fact-value">Every night</span>
+    </div>
+    <div class="camp-fact">
+      <span class="camp-fact-icon">🏊</span>
+      <span class="camp-fact-label">Pool</span>
+      <span class="camp-fact-value">On-site</span>
+    </div>
+    <div class="camp-fact">
+      <span class="camp-fact-icon">🐾</span>
+      <span class="camp-fact-label">Pet Friendly</span>
+      <span class="camp-fact-value">Dogs welcome</span>
+    </div>
+    <div class="camp-fact">
+      <span class="camp-fact-icon">🥞</span>
+      <span class="camp-fact-label">Free Breakfast</span>
+      <span class="camp-fact-value">7:30–10AM daily</span>
+    </div>
+  </div>
+</div>
 
-      <div class="card">
+<!-- ROOMS -->
+<section class="rooms-section">
+  <div class="section-inner">
+    <span class="section-label">Where You Sleep</span>
+    <h2 class="section-heading">Six Ways to <em>Come Home.</em></h2>
+    <p class="section-body">
+      From traditional nipa huts to premier sea-view rooms — every option is rooted in natural materials, real craftsmanship, and the sound of the Pacific outside your window.
+    </p>
+    <a href={base + "/rooms"} class="btn-primary">See All Rooms &amp; Rates</a>
+
+    <div class="rooms-grid">
+      <div class="room-card">
         <img
-          src="https://images.unsplash.com/photo-1588880331179-bc9b93a8cb5e?auto=format&fit=crop&w=900&q=80"
-          alt="Premier Nipa Hut Sea View"
+          src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&w=800&q=75"
+          alt="Traditional Nipa Hut at Nalu Surf Camp"
+          class="room-img"
+          loading="lazy"
         />
-        <div class="card__body">
-          <h3>Premier Nipa Hut</h3>
-          <p class="card__sub">Sea View · Garden View options · Best for couples & groups</p>
-          <p class="card__rate todo">TODO: Add rates — placeholder only</p>
-          <a href={`/aurora-digital-foundry/clients/${client.slug}/contact`} class="btn btn--sm">Inquire Now</a>
+        <div class="room-body">
+          <div class="room-type">Classic</div>
+          <div class="room-name">Traditional Nipa Hut</div>
+          <div class="room-features">Natural bamboo and nipa construction · Fan-cooled · Authentic camp character</div>
+          <div class="room-rate">TODO: Add rate — placeholder only</div>
+          <a href={base + "/contact"} class="btn-sm">Inquire</a>
         </div>
       </div>
 
-      <div class="card">
+      <div class="room-card">
         <img
-          src="https://images.unsplash.com/photo-1586375300773-8384e3e4916f?auto=format&fit=crop&w=900&q=80"
-          alt="Traditional Nipa Hut"
+          src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=800&q=75"
+          alt="Modern Nipa Hut at Nalu Surf Camp"
+          class="room-img"
+          loading="lazy"
         />
-        <div class="card__body">
-          <h3>Traditional Nipa Hut</h3>
-          <p class="card__sub">Native-style · Relaxed · Great value</p>
-          <p class="card__rate todo">TODO: Add rates — placeholder only</p>
-          <a href={`/aurora-digital-foundry/clients/${client.slug}/contact`} class="btn btn--sm">Inquire Now</a>
+        <div class="room-body">
+          <div class="room-type">Modern</div>
+          <div class="room-name">Modern Nipa Hut</div>
+          <div class="room-features">Contemporary comforts · Air-conditioned · Private bath</div>
+          <div class="room-rate">TODO: Add rate — placeholder only</div>
+          <a href={base + "/contact"} class="btn-sm">Inquire</a>
         </div>
       </div>
 
-      <div class="card">
+      <div class="room-card">
         <img
-          src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=900&q=80"
-          alt="Hammock Area"
+          src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=800&q=75"
+          alt="Ifugao Nipa Hut at Nalu Surf Camp"
+          class="room-img"
+          loading="lazy"
         />
-        <div class="card__body">
-          <h3>Hammock Area</h3>
-          <p class="card__sub">Budget · Breezy · Social · Best for solo travelers</p>
-          <p class="card__rate todo">TODO: Add rates — placeholder only</p>
-          <a href={`/aurora-digital-foundry/clients/${client.slug}/contact`} class="btn btn--sm">Inquire Now</a>
+        <div class="room-body">
+          <div class="room-type">Heritage</div>
+          <div class="room-name">Ifugao Nipa Hut</div>
+          <div class="room-features">Cordilleran architectural details · A rare character room</div>
+          <div class="room-rate">TODO: Add rate — placeholder only</div>
+          <a href={base + "/contact"} class="btn-sm">Inquire</a>
         </div>
       </div>
 
+      <div class="room-card">
+        <img
+          src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=75"
+          alt="Premier Garden View Nipa Hut at Nalu Surf Camp"
+          class="room-img"
+          loading="lazy"
+        />
+        <div class="room-body">
+          <div class="room-type">Premier</div>
+          <div class="room-name">Premier Nipa Hut — Garden View</div>
+          <div class="room-features">Spacious · Air-conditioned · Private bath · Garden terrace</div>
+          <div class="room-rate">TODO: Add rate — placeholder only</div>
+          <a href={base + "/contact"} class="btn-sm">Inquire</a>
+        </div>
+      </div>
+
+      <div class="room-card">
+        <img
+          src="https://images.unsplash.com/photo-1439130490301-25e322d88054?auto=format&fit=crop&w=800&q=75"
+          alt="Premier Sea View Nipa Hut at Nalu Surf Camp"
+          class="room-img"
+          loading="lazy"
+        />
+        <div class="room-body">
+          <div class="room-type">Premier · Best View</div>
+          <div class="room-name">Premier Nipa Hut — Sea View</div>
+          <div class="room-features">Wake up to the Pacific · Air-conditioned · Private bath · Ocean-facing terrace</div>
+          <div class="room-rate">TODO: Add rate — placeholder only</div>
+          <a href={base + "/contact"} class="btn-sm">Inquire</a>
+        </div>
+      </div>
+
+      <div class="room-card">
+        <img
+          src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=75"
+          alt="Hammock Area at Nalu Surf Camp"
+          class="room-img"
+          loading="lazy"
+        />
+        <div class="room-body">
+          <div class="room-type">Open-Air</div>
+          <div class="room-name">Hammock Area</div>
+          <div class="room-features">For the real ones · Minimal stay · Maximum sky</div>
+          <div class="room-rate">TODO: Add rate — placeholder only</div>
+          <a href={base + "/contact"} class="btn-sm">Inquire</a>
+        </div>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- SURF CTA BAND -->
-  <section class="surf-band">
-    <div class="surf-band__inner container">
-      <img
-        src="https://images.unsplash.com/photo-1455729552865-3658a5d39692?auto=format&fit=crop&w=900&q=80"
-        alt="Surf lesson at Sabang Beach"
-        class="surf-band__img"
-      />
-      <div class="surf-band__copy">
-        <p class="eyebrow">Surf School</p>
-        <h2>Learn to Surf<br />at Sabang.</h2>
-        <p>
-          Certified instructors. Beginner through Instructor level.<br />
-          Board rentals available. First-timers always welcome.
+<!-- BONFIRE -->
+<section class="bonfire-section">
+  <div class="bonfire-inner">
+    <span class="bonfire-icon">🔥</span>
+    <h2 class="bonfire-heading">Every night,<br>the fire's on.</h2>
+    <p class="bonfire-body">
+      No charge. No schedule. No reason needed.
+      Just gather, whatever the night brings — acoustic sessions, stories, the sound of the break in the dark.
+      This is what Nalu does that the others don't.
+    </p>
+    <div class="bonfire-tags">
+      <span class="tag">Free Bonfire Nightly</span>
+      <span class="tag">Acoustic Nights</span>
+      <span class="tag">Community Vibes</span>
+    </div>
+  </div>
+</section>
+
+<!-- SURF -->
+<section class="surf-section">
+  <div class="section-inner">
+    <div class="surf-grid">
+      <div>
+        <span class="section-label">Surf School</span>
+        <h2 class="section-heading" style="color: var(--foam);">Learn the Break.<br><em>Own the Wave.</em></h2>
+        <p class="section-body">
+          Sabang is one of the Philippines' original surf breaks. Whether you've never stood on a board or you're chasing your next level — our instructors know this water.
         </p>
-        <a href={`/aurora-digital-foundry/clients/${client.slug}/surf`} class="btn btn--primary">See Lesson Packages</a>
-      </div>
-    </div>
-  </section>
 
-  <!-- SNACK BAR -->
-  <section class="dining-band container">
-    <div class="dining-band__inner">
+        <div class="surf-packages">
+          <div class="surf-pkg">
+            <div>
+              <div class="surf-pkg-name">Beginner Lesson</div>
+              <div class="surf-pkg-detail">Board + instruction · 2 hours · Beach start</div>
+            </div>
+            <div class="surf-pkg-rate">TODO: Rate</div>
+          </div>
+          <div class="surf-pkg">
+            <div>
+              <div class="surf-pkg-name">Intermediate Session</div>
+              <div class="surf-pkg-detail">Technique refinement · Live coaching in water</div>
+            </div>
+            <div class="surf-pkg-rate">TODO: Rate</div>
+          </div>
+          <div class="surf-pkg">
+            <div>
+              <div class="surf-pkg-name">Board Rental</div>
+              <div class="surf-pkg-detail">Per hour or per day · Multiple sizes</div>
+            </div>
+            <div class="surf-pkg-rate">TODO: Rate</div>
+          </div>
+        </div>
+
+        <br />
+        <a href={base + "/surf"} class="btn-primary">See All Surf Packages</a>
+      </div>
+
       <img
-        src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=900&q=80"
-        alt="Nalu Snack Bar"
-        class="dining-band__img"
+        src="https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=900&q=75"
+        alt="Surf lessons at Sabang Beach, Baler"
+        class="surf-img"
+        loading="lazy"
       />
-      <div class="dining-band__copy">
-        <p class="eyebrow">Nalu Snack Bar</p>
-        <h2>Eat Well.<br />Drink Cold.</h2>
-        <p>
-          All-day Filipino comfort food, cold drinks, and the Pacific right in front of you.<br />
-          Open to guests and walk-ins. Complimentary breakfast 7:30–10AM daily.
+    </div>
+  </div>
+</section>
+
+<!-- DINING -->
+<section class="dining-section">
+  <div class="section-inner">
+    <div class="dining-grid">
+      <img
+        src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=75"
+        alt="Nalu Snack Bar dining"
+        class="dining-img"
+        loading="lazy"
+      />
+      <div>
+        <span class="section-label">Nalu Snack Bar</span>
+        <h2 class="section-heading">Eat Well.<br><em>Stay Fueled.</em></h2>
+        <p class="section-body">
+          All-day dining. Filipino comfort food, snacks, and cold drinks. Complimentary breakfast for all guests — daily from 7:30 to 10AM.
         </p>
-        <ul class="dining-band__list">
-          <li>🍲 Filipino favorites · Rice meals · Soups</li>
-          <li>🍳 Complimentary breakfast · Fresh fruit shake</li>
-          <li>🍺 Cold beer · Juices · Drinks</li>
-        </ul>
-        <a href={`/aurora-digital-foundry/clients/${client.slug}/dining`} class="btn btn--outline">View Menu</a>
+
+        <div class="dining-features">
+          <div class="dining-feat">
+            <span class="dining-feat-icon">🌅</span>
+            <div class="dining-feat-text">
+              <strong>Free Breakfast Daily</strong>
+              <span>7:30AM–10:00AM for all guests</span>
+            </div>
+          </div>
+          <div class="dining-feat">
+            <span class="dining-feat-icon">🍽️</span>
+            <div class="dining-feat-text">
+              <strong>All-Day Snack Bar</strong>
+              <span>Filipino mains, light bites, bar menu</span>
+            </div>
+          </div>
+          <div class="dining-feat">
+            <span class="dining-feat-icon">🍺</span>
+            <div class="dining-feat-text">
+              <strong>Cold Drinks &amp; Bar</strong>
+              <span>Open to guests and walk-ins</span>
+            </div>
+          </div>
+        </div>
+
+        <a href={base + "/dining"} class="btn-primary">View Snack Bar Menu</a>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- MAP -->
-  <section class="map-section container">
-    <h2 class="section-title">Find Us in Baler</h2>
-    <p class="section-sub">57A Labasin St., Brgy. Sabang, Baler, Aurora · 1 minute from Sabang Beach.</p>
+<!-- MAP -->
+<section class="map-section">
+  <div class="map-grid">
     <div class="map-placeholder">
-      <p class="todo">TODO: Embed Google Maps here<br />Replace with: &lt;iframe src="Google Maps Embed URL" …&gt;</p>
+      <span class="map-placeholder-icon">📍</span>
+      <strong style="color: var(--earth); font-size: 0.9rem;">57A Labasin St., Brgy. Sabang</strong>
+      <span>TODO: Embed Google Maps here</span>
+      <code style="font-size: 0.72rem; color: var(--amber);">Replace with Maps iframe</code>
     </div>
-    <div class="map-cta">
-      <a href={`/aurora-digital-foundry/clients/${client.slug}/contact`} class="btn btn--primary">Book or Inquire Now</a>
+
+    <div class="map-info">
+      <h2>Find Us in Baler</h2>
+
+      <div class="map-detail">
+        <span class="map-detail-icon">📍</span>
+        <div>
+          <strong>Address</strong>
+          57A Labasin St., Brgy. Sabang, Baler, Aurora<br>
+          <span style="font-size:0.8rem; color: var(--amber);">1-minute walk from Sabang Beach</span>
+        </div>
+      </div>
+
+      <div class="map-detail">
+        <span class="map-detail-icon">🕐</span>
+        <div>
+          <strong>Hours</strong>
+          Check-in: 2:00 PM · Check-out: 12:00 PM<br>
+          Front Desk: 24 hours
+        </div>
+      </div>
+
+      <div class="map-detail">
+        <span class="map-detail-icon">📞</span>
+        <div>
+          <strong>Phone</strong>
+          +63 917 817 2606
+          <span style="font-size:0.78rem; color:var(--ash); display:block;">Verify before going live</span>
+        </div>
+      </div>
+
+      <div class="map-detail">
+        <span class="map-detail-icon">💬</span>
+        <div>
+          <strong>Facebook</strong>
+          <a href="https://facebook.com/NaluSurfCamp" target="_blank" rel="noopener" style="color: var(--amber);">facebook.com/NaluSurfCamp</a>
+        </div>
+      </div>
+
+      <a href={base + "/contact"} class="btn-primary" style="margin-top: 0.5rem;">Book or Inquire Now</a>
     </div>
-  </section>
+  </div>
+</section>
 
-</BaseLayout>
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">NALU SURF CAMP</div>
+      <p class="footer-tagline">
+        26 nipa hut rooms · Surf school · Free bonfire every night<br>
+        Brgy. Sabang, Baler, Aurora
+      </p>
+      <div class="footer-socials">
+        <a href="https://facebook.com/NaluSurfCamp" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://tiktok.com/@nalusurfcamp" target="_blank" rel="noopener">TikTok</a>
+      </div>
+    </div>
 
-<style>
-/* ── HERO ── */
-.hero { position: relative; min-height: 92vh; display: flex; align-items: flex-end; overflow: hidden; }
-.hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.hero__overlay {
-  position: relative; z-index: 2;
-  background: linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.18) 100%);
-  width: 100%; padding: 3rem 2rem 4rem;
-}
-.hero__eyebrow { color: #fbbf24; font-size: .85rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; margin-bottom: .5rem; }
-.hero__headline { color: #fff; font-size: clamp(2.8rem, 8vw, 5.5rem); font-weight: 900; line-height: 1.0; margin: 0 0 1.25rem; }
-.hero__sub { color: rgba(255,255,255,.88); font-size: 1.05rem; line-height: 1.6; margin-bottom: 2rem; }
-.hero__ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+    <div class="footer-col">
+      <h4>The Camp</h4>
+      <ul>
+        <li><a href={base + "/rooms"}>Rooms</a></li>
+        <li><a href={base + "/surf"}>Surf School</a></li>
+        <li><a href={base + "/dining"}>Snack Bar</a></li>
+        <li><a href={base + "/contact"}>Contact</a></li>
+      </ul>
+    </div>
 
-/* ── BUTTONS ── */
-.btn { display: inline-block; padding: .75rem 1.75rem; border-radius: 6px; font-weight: 700; font-size: .95rem; text-decoration: none; transition: opacity .15s; cursor: pointer; }
-.btn:hover { opacity: .85; }
-.btn--primary { background: #0ea5e9; color: #fff; }
-.btn--ghost { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.7); }
-.btn--outline { background: transparent; color: #0ea5e9; border: 2px solid #0ea5e9; }
-.btn--sm { display: inline-block; padding: .5rem 1.1rem; background: #0ea5e9; color: #fff; border-radius: 5px; font-size: .85rem; font-weight: 700; text-decoration: none; }
+    <div class="footer-col">
+      <h4>Info</h4>
+      <ul>
+        <li>Check-in: 2:00 PM</li>
+        <li>Check-out: 12:00 PM</li>
+        <li>Front Desk: 24hrs</li>
+        <li>Breakfast: 7:30–10AM</li>
+      </ul>
+    </div>
+  </div>
 
-/* ── LAYOUT ── */
-.container { max-width: 1100px; margin: 0 auto; padding: 4rem 1.5rem; }
-.section-title { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 900; margin: 0 0 .75rem; line-height: 1.2; }
-.section-sub { color: #64748b; font-size: 1rem; line-height: 1.65; margin: 0 0 2.5rem; }
-.section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 1.75rem; flex-wrap: wrap; gap: .5rem; }
-.section-link { color: #0ea5e9; font-weight: 600; font-size: .9rem; text-decoration: none; }
-.eyebrow { color: #0ea5e9; font-size: .8rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 .4rem; }
+  <div class="footer-bottom">
+    <span>© 2026 Nalu Surf Camp · Baler, Aurora</span>
+    <span>Site by <a href="https://github.com/hirrok">Aurora Digital Foundry</a></span>
+  </div>
+</footer>
 
-/* ── PILLARS ── */
-.pillars { background: #f8fafc; border-radius: 12px; }
-.pillars__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
-.pillar { background: #fff; border-radius: 10px; padding: 1.5rem; box-shadow: 0 1px 4px rgba(0,0,0,.07); }
-.pillar__icon { font-size: 2rem; display: block; margin-bottom: .6rem; }
-.pillar h3 { font-size: 1rem; font-weight: 800; margin: 0 0 .3rem; }
-.pillar p { font-size: .88rem; color: #64748b; margin: 0; line-height: 1.5; }
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const links = document.getElementById('nav-links');
+  toggle?.addEventListener('click', () => links?.classList.toggle('open'));
+</script>
 
-/* ── ROOM CARDS ── */
-.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-.card { border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,.09); background: #fff; }
-.card img { width: 100%; height: 200px; object-fit: cover; }
-.card__body { padding: 1.25rem; }
-.card__body h3 { font-size: 1.1rem; font-weight: 800; margin: 0 0 .3rem; }
-.card__sub { font-size: .87rem; color: #64748b; margin: 0 0 .6rem; }
-.card__rate { font-weight: 700; font-size: .95rem; margin: 0 0 .9rem; }
-
-/* ── SURF BAND ── */
-.surf-band { background: #0c1a2e; color: #fff; padding: 0; }
-.surf-band__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 0; align-items: center; max-width: 1100px; margin: 0 auto; }
-.surf-band__img { width: 100%; height: 420px; object-fit: cover; }
-.surf-band__copy { padding: 3rem 3rem 3rem 4rem; }
-.surf-band__copy .eyebrow { color: #fbbf24; }
-.surf-band__copy h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 900; line-height: 1.1; margin: .5rem 0 1rem; }
-.surf-band__copy p { color: rgba(255,255,255,.8); line-height: 1.65; margin-bottom: 1.75rem; }
-
-/* ── DINING BAND ── */
-.dining-band { padding: 4rem 1.5rem; }
-.dining-band__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
-.dining-band__img { width: 100%; height: 380px; object-fit: cover; border-radius: 10px; }
-.dining-band__copy h2 { font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 900; line-height: 1.15; margin: .5rem 0 1rem; }
-.dining-band__copy p { color: #475569; line-height: 1.65; margin-bottom: 1rem; }
-.dining-band__list { list-style: none; padding: 0; margin: 0 0 1.5rem; }
-.dining-band__list li { font-size: .93rem; color: #475569; padding: .3rem 0; }
-
-/* ── MAP ── */
-.map-section { text-align: center; }
-.map-placeholder { width: 100%; height: 320px; background: #e2e8f0; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin: 0 0 2rem; }
-.map-cta { margin-top: 1rem; }
-
-/* ── TODO STYLING ── */
-.todo { color: #f59e0b; font-style: italic; font-size: .85rem; }
-
-/* ── RESPONSIVE ── */
-@media (max-width: 768px) {
-  .surf-band__inner,
-  .dining-band__inner { grid-template-columns: 1fr; }
-  .surf-band__img,
-  .dining-band__img { height: 240px; }
-  .surf-band__copy { padding: 2rem 1.5rem; }
-}
-</style>
+</body>
+</html>

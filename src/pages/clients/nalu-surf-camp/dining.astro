@@ -1,193 +1,314 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-
-const client = {
-  name: "Nalu Surf Camp",
-  address: "57A Labasin St., Brgy. Sabang, Baler, Aurora",
-  phone: "+63 917 817 2606",
-  hours: "Check-in 14:00 · Check-out 12:00 · Front Desk 24hrs",
-  facebook: "https://facebook.com/NaluSurfCamp",
-  messenger: "https://m.me/NaluSurfCamp",
-  slug: "nalu-surf-camp",
-};
-
-const menuSections = [
-  {
-    title: "Complimentary Breakfast",
-    note: "Included with every room · Served 7:30–10:00 AM daily",
-    items: [
-      { name: "Breakfast Plate", desc: "Sinangag, egg, and your choice of tocino, tapa, or bangus.", price: "Included" },
-      { name: "Fresh Fruit Shake", desc: "Seasonal fruits blended fresh. Ask for today's options.", price: "Included" },
-      { name: "Coffee or Tea", desc: "Hot or iced. Brewed local coffee available.", price: "Included" },
-    ],
-  },
-  {
-    title: "Filipino Favorites",
-    note: "All-day menu",
-    items: [
-      { name: "Bulalo", desc: "Slow-cooked beef shank and bone marrow soup. A Baler staple.", price: "TODO" },
-      { name: "Sinigang", desc: "Tamarind broth with your choice of protein. Komfort in a bowl.", price: "TODO" },
-      { name: "Adobo", desc: "Classic braised pork or chicken in soy and vinegar.", price: "TODO" },
-      { name: "Grilled Liempo", desc: "Marinated pork belly, charcoal-grilled. Served with garlic rice.", price: "TODO" },
-    ],
-  },
-  {
-    title: "Snacks & Quick Bites",
-    note: "Perfect before and after surfing",
-    items: [
-      { name: "Lugaw / Arroz Caldo", desc: "Warm rice porridge for early mornings or post-surf recovery.", price: "TODO" },
-      { name: "Pares", desc: "Braised beef with garlic rice. A street food classic.", price: "TODO" },
-      { name: "Fries & Rice Meals", desc: "Quick fuel for the hungry surfer.", price: "TODO" },
-      { name: "Bar Bites", desc: "Ask staff for today's bar snacks and pulutan.", price: "TODO" },
-    ],
-  },
-  {
-    title: "Drinks",
-    note: null,
-    items: [
-      { name: "San Miguel Beer", desc: "Pale Pilsen · Light · Flavored variants. Cold and ready.", price: "TODO" },
-      { name: "Fresh Buko Juice", desc: "Straight from the coconut. Ice cold.", price: "TODO" },
-      { name: "Fruit Shake", desc: "Seasonal fresh fruit blends. Ask for today's flavors.", price: "TODO" },
-      { name: "Spirits & Cocktails", desc: "Ask the bar for today's specials.", price: "TODO" },
-      { name: "Coffee & Tea", desc: "Brewed local coffee, iced coffee, hot tea.", price: "TODO" },
-    ],
-  },
-];
+// Nalu Surf Camp — Dining
+const title = "Nalu Snack Bar — Dining at Nalu Surf Camp · Baler, Aurora";
+const description = "All-day dining at Nalu Snack Bar. Free breakfast daily 7:30–10AM. Filipino comfort food, cold drinks, and bar menu. Open to guests and walk-ins.";
+const base = "/aurora-digital-foundry/clients/nalu-surf-camp";
 ---
 
-<BaseLayout
-  title="Nalu Snack Bar — Nalu Surf Camp | Baler, Aurora"
-  description="All-day dining at the Nalu Snack Bar, Sabang Beach, Baler. Filipino comfort food, complimentary breakfast 7:30–10AM, cold drinks, and the Pacific in front of you."
-  client={client}
->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --earth: #2C1F14; --bark: #4A2E1A; --amber: #C4822A; --gold: #E8A94A;
+      --sand: #F2E8D5; --salt: #FAF6EE; --ash: #8C7B6B; --wave: #2E5F6B; --foam: #FFFFFF;
+      --serif: 'Playfair Display', Georgia, serif; --sans: 'DM Sans', system-ui, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--salt); color: var(--earth); line-height: 1.6; }
+    nav { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; background: rgba(44,31,20,0.96); backdrop-filter: blur(12px); }
+    .nav-brand { font-family: var(--serif); font-size: 1.1rem; font-weight: 900; color: var(--gold); text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+    .nav-links a { color: var(--sand); text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.85; transition: opacity 0.2s; }
+    .nav-links a:hover { opacity: 1; color: var(--gold); }
+    .nav-cta { background: var(--amber) !important; color: var(--foam) !important; padding: 0.5rem 1.25rem !important; border-radius: 2px; opacity: 1 !important; }
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; }
+    .hamburger { display: flex; flex-direction: column; gap: 5px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--sand); border-radius: 2px; }
 
-  <!-- HERO -->
-  <section class="page-hero">
-    <img
-      src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1600&q=80"
-      alt="Nalu Snack Bar dining"
-      class="page-hero__img"
-    />
-    <div class="page-hero__overlay">
-      <p class="eyebrow">Nalu Snack Bar</p>
-      <h1>Eat Well.<br />Drink Cold.</h1>
-      <p>
-        All-day Filipino comfort food and cold drinks at the beach.<br />
-        Open to guests and walk-ins. Complimentary breakfast 7:30–10AM.
-      </p>
-    </div>
-  </section>
+    .dining-hero {
+      background: var(--bark);
+      padding: 5rem 2rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    .dining-hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1400&q=70') center/cover no-repeat;
+      opacity: 0.15;
+    }
+    .dining-hero-content { position: relative; z-index: 1; max-width: 700px; }
+    .page-eyebrow { display: inline-block; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+    .page-title { font-family: var(--serif); font-size: clamp(2.5rem,5vw,4.5rem); font-weight: 900; color: var(--foam); line-height: 1.05; margin-bottom: 1rem; }
+    .page-title em { font-style: italic; color: var(--gold); }
+    .page-sub { font-size: 1rem; color: rgba(242,232,213,0.8); max-width: 520px; line-height: 1.7; }
 
-  <!-- MENU NOTICE -->
-  <section class="menu-notice container">
-    <p class="todo-notice">⚠ Prices below are placeholders — TODO: update with real menu and pricing before conversion.</p>
-  </section>
+    .breakfast-band { background: var(--gold); padding: 1.25rem 2rem; }
+    .breakfast-band-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 1rem; }
+    .breakfast-band-icon { font-size: 1.5rem; }
+    .breakfast-band-text { font-size: 0.88rem; font-weight: 500; color: var(--earth); }
 
-  <!-- MENU -->
-  <section class="menu container">
-    {menuSections.map((section) => (
-      <div class="menu-section">
-        <div class="menu-section__header">
-          <h2 class="menu-section__title">{section.title}</h2>
-          {section.note && <p class="menu-section__note">{section.note}</p>}
-        </div>
+    .menu-section { padding: 5rem 2rem; background: var(--salt); }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label { display: inline-block; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber); margin-bottom: 1rem; }
+    .section-heading { font-family: var(--serif); font-size: clamp(2rem,4vw,3rem); font-weight: 900; color: var(--earth); line-height: 1.1; margin-bottom: 1.25rem; }
+    .section-heading em { font-style: italic; color: var(--amber); }
+    .section-body { font-size: 1rem; color: var(--ash); max-width: 540px; line-height: 1.75; margin-bottom: 3rem; }
+
+    .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2.5rem; }
+
+    .menu-category { }
+    .menu-category-name { font-family: var(--serif); font-size: 1.25rem; font-weight: 700; color: var(--earth); border-bottom: 2px solid var(--amber); padding-bottom: 0.5rem; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem; }
+    .menu-items { display: flex; flex-direction: column; gap: 0.75rem; }
+    .menu-item { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+    .menu-item-info { flex: 1; }
+    .menu-item-name { font-weight: 500; font-size: 0.9rem; color: var(--earth); margin-bottom: 0.15rem; }
+    .menu-item-desc { font-size: 0.78rem; color: var(--ash); line-height: 1.4; }
+    .menu-item-price { font-family: var(--serif); font-size: 0.9rem; color: var(--amber); white-space: nowrap; font-style: italic; flex-shrink: 0; }
+
+    .hours-section { background: var(--earth); padding: 4rem 2rem; }
+    .hours-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+    .hours-heading { font-family: var(--serif); font-size: 2rem; font-weight: 900; color: var(--gold); margin-bottom: 1.5rem; }
+    .hours-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .hours-row { display: flex; justify-content: space-between; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(242,232,213,0.08); }
+    .hours-meal { font-size: 0.88rem; color: var(--sand); font-weight: 500; }
+    .hours-time { font-size: 0.85rem; color: rgba(242,232,213,0.55); }
+    .hours-note { font-size: 0.82rem; color: rgba(242,232,213,0.45); margin-top: 1.25rem; line-height: 1.6; }
+    .hours-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 4px; display: block; }
+
+    .btn-primary { display: inline-block; background: var(--amber); color: var(--foam); text-decoration: none; padding: 0.9rem 2rem; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; border-radius: 2px; transition: background 0.2s; }
+    .btn-primary:hover { background: var(--gold); }
+
+    footer { background: var(--earth); color: var(--sand); padding: 2.5rem 2rem; border-top: 1px solid rgba(242,232,213,0.06); }
+    .footer-bottom { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; font-size: 0.78rem; color: rgba(242,232,213,0.4); flex-wrap: wrap; gap: 0.5rem; }
+    .footer-bottom a { color: var(--amber); text-decoration: none; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-toggle { display: block; }
+      .nav-links.open { display: flex; flex-direction: column; position: fixed; top: 64px; left: 0; right: 0; background: var(--earth); padding: 1.5rem 2rem; gap: 1.25rem; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+      .hours-inner { grid-template-columns: 1fr; }
+      .menu-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="main-nav">
+  <a href={base + "/"} class="nav-brand">NALU SURF CAMP</a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href={base + "/rooms"}>Rooms</a></li>
+    <li><a href={base + "/surf"}>Surf</a></li>
+    <li><a href={base + "/dining"}>Dining</a></li>
+    <li><a href={base + "/contact"} class="nav-cta">Book / Inquire</a></li>
+  </ul>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+    <span class="hamburger"><span></span><span></span><span></span></span>
+  </button>
+</nav>
+
+<div class="dining-hero">
+  <div class="dining-hero-content">
+    <span class="page-eyebrow">Nalu Snack Bar</span>
+    <h1 class="page-title">Eat Well.<br><em>Stay Fueled.</em></h1>
+    <p class="page-sub">All-day dining, cold drinks, and a bar menu. Filipino comfort food with the Pacific outside. Open to guests and walk-ins.</p>
+  </div>
+</div>
+
+<div class="breakfast-band">
+  <div class="breakfast-band-inner">
+    <span class="breakfast-band-icon">🥞</span>
+    <span class="breakfast-band-text">FREE BREAKFAST for all guests · Daily 7:30AM–10:00AM · Included with every room</span>
+  </div>
+</div>
+
+<section class="menu-section">
+  <div class="section-inner">
+    <span class="section-label">The Menu</span>
+    <h2 class="section-heading">Snack Bar <em>Menu</em></h2>
+    <p class="section-body">TODO: Add real menu items and prices with client approval. The categories below are placeholders — confirm actual offerings and pricing before conversion.</p>
+
+    <div class="menu-grid">
+      <div class="menu-category">
+        <div class="menu-category-name"><span>🌅</span> Breakfast</div>
         <div class="menu-items">
-          {section.items.map((item) => (
-            <div class="menu-item">
-              <div class="menu-item__info">
-                <h3 class="menu-item__name">{item.name}</h3>
-                <p class="menu-item__desc">{item.desc}</p>
-              </div>
-              <span class={`menu-item__price${item.price === "Included" ? " included" : item.price === "TODO" ? " todo" : ""}`}>
-                {item.price === "TODO" ? "TODO: price" : item.price}
-              </span>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Tapsilog</div>
+              <div class="menu-item-desc">Cured beef tapa, garlic rice, fried egg</div>
             </div>
-          ))}
+            <div class="menu-item-price">TODO</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Tocilog</div>
+              <div class="menu-item-desc">Sweet pork tocino, garlic rice, fried egg</div>
+            </div>
+            <div class="menu-item-price">TODO</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Longsilog</div>
+              <div class="menu-item-desc">Longganisa, garlic rice, fried egg</div>
+            </div>
+            <div class="menu-item-price">TODO</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Pancakes</div>
+              <div class="menu-item-desc">With butter and syrup</div>
+            </div>
+            <div class="menu-item-price">TODO</div>
+          </div>
         </div>
       </div>
-    ))}
-  </section>
 
-  <!-- BONFIRE BAND -->
-  <section class="bonfire-band">
-    <div class="bonfire-band__inner container">
-      <span class="bonfire-band__icon">🔥</span>
-      <h2>Free Bonfire. Every Night.</h2>
-      <p>
-        The Nalu night starts after dinner. Gather around the bonfire,
-        meet fellow surfers, listen to acoustic music, and let the Pacific do the rest.
-        No extra charge. Just show up.
-      </p>
+      <div class="menu-category">
+        <div class="menu-category-name"><span>🍲</span> Mains</div>
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Adobo (Chicken or Pork)</div>
+              <div class="menu-item-desc">Classic braised in soy, vinegar, garlic</div>
+            </div>
+            <div class="menu-item-price">TODO</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Sinigang</div>
+              <div class="menu-item-desc">Tamarind-based soup — pork or seafood</div>
+            </div>
+            <div class="menu-item-price">TODO</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Grilled Fish</div>
+              <div class="menu-item-desc">Fresh catch, served with rice and sawsawan</div>
+            </div>
+            <div class="menu-item-price">TODO</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Fried Rice</div>
+              <div class="menu-item-desc">Garlic fried rice with your choice of topping</div>
+            </div>
+            <div class="menu-item-price">TODO</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-category">
+        <div class="menu-category-name"><span>🍟</span> Snacks & Bites</div>
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">French Fries</div>
+              <div class="menu-item-desc">Crispy, with ketchup or mayo</div>
+            </div>
+            <div class="menu-item-price">TODO</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Nachos</div>
+              <div class="menu-item-desc">With cheese dip and salsa</div>
+            </div>
+            <div class="menu-item-price">TODO</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Calamares</div>
+              <div class="menu-item-desc">Lightly breaded, with aioli</div>
+            </div>
+            <div class="menu-item-price">TODO</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-category">
+        <div class="menu-category-name"><span>🍺</span> Drinks & Bar</div>
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Beer (San Miguel, Red Horse)</div>
+              <div class="menu-item-desc">Cold, always</div>
+            </div>
+            <div class="menu-item-price">TODO</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Cocktails</div>
+              <div class="menu-item-desc">Ask your server for the bar menu</div>
+            </div>
+            <div class="menu-item-price">TODO</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Fresh Buko Juice</div>
+              <div class="menu-item-desc">Cold coconut, straight from the shell</div>
+            </div>
+            <div class="menu-item-price">TODO</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-info">
+              <div class="menu-item-name">Coffee & Tea</div>
+              <div class="menu-item-desc">Brewed and instant options available</div>
+            </div>
+            <div class="menu-item-price">TODO</div>
+          </div>
+        </div>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- WALK-IN & EVENTS -->
-  <section class="walk-in container">
-    <div class="walk-in__inner">
-      <h2>Walk-ins Welcome</h2>
-      <p>
-        Not staying at Nalu? The Snack Bar is open to everyone.
-        Drop by for a cold beer, a meal after the waves, or just a coffee with the ocean view.
-      </p>
-      <p>
-        Hosting a group? We accommodate beach functions, team dinners, and events.
-        Contact us to arrange.
-      </p>
-      <a href={`/aurora-digital-foundry/clients/${client.slug}/contact`} class="btn btn--primary">Contact Us</a>
+<section class="hours-section">
+  <div class="hours-inner">
+    <div>
+      <h2 class="hours-heading">When We're Open</h2>
+      <div class="hours-list">
+        <div class="hours-row">
+          <span class="hours-meal">🥞 Breakfast (Free for guests)</span>
+          <span class="hours-time">7:30AM – 10:00AM</span>
+        </div>
+        <div class="hours-row">
+          <span class="hours-meal">☀️ All-Day Snack Bar</span>
+          <span class="hours-time">TODO: Hours</span>
+        </div>
+        <div class="hours-row">
+          <span class="hours-meal">🍺 Bar</span>
+          <span class="hours-time">TODO: Hours</span>
+        </div>
+      </div>
+      <p class="hours-note">Open to walk-in guests. No reservation needed for snack bar dining. Group bookings — please inquire in advance.</p>
     </div>
-  </section>
+    <img
+      src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=75"
+      alt="Nalu Snack Bar food and dining"
+      class="hours-img"
+      loading="lazy"
+    />
+  </div>
+</section>
 
-</BaseLayout>
+<footer>
+  <div class="footer-bottom">
+    <span>© 2026 Nalu Surf Camp · Baler, Aurora</span>
+    <span>Site by <a href="https://github.com/hirrok">Aurora Digital Foundry</a></span>
+  </div>
+</footer>
 
-<style>
-.container { max-width: 1100px; margin: 0 auto; padding: 4rem 1.5rem; }
-.eyebrow { color: #fbbf24; font-size: .8rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 .4rem; display: block; }
-.btn { display: inline-block; padding: .75rem 1.75rem; border-radius: 6px; font-weight: 700; font-size: .95rem; text-decoration: none; transition: opacity .15s; }
-.btn:hover { opacity: .85; }
-.btn--primary { background: #0ea5e9; color: #fff; }
-.todo { color: #f59e0b; font-style: italic; }
-.todo-notice { background: #fefce8; border: 1px solid #fbbf24; color: #92400e; border-radius: 6px; padding: .6rem 1rem; font-size: .85rem; display: inline-block; }
-
-/* PAGE HERO */
-.page-hero { position: relative; min-height: 55vh; display: flex; align-items: flex-end; overflow: hidden; }
-.page-hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.page-hero__overlay {
-  position: relative; z-index: 2;
-  background: linear-gradient(to top, rgba(0,0,0,.75) 0%, transparent 100%);
-  width: 100%; padding: 3rem 2rem 4rem; color: #fff;
-}
-.page-hero__overlay h1 { font-size: clamp(2.2rem, 6vw, 4rem); font-weight: 900; line-height: 1.05; margin: .4rem 0 1rem; }
-.page-hero__overlay p { color: rgba(255,255,255,.85); font-size: 1rem; line-height: 1.6; }
-
-.menu-notice { padding-bottom: 0; }
-
-/* MENU */
-.menu-section { margin-bottom: 3rem; }
-.menu-section__header { border-bottom: 2px solid #0ea5e9; padding-bottom: .75rem; margin-bottom: 1.25rem; }
-.menu-section__title { font-size: 1.3rem; font-weight: 900; margin: 0 0 .2rem; }
-.menu-section__note { font-size: .83rem; color: #0ea5e9; font-weight: 600; margin: 0; }
-
-.menu-items { display: flex; flex-direction: column; gap: 0; }
-.menu-item { display: flex; justify-content: space-between; align-items: flex-start; padding: .9rem 0; border-bottom: 1px solid #f1f5f9; gap: 1rem; }
-.menu-item__name { font-size: 1rem; font-weight: 700; margin: 0 0 .2rem; }
-.menu-item__desc { font-size: .87rem; color: #64748b; margin: 0; line-height: 1.5; }
-.menu-item__price { font-weight: 800; font-size: .95rem; white-space: nowrap; flex-shrink: 0; }
-.menu-item__price.included { color: #16a34a; }
-.menu-item__price.todo { color: #f59e0b; font-style: italic; font-size: .82rem; }
-
-/* BONFIRE BAND */
-.bonfire-band { background: #0c1a2e; color: #fff; text-align: center; }
-.bonfire-band__inner { padding: 4rem 1.5rem; max-width: 700px; margin: 0 auto; }
-.bonfire-band__icon { font-size: 3rem; display: block; margin-bottom: 1rem; }
-.bonfire-band__inner h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 900; margin: 0 0 1rem; }
-.bonfire-band__inner p { color: rgba(255,255,255,.8); font-size: 1rem; line-height: 1.7; margin: 0; }
-
-/* WALK-IN */
-.walk-in__inner {
-  background: #f0f9ff; border: 1px solid #bae6fd;
-  border-radius: 12px; padding: 2.5rem;
-}
-.walk-in__inner h2 { font-size: 1.5rem; font-weight: 900; margin: 0 0 .75rem; }
-.walk-in__inner p { color: #475569; line-height: 1.65; margin: 0 0 .75rem; }
-.walk-in__inner p:last-of-type { margin-bottom: 1.5rem; }
-</style>
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const links = document.getElementById('nav-links');
+  toggle?.addEventListener('click', () => links?.classList.toggle('open'));
+</script>
+</body>
+</html>

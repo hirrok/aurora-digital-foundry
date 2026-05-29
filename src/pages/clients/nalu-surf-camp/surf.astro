@@ -1,214 +1,240 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-
-const client = {
-  name: "Nalu Surf Camp",
-  address: "57A Labasin St., Brgy. Sabang, Baler, Aurora",
-  phone: "+63 917 817 2606",
-  hours: "Check-in 14:00 · Check-out 12:00 · Front Desk 24hrs",
-  facebook: "https://facebook.com/NaluSurfCamp",
-  messenger: "https://m.me/NaluSurfCamp",
-  slug: "nalu-surf-camp",
-};
-
-const packages = [
-  {
-    icon: "🌊",
-    level: "Beginner",
-    title: "Learn to Surf",
-    description: "First time on a board? Our instructors start you from absolute zero — ocean safety, stance, paddling, pop-up, and your first real wave. Everyone catches their first wave at Nalu.",
-    includes: ["Surfboard rental", "Certified instructor (1-on-1 or small group)", "Life vest", "1–2 hour session", "Beach briefing"],
-    note: "All ages welcome. Kids and first-timers are our specialty.",
-  },
-  {
-    icon: "🏄",
-    level: "Intermediate",
-    title: "Improve Your Ride",
-    description: "You can stand up consistently. Now let's work on wave reading, timing your pop-up, turns, and increasing your session count. Focused coaching for real progress.",
-    includes: ["Board selection guidance", "Focused technique coaching", "Wave reading drills", "2-hour session", "TODO: Video feedback — confirm with client"],
-    note: null,
-  },
-  {
-    icon: "🔥",
-    level: "Advanced",
-    title: "Sharpen Your Surfing",
-    description: "You surf regularly and want to push your level. Advanced lessons focus on trimming, cutbacks, carves, and positioning in the lineup at Sabang and surrounding breaks.",
-    includes: ["Performance coaching", "Break-specific strategy", "Maneuver drills", "2–3 hour session"],
-    note: null,
-  },
-  {
-    icon: "🎓",
-    level: "Instructor",
-    title: "Instructor Training",
-    description: "Aspiring to teach? Nalu offers instructor-level training for those ready to learn surf coaching fundamentals, safety protocols, and student progression methods.",
-    includes: ["Instructor fundamentals", "Safety & rescue basics", "Student progression coaching", "TODO: Confirm full curriculum with client"],
-    note: "TODO: Confirm certification details with client before publishing.",
-  },
-];
-
-const faqs = [
-  {
-    q: "Do I need experience to take lessons?",
-    a: "No. Beginner lessons start from absolute zero. We've taught all ages and all fitness levels.",
-  },
-  {
-    q: "What's the best time to surf at Sabang?",
-    a: "Baler is best July to November for consistent Pacific swell. Year-round surfing is possible — conditions vary by season.",
-  },
-  {
-    q: "How old do you need to be?",
-    a: "We welcome all ages. Kids and seniors have all learned here. TODO: confirm minimum age with client.",
-  },
-  {
-    q: "Can I rent a board without a lesson?",
-    a: "Yes. Board rentals are available for those who already surf.",
-  },
-  {
-    q: "What should I bring?",
-    a: "Rash guard, swimwear, sunscreen, and water. We provide boards, leashes, and life vests.",
-  },
-  {
-    q: "Do you offer group lessons?",
-    a: "Yes. We accommodate barkada groups, families, and corporate team outings. Contact us for group packages.",
-  },
-];
+// Nalu Surf Camp — Surf
+const title = "Surf Lessons & Rentals — Nalu Surf Camp · Baler, Aurora";
+const description = "Surf lessons for all levels at Sabang Beach, Baler. Beginner to instructor. Board rentals available. Nalu Surf Camp, Brgy. Sabang, Baler, Aurora.";
+const base = "/aurora-digital-foundry/clients/nalu-surf-camp";
 ---
 
-<BaseLayout
-  title="Surf Lessons — Nalu Surf Camp | Baler, Aurora"
-  description="Surf lessons at Nalu Surf Camp, Sabang Beach, Baler — Beginner through Instructor level. Board rentals available. Certified instructors."
-  client={client}
->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --earth: #2C1F14; --bark: #4A2E1A; --amber: #C4822A; --gold: #E8A94A;
+      --sand: #F2E8D5; --salt: #FAF6EE; --ash: #8C7B6B; --wave: #2E5F6B; --foam: #FFFFFF;
+      --serif: 'Playfair Display', Georgia, serif; --sans: 'DM Sans', system-ui, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--salt); color: var(--earth); line-height: 1.6; }
+    nav { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; background: rgba(44,31,20,0.96); backdrop-filter: blur(12px); }
+    .nav-brand { font-family: var(--serif); font-size: 1.1rem; font-weight: 900; color: var(--gold); text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+    .nav-links a { color: var(--sand); text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.85; transition: opacity 0.2s; }
+    .nav-links a:hover { opacity: 1; color: var(--gold); }
+    .nav-cta { background: var(--amber) !important; color: var(--foam) !important; padding: 0.5rem 1.25rem !important; border-radius: 2px; opacity: 1 !important; }
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; }
+    .hamburger { display: flex; flex-direction: column; gap: 5px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--sand); border-radius: 2px; }
 
-  <!-- PAGE HERO -->
-  <section class="page-hero">
-    <img
-      src="https://images.unsplash.com/photo-1455729552865-3658a5d39692?auto=format&fit=crop&w=1600&q=80"
-      alt="Surfing Sabang Beach Baler"
-      class="page-hero__img"
-    />
-    <div class="page-hero__overlay">
-      <p class="eyebrow">Surf School</p>
-      <h1>Learn to Surf<br />at Sabang.</h1>
-      <p>Certified instructors. Beginner through Instructor level.<br />Board rentals available. First-timers always welcome.</p>
-    </div>
-  </section>
+    .surf-hero { position: relative; min-height: 60vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 4rem 2rem 3.5rem; overflow: hidden; }
+    .surf-hero-bg { position: absolute; inset: 0; background-image: url('https://images.unsplash.com/photo-1455729552865-3658a5d39692?auto=format&fit=crop&w=1600&q=80'); background-size: cover; background-position: center 55%; }
+    .surf-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(28,16,8,0.9) 0%, rgba(28,16,8,0.4) 60%, transparent 100%); }
+    .surf-hero-content { position: relative; max-width: 700px; }
+    .page-eyebrow { display: inline-block; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+    .page-title { font-family: var(--serif); font-size: clamp(2.5rem,5vw,4.5rem); font-weight: 900; color: var(--foam); line-height: 1.05; margin-bottom: 1rem; }
+    .page-title em { font-style: italic; color: var(--gold); }
+    .page-sub { font-size: 1rem; color: rgba(242,232,213,0.8); max-width: 520px; line-height: 1.7; }
 
-  <!-- PACKAGES -->
-  <section class="packages container">
-    <p class="todo-notice">⚠ Prices below are placeholders — TODO: update with real pricing before conversion.</p>
-    <div class="packages__grid">
-      {packages.map((pkg) => (
-        <div class="pkg-card">
-          <div class="pkg-card__top">
-            <span class="pkg-card__icon">{pkg.icon}</span>
-            <span class="pkg-card__level">{pkg.level}</span>
-          </div>
-          <h2 class="pkg-card__title">{pkg.title}</h2>
-          <p class="pkg-card__desc">{pkg.description}</p>
-          <ul class="pkg-card__includes">
-            {pkg.includes.map((item) => (
-              <li class={item.startsWith("TODO") ? "todo-item" : ""}>✓ {item}</li>
-            ))}
-          </ul>
-          {pkg.note && <p class="pkg-card__note">{pkg.note}</p>}
-          <div class="pkg-card__footer">
-            <p class="price todo">TODO: Add price — placeholder</p>
-            <a href={`/aurora-digital-foundry/clients/${client.slug}/contact`} class="btn btn--primary">Book Now</a>
-          </div>
+    .packages-section { padding: 5rem 2rem; background: var(--salt); }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label { display: inline-block; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber); margin-bottom: 1rem; }
+    .section-heading { font-family: var(--serif); font-size: clamp(2rem,4vw,3rem); font-weight: 900; color: var(--earth); line-height: 1.1; margin-bottom: 1.25rem; }
+    .section-heading em { font-style: italic; color: var(--amber); }
+    .section-body { font-size: 1rem; color: var(--ash); max-width: 560px; line-height: 1.75; margin-bottom: 3rem; }
+
+    .packages-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
+    .pkg-card { background: var(--foam); border: 1px solid rgba(74,46,26,0.1); border-radius: 4px; padding: 2rem; display: flex; flex-direction: column; gap: 1rem; transition: transform 0.25s, box-shadow 0.25s; }
+    .pkg-card:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(44,31,20,0.08); }
+    .pkg-level { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); }
+    .pkg-name { font-family: var(--serif); font-size: 1.3rem; font-weight: 700; color: var(--earth); }
+    .pkg-description { font-size: 0.88rem; color: var(--ash); line-height: 1.65; }
+    .pkg-includes { display: flex; flex-direction: column; gap: 0.4rem; }
+    .pkg-include { font-size: 0.82rem; color: var(--ash); display: flex; align-items: center; gap: 0.5rem; }
+    .pkg-include::before { content: '✓'; color: var(--amber); font-weight: 700; flex-shrink: 0; }
+    .pkg-rate-block { background: rgba(196,130,42,0.07); border: 1px solid rgba(196,130,42,0.18); border-radius: 3px; padding: 0.75rem 1rem; margin-top: auto; }
+    .pkg-rate-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--amber); margin-bottom: 0.2rem; }
+    .pkg-rate-value { font-family: var(--serif); font-size: 1rem; font-weight: 700; color: var(--earth); font-style: italic; }
+
+    .rental-section { background: var(--wave); padding: 5rem 2rem; }
+    .rental-section .section-heading { color: var(--foam); }
+    .rental-section .section-label { color: var(--gold); }
+    .rental-section .section-body { color: rgba(255,255,255,0.7); }
+    .rental-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.25rem; }
+    .rental-card { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 4px; padding: 1.5rem; }
+    .rental-name { font-weight: 500; color: var(--foam); margin-bottom: 0.35rem; }
+    .rental-detail { font-size: 0.82rem; color: rgba(255,255,255,0.55); margin-bottom: 1rem; line-height: 1.5; }
+    .rental-rate { font-family: var(--serif); font-size: 0.95rem; color: var(--gold); font-style: italic; }
+
+    .btn-primary { display: inline-block; background: var(--amber); color: var(--foam); text-decoration: none; padding: 0.9rem 2rem; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; border-radius: 2px; transition: background 0.2s; }
+    .btn-primary:hover { background: var(--gold); }
+    .btn-light { display: inline-block; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.25); color: var(--foam); text-decoration: none; padding: 0.9rem 2rem; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; border-radius: 2px; transition: background 0.2s; }
+    .btn-light:hover { background: rgba(255,255,255,0.18); }
+
+    footer { background: var(--earth); color: var(--sand); padding: 2.5rem 2rem; }
+    .footer-bottom { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; font-size: 0.78rem; color: rgba(242,232,213,0.4); flex-wrap: wrap; gap: 0.5rem; }
+    .footer-bottom a { color: var(--amber); text-decoration: none; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-toggle { display: block; }
+      .nav-links.open { display: flex; flex-direction: column; position: fixed; top: 64px; left: 0; right: 0; background: var(--earth); padding: 1.5rem 2rem; gap: 1.25rem; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+      .packages-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="main-nav">
+  <a href={base + "/"} class="nav-brand">NALU SURF CAMP</a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href={base + "/rooms"}>Rooms</a></li>
+    <li><a href={base + "/surf"}>Surf</a></li>
+    <li><a href={base + "/dining"}>Dining</a></li>
+    <li><a href={base + "/contact"} class="nav-cta">Book / Inquire</a></li>
+  </ul>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+    <span class="hamburger"><span></span><span></span><span></span></span>
+  </button>
+</nav>
+
+<div class="surf-hero">
+  <div class="surf-hero-bg" role="img" aria-label="Surfer at Sabang Beach Baler"></div>
+  <div class="surf-hero-overlay"></div>
+  <div class="surf-hero-content">
+    <span class="page-eyebrow">Surf School · Sabang Beach</span>
+    <h1 class="page-title">Learn the Break.<br><em>Own the Wave.</em></h1>
+    <p class="page-sub">Sabang is where Philippine surfing started. Our instructors grew up on this water. There's no better classroom.</p>
+  </div>
+</div>
+
+<section class="packages-section">
+  <div class="section-inner">
+    <span class="section-label">Lessons</span>
+    <h2 class="section-heading">Every level.<br><em>One beach.</em></h2>
+    <p class="section-body">Whether you've never touched a board or you're looking to refine your technique — we have a session for you. All lessons include equipment.</p>
+
+    <div class="packages-grid">
+      <div class="pkg-card">
+        <div class="pkg-level">Beginner</div>
+        <div class="pkg-name">First-Timer Lesson</div>
+        <div class="pkg-description">Zero experience needed. We start on the sand and have you standing in water by the end of the session.</div>
+        <div class="pkg-includes">
+          <div class="pkg-include">2-hour session</div>
+          <div class="pkg-include">Board included</div>
+          <div class="pkg-include">Rash guard provided</div>
+          <div class="pkg-include">1-on-1 or group options</div>
         </div>
-      ))}
-    </div>
-  </section>
+        <div class="pkg-rate-block">
+          <div class="pkg-rate-label">Rate</div>
+          <div class="pkg-rate-value">TODO: Add rate — placeholder only</div>
+        </div>
+      </div>
 
-  <!-- BOARD RENTAL -->
-  <section class="rental-band">
-    <div class="rental-band__inner container">
-      <div class="rental-band__copy">
-        <span class="rental-band__icon">🤙</span>
-        <h2>Board Rental</h2>
-        <p>You know what you're doing. Just grab a board and go.</p>
-        <ul class="rental-list">
-          <li>✓ Shortboard · Longboard · Funboard</li>
-          <li>✓ Per hour or full day</li>
-          <li>✓ Leash included</li>
-        </ul>
-        <p class="price todo">TODO: Add rental price — placeholder</p>
-        <a href={`/aurora-digital-foundry/clients/${client.slug}/contact`} class="btn btn--primary">Book a Board</a>
+      <div class="pkg-card">
+        <div class="pkg-level">Intermediate</div>
+        <div class="pkg-name">Technique Session</div>
+        <div class="pkg-description">You can stand and ride. Now let's talk positioning, reading waves, and getting to the next level.</div>
+        <div class="pkg-includes">
+          <div class="pkg-include">2-hour coached session</div>
+          <div class="pkg-include">Board included</div>
+          <div class="pkg-include">Live water feedback</div>
+          <div class="pkg-include">Video analysis (optional)</div>
+        </div>
+        <div class="pkg-rate-block">
+          <div class="pkg-rate-label">Rate</div>
+          <div class="pkg-rate-value">TODO: Add rate — placeholder only</div>
+        </div>
+      </div>
+
+      <div class="pkg-card">
+        <div class="pkg-level">Advanced</div>
+        <div class="pkg-name">Coaching Session</div>
+        <div class="pkg-description">Advanced technique, wave selection, and performance work. For surfers who've put in time and want to push further.</div>
+        <div class="pkg-includes">
+          <div class="pkg-include">2–3 hour session</div>
+          <div class="pkg-include">Board or BYO</div>
+          <div class="pkg-include">Personalized coaching plan</div>
+          <div class="pkg-include">Multi-day packages available</div>
+        </div>
+        <div class="pkg-rate-block">
+          <div class="pkg-rate-label">Rate</div>
+          <div class="pkg-rate-value">TODO: Add rate — placeholder only</div>
+        </div>
+      </div>
+
+      <div class="pkg-card">
+        <div class="pkg-level">Certification</div>
+        <div class="pkg-name">Instructor Course</div>
+        <div class="pkg-description">Become a certified surf instructor. Multi-day intensive with practical and theory components.</div>
+        <div class="pkg-includes">
+          <div class="pkg-include">Multi-day course</div>
+          <div class="pkg-include">Theory + water time</div>
+          <div class="pkg-include">Certification on completion</div>
+          <div class="pkg-include">Inquire for schedule</div>
+        </div>
+        <div class="pkg-rate-block">
+          <div class="pkg-rate-label">Rate</div>
+          <div class="pkg-rate-value">TODO: Add rate — placeholder only</div>
+        </div>
       </div>
     </div>
-  </section>
 
-  <!-- FAQ -->
-  <section class="faq container">
-    <h2 class="section-title">Common Questions</h2>
-    <div class="faq__list">
-      {faqs.map((item) => (
-        <details class="faq__item">
-          <summary class="faq__q">{item.q}</summary>
-          <p class={`faq__a${item.a.startsWith("TODO") ? " todo" : ""}`}>{item.a}</p>
-        </details>
-      ))}
+    <a href={base + "/contact"} class="btn-primary">Book a Lesson</a>
+  </div>
+</section>
+
+<section class="rental-section">
+  <div class="section-inner">
+    <span class="section-label">Board Rentals</span>
+    <h2 class="section-heading" style="color: var(--foam);">Just need a board?<br><em style="color: var(--gold);">We've got you.</em></h2>
+    <p class="section-body">Hourly and daily rentals. Multiple board types to suit the conditions and your level.</p>
+
+    <div class="rental-grid" style="margin-bottom: 2.5rem;">
+      <div class="rental-card">
+        <div class="rental-name">Longboard / Foamboard</div>
+        <div class="rental-detail">Best for beginners and small wave days. Stable, forgiving, high float.</div>
+        <div class="rental-rate">TODO: Rate per hour / per day</div>
+      </div>
+      <div class="rental-card">
+        <div class="rental-name">Funboard / Malibu</div>
+        <div class="rental-detail">Mid-length versatility. Ideal for intermediate surfers building consistency.</div>
+        <div class="rental-rate">TODO: Rate per hour / per day</div>
+      </div>
+      <div class="rental-card">
+        <div class="rental-name">Shortboard</div>
+        <div class="rental-detail">For experienced riders chasing performance on Sabang's better sets.</div>
+        <div class="rental-rate">TODO: Rate per hour / per day</div>
+      </div>
+      <div class="rental-card">
+        <div class="rental-name">Full Kit Rental</div>
+        <div class="rental-detail">Board + rash guard + fins. Everything you need, no gear required.</div>
+        <div class="rental-rate">TODO: Rate per session</div>
+      </div>
     </div>
-    <div class="faq__cta">
-      <a href={`/aurora-digital-foundry/clients/${client.slug}/contact`} class="btn btn--primary">Book a Lesson</a>
-    </div>
-  </section>
 
-</BaseLayout>
+    <a href={base + "/contact"} class="btn-light">Inquire About Rentals</a>
+  </div>
+</section>
 
-<style>
-.container { max-width: 1100px; margin: 0 auto; padding: 4rem 1.5rem; }
-.eyebrow { color: #fbbf24; font-size: .8rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 .4rem; display: block; }
-.section-title { font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 900; margin: 0 0 2rem; }
-.btn { display: inline-block; padding: .75rem 1.75rem; border-radius: 6px; font-weight: 700; font-size: .95rem; text-decoration: none; transition: opacity .15s; }
-.btn:hover { opacity: .85; }
-.btn--primary { background: #0ea5e9; color: #fff; }
-.todo { color: #f59e0b; font-style: italic; }
-.todo-notice { background: #fefce8; border: 1px solid #fbbf24; color: #92400e; border-radius: 6px; padding: .6rem 1rem; font-size: .85rem; display: inline-block; margin-bottom: 2rem; }
+<footer>
+  <div class="footer-bottom">
+    <span>© 2026 Nalu Surf Camp · Baler, Aurora</span>
+    <span>Site by <a href="https://github.com/hirrok">Aurora Digital Foundry</a></span>
+  </div>
+</footer>
 
-/* PAGE HERO */
-.page-hero { position: relative; min-height: 55vh; display: flex; align-items: flex-end; overflow: hidden; }
-.page-hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.page-hero__overlay {
-  position: relative; z-index: 2;
-  background: linear-gradient(to top, rgba(0,0,0,.75) 0%, transparent 100%);
-  width: 100%; padding: 3rem 2rem 4rem;
-  color: #fff;
-}
-.page-hero__overlay h1 { font-size: clamp(2.2rem, 6vw, 4rem); font-weight: 900; line-height: 1.05; margin: .4rem 0 1rem; }
-.page-hero__overlay p { color: rgba(255,255,255,.85); font-size: 1rem; line-height: 1.6; }
-
-/* PACKAGES */
-.packages__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
-.pkg-card { background: #fff; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 10px rgba(0,0,0,.08); display: flex; flex-direction: column; }
-.pkg-card__top { display: flex; align-items: center; gap: .75rem; margin-bottom: .6rem; }
-.pkg-card__icon { font-size: 1.8rem; }
-.pkg-card__level { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: #0ea5e9; }
-.pkg-card__title { font-size: 1.2rem; font-weight: 900; margin: 0 0 .6rem; }
-.pkg-card__desc { font-size: .9rem; color: #475569; line-height: 1.6; margin: 0 0 1.1rem; }
-.pkg-card__includes { list-style: none; padding: 0; margin: 0 0 1rem; }
-.pkg-card__includes li { font-size: .87rem; color: #334155; padding: .2rem 0; }
-.pkg-card__includes .todo-item { color: #f59e0b; font-style: italic; }
-.pkg-card__note { font-size: .82rem; color: #f59e0b; font-style: italic; margin: 0 0 1rem; }
-.pkg-card__footer { margin-top: auto; display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
-.price { font-weight: 700; font-size: .95rem; margin: 0; }
-
-/* RENTAL BAND */
-.rental-band { background: #0c1a2e; color: #fff; }
-.rental-band__inner { padding: 4rem 1.5rem; }
-.rental-band__icon { font-size: 2.5rem; display: block; margin-bottom: .75rem; }
-.rental-band__copy h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 900; margin: 0 0 .75rem; }
-.rental-band__copy p { color: rgba(255,255,255,.8); line-height: 1.6; margin-bottom: 1rem; }
-.rental-list { list-style: none; padding: 0; margin: 0 0 1rem; }
-.rental-list li { font-size: .93rem; color: rgba(255,255,255,.8); padding: .25rem 0; }
-
-/* FAQ */
-.faq__list { border-top: 1px solid #e2e8f0; }
-.faq__item { border-bottom: 1px solid #e2e8f0; }
-.faq__q { padding: 1.1rem 0; font-size: 1rem; font-weight: 700; cursor: pointer; list-style: none; display: flex; justify-content: space-between; }
-.faq__q::after { content: "+"; font-size: 1.2rem; color: #0ea5e9; }
-details[open] .faq__q::after { content: "−"; }
-.faq__a { padding: 0 0 1.1rem; color: #475569; font-size: .93rem; line-height: 1.65; margin: 0; }
-.faq__cta { margin-top: 2.5rem; }
-</style>
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const links = document.getElementById('nav-links');
+  toggle?.addEventListener('click', () => links?.classList.toggle('open'));
+</script>
+</body>
+</html>

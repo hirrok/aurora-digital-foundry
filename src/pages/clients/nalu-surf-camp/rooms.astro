@@ -1,174 +1,306 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-
-const client = {
-  name: "Nalu Surf Camp",
-  address: "57A Labasin St., Brgy. Sabang, Baler, Aurora",
-  phone: "+63 917 817 2606",
-  hours: "Check-in 14:00 · Check-out 12:00 · Front Desk 24hrs",
-  facebook: "https://facebook.com/NaluSurfCamp",
-  messenger: "https://m.me/NaluSurfCamp",
-  slug: "nalu-surf-camp",
-};
-
-const rooms = [
-  {
-    name: "Premier Nipa Hut — Sea View",
-    img: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=900&q=80",
-    description: "The best seat in the house. Wake up to the Pacific and fall asleep to the sound of waves. Perfect for couples or small groups looking for the full Baler experience.",
-    amenities: ["Ocean-facing view", "Air conditioning", "Private bathroom", "Hot water", "Free WiFi", "Complimentary breakfast"],
-    badge: "Most Popular",
-  },
-  {
-    name: "Premier Nipa Hut — Garden View",
-    img: "https://images.unsplash.com/photo-1588880331179-bc9b93a8cb5e?auto=format&fit=crop&w=900&q=80",
-    description: "Lush garden setting with native nipa architecture. Quiet, breezy, and beautifully designed. Great for couples and families who want comfort with a local touch.",
-    amenities: ["Garden view", "Air conditioning", "Private bathroom", "Hot water", "Free WiFi", "Complimentary breakfast"],
-    badge: null,
-  },
-  {
-    name: "Ifugao Nipa Hut",
-    img: "https://images.unsplash.com/photo-1586375300773-8384e3e4916f?auto=format&fit=crop&w=900&q=80",
-    description: "Heritage-inspired design that pays tribute to Ifugao craftsmanship. A unique stay with character. Great for families and groups traveling together.",
-    amenities: ["Ifugao heritage design", "Fan / Air conditioning options", "Private bathroom", "Free WiFi", "Complimentary breakfast"],
-    badge: null,
-  },
-  {
-    name: "Modern Nipa Hut",
-    img: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=900&q=80",
-    description: "Native materials with modern comforts. Clean lines, practical layout, and the same great beachside atmosphere. A solid choice for any type of traveler.",
-    amenities: ["Modern native design", "Air conditioning", "Private bathroom", "Hot water", "Free WiFi", "Complimentary breakfast"],
-    badge: null,
-  },
-  {
-    name: "Traditional Nipa Hut",
-    img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=900&q=80",
-    description: "Classic kubo living at Sabang Beach. Honest, affordable, and full of character. The choice of surfers who want the real local experience without the frills.",
-    amenities: ["Classic kubo style", "Fan ventilation", "Shared or private bathroom", "Free WiFi", "Complimentary breakfast"],
-    badge: "Best Value",
-  },
-  {
-    name: "Hammock Area",
-    img: "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=900&q=80",
-    description: "The most Baler way to stay. Sling your hammock, feel the ocean breeze, and fall asleep under the stars. Budget-friendly and totally social.",
-    amenities: ["Hammock setup", "Open-air", "Shared facilities", "Free WiFi", "Communal bonfire access"],
-    badge: "Budget Pick",
-  },
-];
+// Nalu Surf Camp — Rooms
+const title = "Rooms — Nalu Surf Camp · Baler, Aurora";
+const description = "26 nipa hut rooms at Nalu Surf Camp — Traditional, Modern, Ifugao, Premier Garden View, Premier Sea View, and Hammock Area. Brgy. Sabang, Baler.";
+const base = "/aurora-digital-foundry/clients/nalu-surf-camp";
 ---
 
-<BaseLayout
-  title="Rooms — Nalu Surf Camp | Baler, Aurora"
-  description="26 rooms at Nalu Surf Camp — Premier Sea View, Garden View, Ifugao, Modern, and Traditional Nipa Huts, plus Hammock Area. 57A Labasin St., Sabang Beach, Baler."
-  client={client}
->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --earth: #2C1F14; --bark: #4A2E1A; --amber: #C4822A; --gold: #E8A94A;
+      --sand: #F2E8D5; --salt: #FAF6EE; --ash: #8C7B6B; --wave: #2E5F6B; --foam: #FFFFFF;
+      --serif: 'Playfair Display', Georgia, serif; --sans: 'DM Sans', system-ui, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--salt); color: var(--earth); font-size: 16px; line-height: 1.6; }
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 2rem;
+      background: rgba(44, 31, 20, 0.96); backdrop-filter: blur(12px);
+    }
+    .nav-brand { font-family: var(--serif); font-size: 1.1rem; font-weight: 900; color: var(--gold); text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+    .nav-links a { color: var(--sand); text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.85; transition: opacity 0.2s; }
+    .nav-links a:hover { opacity: 1; color: var(--gold); }
+    .nav-cta { background: var(--amber) !important; color: var(--foam) !important; padding: 0.5rem 1.25rem !important; border-radius: 2px; opacity: 1 !important; }
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; }
+    .hamburger { display: flex; flex-direction: column; gap: 5px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--sand); border-radius: 2px; }
 
-  <section class="page-hero container">
-    <p class="eyebrow">Accommodation</p>
-    <h1>Rooms & Rates</h1>
+    .page-hero {
+      background: var(--earth); padding: 5rem 2rem 4rem;
+      border-bottom: 1px solid rgba(196, 130, 42, 0.2);
+    }
+    .page-hero-inner { max-width: 1100px; margin: 0 auto; }
+    .page-eyebrow { display: inline-block; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+    .page-title { font-family: var(--serif); font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; color: var(--foam); line-height: 1.1; margin-bottom: 1rem; }
+    .page-title em { font-style: italic; color: var(--gold); }
+    .page-sub { font-size: 1rem; color: rgba(242,232,213,0.7); max-width: 560px; line-height: 1.7; }
+
+    .rooms-section { padding: 5rem 2rem; }
+    .rooms-inner { max-width: 1100px; margin: 0 auto; }
+
+    .rooms-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; }
+
+    .room-card { background: var(--foam); border-radius: 4px; overflow: hidden; border: 1px solid rgba(74,46,26,0.1); transition: transform 0.25s, box-shadow 0.25s; }
+    .room-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(44,31,20,0.1); }
+    .room-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
+    .room-body { padding: 1.75rem; }
+    .room-type { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.4rem; }
+    .room-name { font-family: var(--serif); font-size: 1.3rem; font-weight: 700; color: var(--earth); margin-bottom: 0.75rem; }
+    .room-features { font-size: 0.88rem; color: var(--ash); margin-bottom: 1rem; line-height: 1.7; }
+    .room-amenities { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.25rem; }
+    .amenity-tag { background: rgba(44,31,20,0.06); color: var(--bark); font-size: 0.72rem; padding: 0.25rem 0.65rem; border-radius: 100px; font-weight: 500; }
+    .room-rate-block { background: rgba(196,130,42,0.08); border: 1px solid rgba(196,130,42,0.2); border-radius: 3px; padding: 0.75rem 1rem; margin-bottom: 1.25rem; }
+    .room-rate-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--amber); margin-bottom: 0.2rem; }
+    .room-rate-value { font-family: var(--serif); font-size: 1rem; font-weight: 700; color: var(--earth); font-style: italic; }
+    .btn-sm { display: inline-block; background: var(--earth); color: var(--sand); text-decoration: none; padding: 0.65rem 1.4rem; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; border-radius: 2px; transition: background 0.2s; }
+    .btn-sm:hover { background: var(--bark); }
+
+    .includes-strip { background: var(--earth); padding: 3.5rem 2rem; }
+    .includes-inner { max-width: 1100px; margin: 0 auto; }
+    .includes-heading { font-family: var(--serif); font-size: 1.5rem; font-weight: 700; color: var(--gold); margin-bottom: 2rem; }
+    .includes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.25rem; }
+    .include-item { display: flex; gap: 0.75rem; align-items: flex-start; }
+    .include-icon { font-size: 1.3rem; flex-shrink: 0; }
+    .include-text strong { display: block; font-size: 0.88rem; font-weight: 500; color: var(--sand); }
+    .include-text span { font-size: 0.8rem; color: rgba(242,232,213,0.55); }
+
+    .cta-strip { background: var(--sand); padding: 4rem 2rem; text-align: center; }
+    .cta-strip h2 { font-family: var(--serif); font-size: 2rem; font-weight: 900; color: var(--earth); margin-bottom: 1rem; }
+    .cta-strip p { color: var(--ash); margin-bottom: 2rem; max-width: 480px; margin-left: auto; margin-right: auto; }
+    .btn-primary { display: inline-block; background: var(--amber); color: var(--foam); text-decoration: none; padding: 0.9rem 2rem; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; border-radius: 2px; transition: background 0.2s; }
+    .btn-primary:hover { background: var(--gold); }
+
+    footer { background: var(--earth); color: var(--sand); padding: 2.5rem 2rem; }
+    .footer-bottom { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; font-size: 0.78rem; color: rgba(242,232,213,0.4); flex-wrap: wrap; gap: 0.5rem; }
+    .footer-bottom a { color: var(--amber); text-decoration: none; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-toggle { display: block; }
+      .nav-links.open { display: flex; flex-direction: column; position: fixed; top: 64px; left: 0; right: 0; background: var(--earth); padding: 1.5rem 2rem; gap: 1.25rem; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+      .rooms-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="main-nav">
+  <a href={base + "/"} class="nav-brand">NALU SURF CAMP</a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href={base + "/rooms"}>Rooms</a></li>
+    <li><a href={base + "/surf"}>Surf</a></li>
+    <li><a href={base + "/dining"}>Dining</a></li>
+    <li><a href={base + "/contact"} class="nav-cta">Book / Inquire</a></li>
+  </ul>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+    <span class="hamburger"><span></span><span></span><span></span></span>
+  </button>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <span class="page-eyebrow">Where You Sleep</span>
+    <h1 class="page-title">Six Ways to<br><em>Come Home.</em></h1>
     <p class="page-sub">
-      26 rooms at Sabang Beach. All rooms designed for the beach lifestyle —<br />
-      native architecture, real comfort, and steps from the surf.
+      Every room at Nalu is rooted in nipa, bamboo, and natural craft. Choose your level of comfort — from open-air hammocks to premier sea-view huts with all the trimmings.
     </p>
-    <p class="todo-notice">⚠ Rates below are placeholders — TODO: update with real rates before conversion.</p>
-  </section>
+  </div>
+</div>
 
-  <section class="rooms-list container">
-    {rooms.map((room) => (
+<section class="rooms-section">
+  <div class="rooms-inner">
+    <div class="rooms-grid">
+
       <div class="room-card">
-        <div class="room-card__img-wrap">
-          <img src={room.img} alt={room.name} />
-          {room.badge && <span class="room-card__badge">{room.badge}</span>}
-        </div>
-        <div class="room-card__body">
-          <h2>{room.name}</h2>
-          <p class="room-card__desc">{room.description}</p>
-          <ul class="amenities">
-            {room.amenities.map((a) => (
-              <li>✓ {a}</li>
-            ))}
-          </ul>
-          <div class="room-card__footer">
-            <p class="rate todo">TODO: Add rate — placeholder</p>
-            <a href={`/aurora-digital-foundry/clients/${client.slug}/contact`} class="btn btn--primary">Inquire / Book</a>
+        <img src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&w=800&q=75" alt="Traditional Nipa Hut" class="room-img" loading="lazy" />
+        <div class="room-body">
+          <div class="room-type">Classic</div>
+          <div class="room-name">Traditional Nipa Hut</div>
+          <div class="room-features">Authentic bamboo and nipa palm construction. Fan-cooled with natural airflow. The original camp experience — simple, honest, close to the break.</div>
+          <div class="room-amenities">
+            <span class="amenity-tag">Fan-cooled</span>
+            <span class="amenity-tag">Private bath</span>
+            <span class="amenity-tag">Free WiFi</span>
+            <span class="amenity-tag">Free breakfast</span>
           </div>
+          <div class="room-rate-block">
+            <div class="room-rate-label">Rate per night</div>
+            <div class="room-rate-value">TODO: Add rate — placeholder only</div>
+          </div>
+          <a href={base + "/contact"} class="btn-sm">Inquire Now</a>
         </div>
       </div>
-    ))}
-  </section>
 
-  <section class="group-cta container">
-    <div class="group-cta__inner">
-      <h2>Group Bookings?</h2>
-      <p>
-        Nalu welcomes surf groups, barkada trips, family reunions, and corporate retreats.
-        Contact us directly for group rates and package deals.
-      </p>
-      <a href={`/aurora-digital-foundry/clients/${client.slug}/contact`} class="btn btn--primary">Contact for Group Rates</a>
+      <div class="room-card">
+        <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=800&q=75" alt="Modern Nipa Hut" class="room-img" loading="lazy" />
+        <div class="room-body">
+          <div class="room-type">Modern</div>
+          <div class="room-name">Modern Nipa Hut</div>
+          <div class="room-features">Contemporary comforts wrapped in nipa character. Air-conditioned, private bath, the full package without losing the camp soul.</div>
+          <div class="room-amenities">
+            <span class="amenity-tag">Air-conditioned</span>
+            <span class="amenity-tag">Private bath</span>
+            <span class="amenity-tag">Hot water</span>
+            <span class="amenity-tag">Free WiFi</span>
+            <span class="amenity-tag">Free breakfast</span>
+          </div>
+          <div class="room-rate-block">
+            <div class="room-rate-label">Rate per night</div>
+            <div class="room-rate-value">TODO: Add rate — placeholder only</div>
+          </div>
+          <a href={base + "/contact"} class="btn-sm">Inquire Now</a>
+        </div>
+      </div>
+
+      <div class="room-card">
+        <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=800&q=75" alt="Ifugao Nipa Hut" class="room-img" loading="lazy" />
+        <div class="room-body">
+          <div class="room-type">Heritage</div>
+          <div class="room-name">Ifugao Nipa Hut</div>
+          <div class="room-features">Inspired by Cordilleran architecture — a rare character room that tells a story beyond the beach. For travelers who collect experiences, not just comfort.</div>
+          <div class="room-amenities">
+            <span class="amenity-tag">Air-conditioned</span>
+            <span class="amenity-tag">Private bath</span>
+            <span class="amenity-tag">Heritage design</span>
+            <span class="amenity-tag">Free breakfast</span>
+          </div>
+          <div class="room-rate-block">
+            <div class="room-rate-label">Rate per night</div>
+            <div class="room-rate-value">TODO: Add rate — placeholder only</div>
+          </div>
+          <a href={base + "/contact"} class="btn-sm">Inquire Now</a>
+        </div>
+      </div>
+
+      <div class="room-card">
+        <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=75" alt="Premier Nipa Hut Garden View" class="room-img" loading="lazy" />
+        <div class="room-body">
+          <div class="room-type">Premier</div>
+          <div class="room-name">Premier Nipa Hut — Garden View</div>
+          <div class="room-features">Spacious premier room with private garden terrace. More room, more light, more quiet. Wake up to green rather than the break — the calm room.</div>
+          <div class="room-amenities">
+            <span class="amenity-tag">Air-conditioned</span>
+            <span class="amenity-tag">Private bath</span>
+            <span class="amenity-tag">Hot water</span>
+            <span class="amenity-tag">Garden terrace</span>
+            <span class="amenity-tag">Free breakfast</span>
+          </div>
+          <div class="room-rate-block">
+            <div class="room-rate-label">Rate per night</div>
+            <div class="room-rate-value">TODO: Add rate — placeholder only</div>
+          </div>
+          <a href={base + "/contact"} class="btn-sm">Inquire Now</a>
+        </div>
+      </div>
+
+      <div class="room-card">
+        <img src="https://images.unsplash.com/photo-1439130490301-25e322d88054?auto=format&fit=crop&w=800&q=75" alt="Premier Nipa Hut Sea View" class="room-img" loading="lazy" />
+        <div class="room-body">
+          <div class="room-type">Premier · Best View</div>
+          <div class="room-name">Premier Nipa Hut — Sea View</div>
+          <div class="room-features">The one people ask about. Ocean-facing terrace, full Pacific view, premier finishes. Wake up, open the door, and the break is right there.</div>
+          <div class="room-amenities">
+            <span class="amenity-tag">Air-conditioned</span>
+            <span class="amenity-tag">Private bath</span>
+            <span class="amenity-tag">Hot water</span>
+            <span class="amenity-tag">Ocean terrace</span>
+            <span class="amenity-tag">Free breakfast</span>
+          </div>
+          <div class="room-rate-block">
+            <div class="room-rate-label">Rate per night</div>
+            <div class="room-rate-value">TODO: Add rate — placeholder only</div>
+          </div>
+          <a href={base + "/contact"} class="btn-sm">Inquire Now</a>
+        </div>
+      </div>
+
+      <div class="room-card">
+        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=75" alt="Hammock Area" class="room-img" loading="lazy" />
+        <div class="room-body">
+          <div class="room-type">Open-Air</div>
+          <div class="room-name">Hammock Area</div>
+          <div class="room-features">For the real ones. Minimal stay, maximum sky. Pack light. Swing heavy. Best thing you'll do all trip.</div>
+          <div class="room-amenities">
+            <span class="amenity-tag">Open-air</span>
+            <span class="amenity-tag">Shared facilities</span>
+            <span class="amenity-tag">Free WiFi</span>
+            <span class="amenity-tag">Free breakfast</span>
+          </div>
+          <div class="room-rate-block">
+            <div class="room-rate-label">Rate per night</div>
+            <div class="room-rate-value">TODO: Add rate — placeholder only</div>
+          </div>
+          <a href={base + "/contact"} class="btn-sm">Inquire Now</a>
+        </div>
+      </div>
+
     </div>
-  </section>
+  </div>
+</section>
 
-</BaseLayout>
+<div class="includes-strip">
+  <div class="includes-inner">
+    <h2 class="includes-heading">Every stay includes:</h2>
+    <div class="includes-grid">
+      <div class="include-item">
+        <span class="include-icon">🥞</span>
+        <div class="include-text"><strong>Free Breakfast</strong><span>Daily · 7:30–10AM</span></div>
+      </div>
+      <div class="include-item">
+        <span class="include-icon">📶</span>
+        <div class="include-text"><strong>Free WiFi</strong><span>Throughout the camp</span></div>
+      </div>
+      <div class="include-item">
+        <span class="include-icon">🅿️</span>
+        <div class="include-text"><strong>Free Parking</strong><span>On-site, secure</span></div>
+      </div>
+      <div class="include-item">
+        <span class="include-icon">🔥</span>
+        <div class="include-text"><strong>Nightly Bonfire</strong><span>Every night, no charge</span></div>
+      </div>
+      <div class="include-item">
+        <span class="include-icon">🏊</span>
+        <div class="include-text"><strong>Pool Access</strong><span>Freshwater, on-site</span></div>
+      </div>
+      <div class="include-item">
+        <span class="include-icon">🎵</span>
+        <div class="include-text"><strong>Acoustic Nights</strong><span>Live sessions at camp</span></div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<style>
-.container { max-width: 1100px; margin: 0 auto; padding: 4rem 1.5rem; }
-.eyebrow { color: #0ea5e9; font-size: .8rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 .4rem; }
-.page-hero h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; margin: 0 0 .75rem; }
-.page-sub { color: #64748b; font-size: 1rem; line-height: 1.65; margin: 0 0 1rem; }
-.todo-notice { background: #fefce8; border: 1px solid #fbbf24; color: #92400e; border-radius: 6px; padding: .6rem 1rem; font-size: .85rem; display: inline-block; }
+<div class="cta-strip">
+  <h2>Ready to book your hut?</h2>
+  <p>Send us your preferred room type and travel dates. We'll confirm availability and rates directly.</p>
+  <a href={base + "/contact"} class="btn-primary">Book or Inquire Now</a>
+</div>
 
-.btn { display: inline-block; padding: .75rem 1.75rem; border-radius: 6px; font-weight: 700; font-size: .95rem; text-decoration: none; transition: opacity .15s; }
-.btn:hover { opacity: .85; }
-.btn--primary { background: #0ea5e9; color: #fff; }
+<footer>
+  <div class="footer-bottom">
+    <span>© 2026 Nalu Surf Camp · Baler, Aurora</span>
+    <span>Site by <a href="https://github.com/hirrok">Aurora Digital Foundry</a></span>
+  </div>
+</footer>
 
-/* ROOM CARDS */
-.rooms-list { padding-top: 1rem; }
-.room-card {
-  display: grid;
-  grid-template-columns: 380px 1fr;
-  gap: 0;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 2px 12px rgba(0,0,0,.09);
-  background: #fff;
-  margin-bottom: 2rem;
-}
-.room-card__img-wrap { position: relative; }
-.room-card__img-wrap img { width: 100%; height: 100%; object-fit: cover; min-height: 260px; }
-.room-card__badge {
-  position: absolute; top: 1rem; left: 1rem;
-  background: #0ea5e9; color: #fff;
-  font-size: .75rem; font-weight: 700;
-  padding: .3rem .75rem; border-radius: 20px;
-  letter-spacing: .05em; text-transform: uppercase;
-}
-.room-card__body { padding: 2rem; }
-.room-card__body h2 { font-size: 1.3rem; font-weight: 900; margin: 0 0 .6rem; }
-.room-card__desc { color: #475569; font-size: .95rem; line-height: 1.65; margin: 0 0 1.25rem; }
-
-.amenities { list-style: none; padding: 0; margin: 0 0 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: .3rem .5rem; }
-.amenities li { font-size: .87rem; color: #334155; }
-
-.room-card__footer { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
-.rate { font-weight: 700; font-size: 1rem; margin: 0; }
-.todo { color: #f59e0b; font-style: italic; font-size: .88rem; }
-
-/* GROUP CTA */
-.group-cta { padding-top: 0; }
-.group-cta__inner {
-  background: #f0f9ff;
-  border: 1px solid #bae6fd;
-  border-radius: 12px;
-  padding: 2.5rem;
-  text-align: center;
-}
-.group-cta__inner h2 { font-size: 1.6rem; font-weight: 900; margin: 0 0 .75rem; }
-.group-cta__inner p { color: #475569; line-height: 1.65; margin: 0 0 1.5rem; }
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .room-card { grid-template-columns: 1fr; }
-  .room-card__img-wrap img { min-height: 220px; }
-  .amenities { grid-template-columns: 1fr; }
-}
-</style>
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const links = document.getElementById('nav-links');
+  toggle?.addEventListener('click', () => links?.classList.toggle('open'));
+</script>
+</body>
+</html>

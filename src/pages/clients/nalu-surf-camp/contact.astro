@@ -1,220 +1,291 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-
-const client = {
-  name: "Nalu Surf Camp",
-  address: "57A Labasin St., Brgy. Sabang, Baler, Aurora",
-  phone: "+63 917 817 2606",
-  hours: "Check-in 14:00 · Check-out 12:00 · Front Desk 24hrs",
-  facebook: "https://facebook.com/NaluSurfCamp",
-  messenger: "https://m.me/NaluSurfCamp",
-  slug: "nalu-surf-camp",
-};
+// Nalu Surf Camp — Contact
+const title = "Book or Inquire — Nalu Surf Camp · Baler, Aurora";
+const description = "Book a room or inquire about surf lessons at Nalu Surf Camp. 57A Labasin St., Brgy. Sabang, Baler, Aurora. +63 917 817 2606.";
+const base = "/aurora-digital-foundry/clients/nalu-surf-camp";
+// TODO: Replace FORMSPREE_ID with real Formspree endpoint after conversion
+const FORMSPREE_ID = "TODO_FORMSPREE_ID";
 ---
 
-<BaseLayout
-  title="Contact & Inquiries — Nalu Surf Camp | Baler, Aurora"
-  description="Book a room or surf lesson at Nalu Surf Camp. 57A Labasin St., Brgy. Sabang, Baler, Aurora. Check-in 14:00 · Front Desk 24hrs."
-  client={client}
->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --earth: #2C1F14; --bark: #4A2E1A; --amber: #C4822A; --gold: #E8A94A;
+      --sand: #F2E8D5; --salt: #FAF6EE; --ash: #8C7B6B; --wave: #2E5F6B; --foam: #FFFFFF;
+      --serif: 'Playfair Display', Georgia, serif; --sans: 'DM Sans', system-ui, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--salt); color: var(--earth); line-height: 1.6; }
+    nav { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; background: rgba(44,31,20,0.96); backdrop-filter: blur(12px); }
+    .nav-brand { font-family: var(--serif); font-size: 1.1rem; font-weight: 900; color: var(--gold); text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+    .nav-links a { color: var(--sand); text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.85; transition: opacity 0.2s; }
+    .nav-links a:hover { opacity: 1; color: var(--gold); }
+    .nav-cta { background: var(--amber) !important; color: var(--foam) !important; padding: 0.5rem 1.25rem !important; border-radius: 2px; opacity: 1 !important; }
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; }
+    .hamburger { display: flex; flex-direction: column; gap: 5px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--sand); border-radius: 2px; }
 
-  <section class="contact-hero container">
-    <p class="eyebrow">Get in Touch</p>
-    <h1>Book / Inquire</h1>
-    <p class="page-sub">
-      Questions about rooms, surf lessons, dining, or events?<br />
-      Send us a message and we'll get back to you quickly.
-    </p>
-  </section>
+    .contact-section { padding: 5rem 2rem; }
+    .contact-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; align-items: start; }
 
-  <section class="contact-body container">
-    <div class="contact-grid">
+    .contact-info {}
+    .page-eyebrow { display: inline-block; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber); margin-bottom: 1rem; }
+    .page-title { font-family: var(--serif); font-size: clamp(2rem,4vw,3.25rem); font-weight: 900; color: var(--earth); line-height: 1.1; margin-bottom: 1.25rem; }
+    .page-title em { font-style: italic; color: var(--amber); }
+    .page-sub { font-size: 0.95rem; color: var(--ash); line-height: 1.75; margin-bottom: 2.5rem; max-width: 420px; }
 
-      <!-- FORM -->
-      <div class="contact-form-wrap">
-        <h2>Send an Inquiry</h2>
+    .contact-details { display: flex; flex-direction: column; gap: 1.25rem; margin-bottom: 2.5rem; }
+    .contact-detail { display: flex; gap: 1rem; align-items: flex-start; }
+    .contact-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
+    .contact-text strong { display: block; font-weight: 500; font-size: 0.85rem; color: var(--earth); margin-bottom: 0.15rem; }
+    .contact-text span { font-size: 0.82rem; color: var(--ash); line-height: 1.5; }
+    .contact-text a { color: var(--amber); text-decoration: none; }
+    .contact-text a:hover { text-decoration: underline; }
 
-        <!-- TODO: Replace action with real Formspree endpoint -->
-        <!-- action="https://formspree.io/f/TODO_FORM_ID" -->
-        <form
-          class="contact-form"
-          action="https://formspree.io/f/TODO_REPLACE_WITH_FORMSPREE_ID"
-          method="POST"
-        >
+    .direct-cta-strip { background: rgba(196,130,42,0.08); border: 1px solid rgba(196,130,42,0.2); border-radius: 4px; padding: 1.25rem 1.5rem; }
+    .direct-cta-label { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.5rem; }
+    .direct-cta-note { font-size: 0.85rem; color: var(--ash); margin-bottom: 1rem; }
+    .btn-fb { display: inline-block; background: #1877F2; color: #fff; text-decoration: none; padding: 0.7rem 1.5rem; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; border-radius: 2px; transition: background 0.2s; }
+    .btn-fb:hover { background: #166fe5; }
+
+    /* FORM */
+    .contact-form-wrap { }
+    .form-heading { font-family: var(--serif); font-size: 1.5rem; font-weight: 700; color: var(--earth); margin-bottom: 0.5rem; }
+    .form-sub { font-size: 0.85rem; color: var(--ash); margin-bottom: 2rem; line-height: 1.6; }
+
+    .inquiry-form { display: flex; flex-direction: column; gap: 1.25rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: var(--bark); }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: var(--foam);
+      border: 1px solid rgba(74,46,26,0.18);
+      border-radius: 3px;
+      padding: 0.75rem 1rem;
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      color: var(--earth);
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--amber); box-shadow: 0 0 0 3px rgba(196,130,42,0.1); }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-group select { cursor: pointer; }
+
+    .btn-submit {
+      background: var(--amber); color: var(--foam); border: none; cursor: pointer;
+      padding: 1rem 2.5rem; font-family: var(--sans); font-size: 0.9rem; font-weight: 500;
+      letter-spacing: 0.07em; text-transform: uppercase; border-radius: 2px;
+      transition: background 0.2s; width: fit-content; align-self: flex-start;
+    }
+    .btn-submit:hover { background: var(--gold); }
+
+    .form-note { font-size: 0.75rem; color: var(--ash); line-height: 1.5; }
+    .form-note span { color: rgba(196,130,42,0.6); }
+
+    .map-section { background: var(--foam); padding: 4rem 2rem; }
+    .map-inner { max-width: 1100px; margin: 0 auto; }
+    .map-heading { font-family: var(--serif); font-size: 1.5rem; font-weight: 700; color: var(--earth); margin-bottom: 1.5rem; }
+    .map-placeholder { width: 100%; aspect-ratio: 16/5; background: rgba(44,31,20,0.05); border-radius: 4px; border: 1px dashed rgba(74,46,26,0.18); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; color: var(--ash); font-size: 0.85rem; padding: 2rem; text-align: center; }
+    .map-placeholder-icon { font-size: 2rem; opacity: 0.5; }
+
+    footer { background: var(--earth); color: var(--sand); padding: 2.5rem 2rem; }
+    .footer-bottom { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; font-size: 0.78rem; color: rgba(242,232,213,0.4); flex-wrap: wrap; gap: 0.5rem; }
+    .footer-bottom a { color: var(--amber); text-decoration: none; }
+
+    @media (max-width: 900px) {
+      .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-toggle { display: block; }
+      .nav-links.open { display: flex; flex-direction: column; position: fixed; top: 64px; left: 0; right: 0; background: var(--earth); padding: 1.5rem 2rem; gap: 1.25rem; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="main-nav">
+  <a href={base + "/"} class="nav-brand">NALU SURF CAMP</a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href={base + "/rooms"}>Rooms</a></li>
+    <li><a href={base + "/surf"}>Surf</a></li>
+    <li><a href={base + "/dining"}>Dining</a></li>
+    <li><a href={base + "/contact"} class="nav-cta">Book / Inquire</a></li>
+  </ul>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+    <span class="hamburger"><span></span><span></span><span></span></span>
+  </button>
+</nav>
+
+<section class="contact-section">
+  <div class="contact-inner">
+
+    <div class="contact-info">
+      <span class="page-eyebrow">Get in Touch</span>
+      <h1 class="page-title">Book Your Stay.<br><em>Ask Us Anything.</em></h1>
+      <p class="page-sub">
+        Send us your dates, room preference, and any questions. We'll get back to you directly and confirm availability.
+      </p>
+
+      <div class="contact-details">
+        <div class="contact-detail">
+          <span class="contact-icon">📍</span>
+          <div class="contact-text">
+            <strong>Address</strong>
+            <span>57A Labasin St., Brgy. Sabang<br>Baler, Aurora<br><a href="#map">1 minute walk from Sabang Beach</a></span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <span class="contact-icon">📞</span>
+          <div class="contact-text">
+            <strong>Phone</strong>
+            <span><a href="tel:+639178172606">+63 917 817 2606</a><br><em style="font-size:0.76rem;">Verify with client before publishing</em></span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <span class="contact-icon">🕐</span>
+          <div class="contact-text">
+            <strong>Check-in / Check-out</strong>
+            <span>Check-in: 2:00 PM · Check-out: 12:00 PM<br>Front desk open 24 hours</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <span class="contact-icon">📧</span>
+          <div class="contact-text">
+            <strong>Email</strong>
+            <span>TODO: Add email address</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="direct-cta-strip">
+        <div class="direct-cta-label">Message us directly</div>
+        <p class="direct-cta-note">Prefer to reach us on Facebook? Message us and we'll respond quickly.</p>
+        <a href="https://facebook.com/NaluSurfCamp" target="_blank" rel="noopener" class="btn-fb">Message on Facebook</a>
+      </div>
+    </div>
+
+    <div class="contact-form-wrap">
+      <h2 class="form-heading">Send an Inquiry</h2>
+      <p class="form-sub">Fill out the form and we'll confirm availability and rates. Usually responds within 24 hours.</p>
+
+      <form
+        class="inquiry-form"
+        action={`https://formspree.io/f/${FORMSPREE_ID}`}
+        method="POST"
+      >
+        <div class="form-row">
           <div class="form-group">
-            <label for="name">Name</label>
+            <label for="name">Full Name *</label>
             <input type="text" id="name" name="name" placeholder="Your name" required />
           </div>
-
           <div class="form-group">
-            <label for="contact">Phone / Messenger</label>
-            <input type="text" id="contact" name="contact" placeholder="+63 9XX XXX XXXX or Messenger name" required />
-          </div>
-
-          <div class="form-group">
-            <label for="inquiry_type">Inquiry Type</label>
-            <select id="inquiry_type" name="inquiry_type">
-              <option value="">Select one…</option>
-              <option value="room_booking">Room booking</option>
-              <option value="surf_lesson">Surf lesson</option>
-              <option value="board_rental">Board rental</option>
-              <option value="group_event">Group / event</option>
-              <option value="general">General question</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="dates">Preferred Dates</label>
-            <input type="text" id="dates" name="dates" placeholder="e.g. June 14–16" />
-          </div>
-
-          <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="5" placeholder="Tell us what you need…" required></textarea>
-          </div>
-
-          <button type="submit" class="btn btn--primary btn--full">Send Inquiry</button>
-          <p class="form-note todo">TODO: Connect Formspree account — replace action URL with real form ID before launch.</p>
-        </form>
-
-        <!-- MESSENGER ALTERNATIVE -->
-        <div class="messenger-alt">
-          <p>Prefer to message directly?</p>
-          <a href={client.messenger} class="btn btn--messenger" target="_blank" rel="noopener noreferrer">
-            💬 Message on Facebook
-          </a>
-          <p class="messenger-note">Fastest response via Messenger.</p>
-        </div>
-      </div>
-
-      <!-- DETAILS -->
-      <div class="contact-details">
-        <div class="detail-card">
-          <h2>Find Us</h2>
-
-          <div class="detail-item">
-            <span class="detail-icon">📍</span>
-            <div>
-              <p class="detail-label">Address</p>
-              <p class="detail-value">{client.address}</p>
-              <p class="detail-note">1 minute walk from Sabang Beach.</p>
-            </div>
-          </div>
-
-          <div class="detail-item">
-            <span class="detail-icon">📞</span>
-            <div>
-              <p class="detail-label">Phone</p>
-              <a href={`tel:${client.phone}`} class="detail-value detail-link">{client.phone}</a>
-              <p class="detail-note todo">TODO: Verify number with client before publishing.</p>
-            </div>
-          </div>
-
-          <div class="detail-item">
-            <span class="detail-icon">🕐</span>
-            <div>
-              <p class="detail-label">Hours</p>
-              <p class="detail-value">Check-in: 2:00 PM</p>
-              <p class="detail-value">Check-out: 12:00 PM</p>
-              <p class="detail-value">Front Desk: 24 hours</p>
-            </div>
-          </div>
-
-          <div class="detail-item">
-            <span class="detail-icon">📱</span>
-            <div>
-              <p class="detail-label">Follow Us</p>
-              <a href={client.facebook} class="detail-link" target="_blank" rel="noopener noreferrer">Facebook Page →</a>
-            </div>
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="+63 9XX XXX XXXX" />
           </div>
         </div>
 
-        <!-- MAP -->
-        <div class="map-wrap">
-          <div class="map-placeholder">
-            <p class="todo">TODO: Embed Google Maps here<br />Replace with: &lt;iframe src="Google Maps Embed URL" …&gt;</p>
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="checkin">Check-in Date</label>
+            <input type="date" id="checkin" name="checkin" />
+          </div>
+          <div class="form-group">
+            <label for="checkout">Check-out Date</label>
+            <input type="date" id="checkout" name="checkout" />
           </div>
         </div>
 
-        <!-- QUICK INFO -->
-        <div class="quick-info">
-          <h3>Good to Know</h3>
-          <ul>
-            <li>🐾 Pet-friendly — dogs welcome</li>
-            <li>🅿️ Free self-parking on-site</li>
-            <li>📶 Free WiFi throughout the property</li>
-            <li>🔥 Free bonfire every night</li>
-            <li>🍳 Complimentary breakfast 7:30–10AM</li>
-            <li>🎸 Acoustic nights</li>
-          </ul>
+        <div class="form-group">
+          <label for="room">Room Type</label>
+          <select id="room" name="room">
+            <option value="">— Select a room type —</option>
+            <option>Traditional Nipa Hut</option>
+            <option>Modern Nipa Hut</option>
+            <option>Ifugao Nipa Hut</option>
+            <option>Premier Nipa Hut — Garden View</option>
+            <option>Premier Nipa Hut — Sea View</option>
+            <option>Hammock Area</option>
+            <option>Not sure yet — please advise</option>
+          </select>
         </div>
-      </div>
 
+        <div class="form-group">
+          <label for="inquiry_type">What do you need?</label>
+          <select id="inquiry_type" name="inquiry_type">
+            <option value="">— Select inquiry type —</option>
+            <option>Room booking</option>
+            <option>Surf lesson booking</option>
+            <option>Board rental</option>
+            <option>Room + surf package</option>
+            <option>Group booking</option>
+            <option>General question</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Number of guests, special requests, questions about rates or availability..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">Send Inquiry</button>
+
+        <p class="form-note">
+          <span>⚠ TODO: Replace FORMSPREE_ID with live endpoint before going live.</span><br>
+          We typically respond within 24 hours. For urgent inquiries, message us directly on Facebook.
+        </p>
+      </form>
     </div>
-  </section>
 
-</BaseLayout>
+  </div>
+</section>
 
-<style>
-.container { max-width: 1100px; margin: 0 auto; padding: 4rem 1.5rem; }
-.eyebrow { color: #0ea5e9; font-size: .8rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 .4rem; display: block; }
-.page-sub { color: #64748b; font-size: 1rem; line-height: 1.65; margin: .5rem 0 0; }
-.contact-hero h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; margin: 0 0 .5rem; }
-.todo { color: #f59e0b; font-style: italic; }
+<section class="map-section" id="map">
+  <div class="map-inner">
+    <h2 class="map-heading">Find Us</h2>
+    <div class="map-placeholder">
+      <span class="map-placeholder-icon">📍</span>
+      <strong>57A Labasin St., Brgy. Sabang, Baler, Aurora</strong>
+      <span>TODO: Replace with Google Maps embed iframe</span>
+      <code style="font-size:0.72rem; color: var(--amber);">&lt;iframe src="Google Maps Embed URL" ...&gt;&lt;/iframe&gt;</code>
+    </div>
+  </div>
+</section>
 
-.btn { display: inline-block; padding: .75rem 1.75rem; border-radius: 6px; font-weight: 700; font-size: .95rem; text-decoration: none; transition: opacity .15s; cursor: pointer; border: none; }
-.btn:hover { opacity: .85; }
-.btn--primary { background: #0ea5e9; color: #fff; }
-.btn--full { width: 100%; text-align: center; }
-.btn--messenger { background: #1877f2; color: #fff; }
+<footer>
+  <div class="footer-bottom">
+    <span>© 2026 Nalu Surf Camp · Baler, Aurora</span>
+    <span>Site by <a href="https://github.com/hirrok">Aurora Digital Foundry</a></span>
+  </div>
+</footer>
 
-/* CONTACT GRID */
-.contact-body { padding-top: 0; }
-.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
-
-/* FORM */
-.contact-form-wrap h2 { font-size: 1.3rem; font-weight: 900; margin: 0 0 1.5rem; }
-.contact-form { display: flex; flex-direction: column; gap: 1.1rem; }
-.form-group { display: flex; flex-direction: column; gap: .35rem; }
-.form-group label { font-size: .87rem; font-weight: 600; color: #334155; }
-.form-group input,
-.form-group select,
-.form-group textarea {
-  border: 1.5px solid #cbd5e1; border-radius: 7px;
-  padding: .7rem .9rem; font-size: .95rem;
-  font-family: inherit; background: #fff;
-  transition: border-color .15s;
-  width: 100%; box-sizing: border-box;
-}
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus { outline: none; border-color: #0ea5e9; }
-.form-note { font-size: .8rem; color: #f59e0b; margin: .5rem 0 0; font-style: italic; }
-
-.messenger-alt { margin-top: 2rem; padding-top: 1.75rem; border-top: 1px solid #e2e8f0; text-align: center; }
-.messenger-alt p { color: #64748b; font-size: .92rem; margin: 0 0 .75rem; }
-.messenger-note { font-size: .82rem; color: #94a3b8; margin: .6rem 0 0; }
-
-/* DETAILS */
-.detail-card { background: #f8fafc; border-radius: 12px; padding: 1.75rem; margin-bottom: 1.5rem; }
-.detail-card h2 { font-size: 1.2rem; font-weight: 900; margin: 0 0 1.25rem; }
-.detail-item { display: flex; gap: .9rem; margin-bottom: 1.25rem; align-items: flex-start; }
-.detail-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: .1rem; }
-.detail-label { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: #94a3b8; margin: 0 0 .2rem; }
-.detail-value { font-size: .95rem; font-weight: 600; color: #1e293b; margin: 0 0 .1rem; }
-.detail-note { font-size: .8rem; color: #94a3b8; margin: .2rem 0 0; }
-.detail-link { color: #0ea5e9; text-decoration: none; font-size: .95rem; font-weight: 600; }
-
-.map-wrap { margin-bottom: 1.5rem; }
-.map-placeholder { width: 100%; height: 220px; background: #e2e8f0; border-radius: 10px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 1rem; box-sizing: border-box; }
-
-.quick-info { background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 12px; padding: 1.5rem; }
-.quick-info h3 { font-size: 1rem; font-weight: 800; margin: 0 0 .9rem; }
-.quick-info ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: .45rem; }
-.quick-info li { font-size: .9rem; color: #334155; }
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .contact-grid { grid-template-columns: 1fr; }
-}
-</style>
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const links = document.getElementById('nav-links');
+  toggle?.addEventListener('click', () => links?.classList.toggle('open'));
+</script>
+</body>
+</html>
