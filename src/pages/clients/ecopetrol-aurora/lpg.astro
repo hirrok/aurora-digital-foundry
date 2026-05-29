@@ -1,0 +1,77 @@
+---
+import ShellLayout from '../../../layouts/ShellLayout.astro';
+const base = "/aurora-digital-foundry/clients/ecopetrol-aurora";
+---
+<ShellLayout title="LPG / Solane — Ecopetrol Aurora" description="Solane LPG cylinders, refills, and delivery across Aurora Province.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Barlow:wght@400;500;600&display=swap');
+  :root { --red:#C41E2A; --green:#1A5C2A; --charcoal:#111; --off-white:#F7F7F5; --gray:#444; --border:#E0E0E0; --white:#fff; --fd:'Barlow Condensed',sans-serif; --fb:'Barlow',sans-serif; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:var(--fb); color:var(--charcoal); }
+  nav { background:var(--charcoal); display:flex; align-items:center; justify-content:space-between; padding:0 2rem; height:64px; border-bottom:3px solid var(--red); }
+  .logo { font-family:var(--fd); font-size:1.4rem; font-weight:900; color:var(--white); text-decoration:none; display:flex; align-items:center; gap:0.4rem; }
+  .logo .dot { color:var(--red); font-size:2rem; line-height:0; }
+  .nav-links { display:flex; gap:1.5rem; list-style:none; }
+  .nav-links a { color:#CCC; text-decoration:none; font-family:var(--fd); font-size:0.9rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; }
+  .nav-links .cta { background:var(--red); color:var(--white)!important; padding:0.4rem 1rem; }
+  .page-hero { background:var(--green); color:var(--white); padding:4rem 2rem; }
+  .page-hero-inner { max-width:1100px; margin:0 auto; }
+  .eyebrow { font-family:var(--fd); font-size:0.75rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.6); margin-bottom:0.75rem; display:flex; align-items:center; gap:0.5rem; }
+  .eyebrow::before { content:''; display:block; width:1.5rem; height:2px; background:rgba(255,255,255,0.6); }
+  h1 { font-family:var(--fd); font-size:clamp(2.5rem,5vw,4rem); font-weight:900; text-transform:uppercase; line-height:0.95; }
+  .page-sub { font-size:1rem; color:rgba(255,255,255,0.8); margin-top:1rem; max-width:560px; line-height:1.6; }
+  .solane-badge { display:inline-flex; align-items:center; gap:0.75rem; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); padding:0.6rem 1rem; margin-bottom:1.5rem; }
+  .solane-badge span { font-family:var(--fd); font-size:0.75rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.8); }
+  .solane-badge strong { font-family:var(--fd); font-size:0.95rem; font-weight:900; color:var(--white); }
+  .section { padding:4rem 2rem; }
+  .section-inner { max-width:1100px; margin:0 auto; }
+  .cards-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:1.5rem; margin-bottom:3rem; }
+  .card { background:var(--off-white); border:1px solid var(--border); padding:2rem; }
+  .card-icon { font-size:2rem; margin-bottom:1rem; }
+  .card-title { font-family:var(--fd); font-size:1.2rem; font-weight:800; text-transform:uppercase; margin-bottom:0.75rem; }
+  .card-body { font-size:0.9rem; color:var(--gray); line-height:1.6; }
+  .cta-block { background:var(--green); color:var(--white); padding:3rem 2rem; text-align:center; }
+  .cta-block h2 { font-family:var(--fd); font-size:2rem; font-weight:800; text-transform:uppercase; margin-bottom:1rem; }
+  .cta-block p { color:rgba(255,255,255,0.8); margin-bottom:2rem; line-height:1.6; }
+  .btn-white { background:var(--white); color:var(--green); font-family:var(--fd); font-size:0.95rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:0.9rem 2rem; text-decoration:none; display:inline-block; }
+  footer { background:#0A0A0A; color:var(--white); padding:2rem; text-align:center; }
+  footer p { font-size:0.8rem; color:#555; }
+  footer a { color:#555; text-decoration:none; }
+  @media (max-width:768px) { .nav-links { display:none; } }
+</style>
+<nav>
+  <a href={base} class="logo"><span class="dot">&middot;</span> ECOPETROL</a>
+  <ul class="nav-links">
+    <li><a href={`${base}/branches`}>Branches</a></li>
+    <li><a href={`${base}/prices`}>Fuel Prices</a></li>
+    <li><a href={`${base}/lpg`}>LPG / Solane</a></li>
+    <li><a href={`${base}/fleet`}>Fleet Accounts</a></li>
+    <li><a href={`${base}/about`}>About</a></li>
+    <li><a href={`${base}/contact`} class="cta">Contact Us</a></li>
+  </ul>
+</nav>
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="solane-badge"><span>Authorized Showroom</span><strong>SOLANE LPG</strong></div>
+    <div class="eyebrow">LPG Delivery &amp; Refills</div>
+    <h1>Solane LPG for<br>Home &amp; Business.</h1>
+    <p class="page-sub">Residential cylinder refills and commercial bulk LPG delivery across Aurora Province.</p>
+  </div>
+</div>
+<section class="section">
+  <div class="section-inner">
+    <div class="cards-grid">
+      <div class="card"><div class="card-icon">&#127968;</div><div class="card-title">Residential Refills</div><p class="card-body">11kg and 22kg cylinder refills for households. Walk-in or call for delivery. TODO: prices per cylinder size.</p></div>
+      <div class="card"><div class="card-icon">&#127981;</div><div class="card-title">Commercial &amp; Bulk</div><p class="card-body">High-volume LPG supply for restaurants, resorts, bakeries, and institutions. Inquire for bulk pricing and delivery scheduling.</p></div>
+      <div class="card"><div class="card-icon">&#128205;</div><div class="card-title">Showroom Locations</div><p class="card-body">Solane showrooms at: TODO &mdash; confirm which branches operate as authorized Solane showrooms.</p></div>
+      <div class="card"><div class="card-icon">&#128737;</div><div class="card-title">Safety First</div><p class="card-body">All cylinders are Solane-certified. LPG emergency? Call your nearest branch immediately.</p></div>
+    </div>
+  </div>
+</section>
+<div class="cta-block">
+  <h2>Order LPG or Inquire About Delivery</h2>
+  <p>Call your nearest branch or send an inquiry and we'll connect you with the right location for your area.</p>
+  <a href={`${base}/contact`} class="btn-white">Send Inquiry &rarr;</a>
+</div>
+<footer><p>&copy; 2026 Ecopetrol Gasoline Station &middot; Maria Aurora, Aurora &middot; Site by <a href="https://github.com/hirrok">Aurora Digital Foundry</a></p></footer>
+</ShellLayout>
