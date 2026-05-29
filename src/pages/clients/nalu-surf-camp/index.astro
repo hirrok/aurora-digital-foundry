@@ -1,0 +1,276 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const client = {
+  name: "Nalu Surf Camp",
+  tagline: "Surf. Sleep. Bonfire.",
+  address: "57A Labasin St., Brgy. Sabang, Baler, Aurora",
+  phone: "+63 917 817 2606",
+  hours: "Check-in 14:00 · Check-out 12:00 · Front Desk 24hrs",
+  facebook: "https://facebook.com/NaluSurfCamp",
+  messenger: "https://m.me/NaluSurfCamp",
+  slug: "nalu-surf-camp",
+};
+---
+
+<BaseLayout
+  title="Nalu Surf Camp — Surf. Sleep. Bonfire. | Baler, Aurora"
+  description="57A Labasin St., Brgy. Sabang, Baler, Aurora · Beachfront nipa huts, surf lessons, Nalu Snack Bar, and free bonfire every night."
+  client={client}
+>
+
+  <!-- HERO -->
+  <section class="hero">
+    <img
+      src="https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=1600&q=80"
+      alt="Surfing at Sabang Beach, Baler"
+      class="hero__img"
+    />
+    <div class="hero__overlay">
+      <p class="hero__eyebrow">Sabang Beach · Baler, Aurora</p>
+      <h1 class="hero__headline">
+        SURF.<br />SLEEP.<br />BONFIRE.
+      </h1>
+      <p class="hero__sub">
+        Beachfront nipa huts on the Pacific. Surf lessons for all levels,<br />
+        26 rooms, Nalu Snack Bar, and a free bonfire every night.
+      </p>
+      <div class="hero__ctas">
+        <a href={`/aurora-digital-foundry/clients/${client.slug}/contact`} class="btn btn--primary">Book / Inquire</a>
+        <a href={`/aurora-digital-foundry/clients/${client.slug}/surf`} class="btn btn--ghost">View Surf Lessons</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PILLARS -->
+  <section class="pillars container">
+    <h2 class="section-title">Not Just a Surf Camp.<br />A Whole Vibe.</h2>
+    <p class="section-sub">
+      26 nipa hut rooms, a pool, all-day dining, acoustic nights,<br />
+      and cold beers by the bonfire. Pet-friendly. Always.
+    </p>
+    <div class="pillars__grid">
+      <div class="pillar">
+        <span class="pillar__icon">🏄</span>
+        <h3>Surf School</h3>
+        <p>All levels · Beginner to Instructor · Board rentals</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar__icon">🌿</span>
+        <h3>Nipa Hut Rooms</h3>
+        <p>26 rooms · Native-inspired · Garden & sea view options</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar__icon">🍽️</span>
+        <h3>Nalu Snack Bar</h3>
+        <p>All-day dining · Complimentary breakfast · Walk-ins welcome</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar__icon">🔥</span>
+        <h3>Free Bonfire</h3>
+        <p>Every night · Acoustic nights · The Baler ritual</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar__icon">🏊</span>
+        <h3>Pool</h3>
+        <p>Freshwater pool on-site · Open to guests</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar__icon">🐾</span>
+        <h3>Pet-Friendly</h3>
+        <p>Dogs welcome · Bring the whole family</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROOMS PREVIEW -->
+  <section class="rooms-preview container">
+    <div class="section-header">
+      <h2 class="section-title">Rooms</h2>
+      <a href={`/aurora-digital-foundry/clients/${client.slug}/rooms`} class="section-link">View All Rooms →</a>
+    </div>
+    <div class="cards">
+
+      <div class="card">
+        <img
+          src="https://images.unsplash.com/photo-1588880331179-bc9b93a8cb5e?auto=format&fit=crop&w=900&q=80"
+          alt="Premier Nipa Hut Sea View"
+        />
+        <div class="card__body">
+          <h3>Premier Nipa Hut</h3>
+          <p class="card__sub">Sea View · Garden View options · Best for couples & groups</p>
+          <p class="card__rate todo">TODO: Add rates — placeholder only</p>
+          <a href={`/aurora-digital-foundry/clients/${client.slug}/contact`} class="btn btn--sm">Inquire Now</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <img
+          src="https://images.unsplash.com/photo-1586375300773-8384e3e4916f?auto=format&fit=crop&w=900&q=80"
+          alt="Traditional Nipa Hut"
+        />
+        <div class="card__body">
+          <h3>Traditional Nipa Hut</h3>
+          <p class="card__sub">Native-style · Relaxed · Great value</p>
+          <p class="card__rate todo">TODO: Add rates — placeholder only</p>
+          <a href={`/aurora-digital-foundry/clients/${client.slug}/contact`} class="btn btn--sm">Inquire Now</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <img
+          src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=900&q=80"
+          alt="Hammock Area"
+        />
+        <div class="card__body">
+          <h3>Hammock Area</h3>
+          <p class="card__sub">Budget · Breezy · Social · Best for solo travelers</p>
+          <p class="card__rate todo">TODO: Add rates — placeholder only</p>
+          <a href={`/aurora-digital-foundry/clients/${client.slug}/contact`} class="btn btn--sm">Inquire Now</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SURF CTA BAND -->
+  <section class="surf-band">
+    <div class="surf-band__inner container">
+      <img
+        src="https://images.unsplash.com/photo-1455729552865-3658a5d39692?auto=format&fit=crop&w=900&q=80"
+        alt="Surf lesson at Sabang Beach"
+        class="surf-band__img"
+      />
+      <div class="surf-band__copy">
+        <p class="eyebrow">Surf School</p>
+        <h2>Learn to Surf<br />at Sabang.</h2>
+        <p>
+          Certified instructors. Beginner through Instructor level.<br />
+          Board rentals available. First-timers always welcome.
+        </p>
+        <a href={`/aurora-digital-foundry/clients/${client.slug}/surf`} class="btn btn--primary">See Lesson Packages</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SNACK BAR -->
+  <section class="dining-band container">
+    <div class="dining-band__inner">
+      <img
+        src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=900&q=80"
+        alt="Nalu Snack Bar"
+        class="dining-band__img"
+      />
+      <div class="dining-band__copy">
+        <p class="eyebrow">Nalu Snack Bar</p>
+        <h2>Eat Well.<br />Drink Cold.</h2>
+        <p>
+          All-day Filipino comfort food, cold drinks, and the Pacific right in front of you.<br />
+          Open to guests and walk-ins. Complimentary breakfast 7:30–10AM daily.
+        </p>
+        <ul class="dining-band__list">
+          <li>🍲 Filipino favorites · Rice meals · Soups</li>
+          <li>🍳 Complimentary breakfast · Fresh fruit shake</li>
+          <li>🍺 Cold beer · Juices · Drinks</li>
+        </ul>
+        <a href={`/aurora-digital-foundry/clients/${client.slug}/dining`} class="btn btn--outline">View Menu</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAP -->
+  <section class="map-section container">
+    <h2 class="section-title">Find Us in Baler</h2>
+    <p class="section-sub">57A Labasin St., Brgy. Sabang, Baler, Aurora · 1 minute from Sabang Beach.</p>
+    <div class="map-placeholder">
+      <p class="todo">TODO: Embed Google Maps here<br />Replace with: &lt;iframe src="Google Maps Embed URL" …&gt;</p>
+    </div>
+    <div class="map-cta">
+      <a href={`/aurora-digital-foundry/clients/${client.slug}/contact`} class="btn btn--primary">Book or Inquire Now</a>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+/* ── HERO ── */
+.hero { position: relative; min-height: 92vh; display: flex; align-items: flex-end; overflow: hidden; }
+.hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.hero__overlay {
+  position: relative; z-index: 2;
+  background: linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.18) 100%);
+  width: 100%; padding: 3rem 2rem 4rem;
+}
+.hero__eyebrow { color: #fbbf24; font-size: .85rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; margin-bottom: .5rem; }
+.hero__headline { color: #fff; font-size: clamp(2.8rem, 8vw, 5.5rem); font-weight: 900; line-height: 1.0; margin: 0 0 1.25rem; }
+.hero__sub { color: rgba(255,255,255,.88); font-size: 1.05rem; line-height: 1.6; margin-bottom: 2rem; }
+.hero__ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+/* ── BUTTONS ── */
+.btn { display: inline-block; padding: .75rem 1.75rem; border-radius: 6px; font-weight: 700; font-size: .95rem; text-decoration: none; transition: opacity .15s; cursor: pointer; }
+.btn:hover { opacity: .85; }
+.btn--primary { background: #0ea5e9; color: #fff; }
+.btn--ghost { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.7); }
+.btn--outline { background: transparent; color: #0ea5e9; border: 2px solid #0ea5e9; }
+.btn--sm { display: inline-block; padding: .5rem 1.1rem; background: #0ea5e9; color: #fff; border-radius: 5px; font-size: .85rem; font-weight: 700; text-decoration: none; }
+
+/* ── LAYOUT ── */
+.container { max-width: 1100px; margin: 0 auto; padding: 4rem 1.5rem; }
+.section-title { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 900; margin: 0 0 .75rem; line-height: 1.2; }
+.section-sub { color: #64748b; font-size: 1rem; line-height: 1.65; margin: 0 0 2.5rem; }
+.section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 1.75rem; flex-wrap: wrap; gap: .5rem; }
+.section-link { color: #0ea5e9; font-weight: 600; font-size: .9rem; text-decoration: none; }
+.eyebrow { color: #0ea5e9; font-size: .8rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 .4rem; }
+
+/* ── PILLARS ── */
+.pillars { background: #f8fafc; border-radius: 12px; }
+.pillars__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+.pillar { background: #fff; border-radius: 10px; padding: 1.5rem; box-shadow: 0 1px 4px rgba(0,0,0,.07); }
+.pillar__icon { font-size: 2rem; display: block; margin-bottom: .6rem; }
+.pillar h3 { font-size: 1rem; font-weight: 800; margin: 0 0 .3rem; }
+.pillar p { font-size: .88rem; color: #64748b; margin: 0; line-height: 1.5; }
+
+/* ── ROOM CARDS ── */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+.card { border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,.09); background: #fff; }
+.card img { width: 100%; height: 200px; object-fit: cover; }
+.card__body { padding: 1.25rem; }
+.card__body h3 { font-size: 1.1rem; font-weight: 800; margin: 0 0 .3rem; }
+.card__sub { font-size: .87rem; color: #64748b; margin: 0 0 .6rem; }
+.card__rate { font-weight: 700; font-size: .95rem; margin: 0 0 .9rem; }
+
+/* ── SURF BAND ── */
+.surf-band { background: #0c1a2e; color: #fff; padding: 0; }
+.surf-band__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 0; align-items: center; max-width: 1100px; margin: 0 auto; }
+.surf-band__img { width: 100%; height: 420px; object-fit: cover; }
+.surf-band__copy { padding: 3rem 3rem 3rem 4rem; }
+.surf-band__copy .eyebrow { color: #fbbf24; }
+.surf-band__copy h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 900; line-height: 1.1; margin: .5rem 0 1rem; }
+.surf-band__copy p { color: rgba(255,255,255,.8); line-height: 1.65; margin-bottom: 1.75rem; }
+
+/* ── DINING BAND ── */
+.dining-band { padding: 4rem 1.5rem; }
+.dining-band__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+.dining-band__img { width: 100%; height: 380px; object-fit: cover; border-radius: 10px; }
+.dining-band__copy h2 { font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 900; line-height: 1.15; margin: .5rem 0 1rem; }
+.dining-band__copy p { color: #475569; line-height: 1.65; margin-bottom: 1rem; }
+.dining-band__list { list-style: none; padding: 0; margin: 0 0 1.5rem; }
+.dining-band__list li { font-size: .93rem; color: #475569; padding: .3rem 0; }
+
+/* ── MAP ── */
+.map-section { text-align: center; }
+.map-placeholder { width: 100%; height: 320px; background: #e2e8f0; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin: 0 0 2rem; }
+.map-cta { margin-top: 1rem; }
+
+/* ── TODO STYLING ── */
+.todo { color: #f59e0b; font-style: italic; font-size: .85rem; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .surf-band__inner,
+  .dining-band__inner { grid-template-columns: 1fr; }
+  .surf-band__img,
+  .dining-band__img { height: 240px; }
+  .surf-band__copy { padding: 2rem 1.5rem; }
+}
+</style>

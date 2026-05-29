@@ -1,0 +1,193 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const client = {
+  name: "Nalu Surf Camp",
+  address: "57A Labasin St., Brgy. Sabang, Baler, Aurora",
+  phone: "+63 917 817 2606",
+  hours: "Check-in 14:00 · Check-out 12:00 · Front Desk 24hrs",
+  facebook: "https://facebook.com/NaluSurfCamp",
+  messenger: "https://m.me/NaluSurfCamp",
+  slug: "nalu-surf-camp",
+};
+
+const menuSections = [
+  {
+    title: "Complimentary Breakfast",
+    note: "Included with every room · Served 7:30–10:00 AM daily",
+    items: [
+      { name: "Breakfast Plate", desc: "Sinangag, egg, and your choice of tocino, tapa, or bangus.", price: "Included" },
+      { name: "Fresh Fruit Shake", desc: "Seasonal fruits blended fresh. Ask for today's options.", price: "Included" },
+      { name: "Coffee or Tea", desc: "Hot or iced. Brewed local coffee available.", price: "Included" },
+    ],
+  },
+  {
+    title: "Filipino Favorites",
+    note: "All-day menu",
+    items: [
+      { name: "Bulalo", desc: "Slow-cooked beef shank and bone marrow soup. A Baler staple.", price: "TODO" },
+      { name: "Sinigang", desc: "Tamarind broth with your choice of protein. Komfort in a bowl.", price: "TODO" },
+      { name: "Adobo", desc: "Classic braised pork or chicken in soy and vinegar.", price: "TODO" },
+      { name: "Grilled Liempo", desc: "Marinated pork belly, charcoal-grilled. Served with garlic rice.", price: "TODO" },
+    ],
+  },
+  {
+    title: "Snacks & Quick Bites",
+    note: "Perfect before and after surfing",
+    items: [
+      { name: "Lugaw / Arroz Caldo", desc: "Warm rice porridge for early mornings or post-surf recovery.", price: "TODO" },
+      { name: "Pares", desc: "Braised beef with garlic rice. A street food classic.", price: "TODO" },
+      { name: "Fries & Rice Meals", desc: "Quick fuel for the hungry surfer.", price: "TODO" },
+      { name: "Bar Bites", desc: "Ask staff for today's bar snacks and pulutan.", price: "TODO" },
+    ],
+  },
+  {
+    title: "Drinks",
+    note: null,
+    items: [
+      { name: "San Miguel Beer", desc: "Pale Pilsen · Light · Flavored variants. Cold and ready.", price: "TODO" },
+      { name: "Fresh Buko Juice", desc: "Straight from the coconut. Ice cold.", price: "TODO" },
+      { name: "Fruit Shake", desc: "Seasonal fresh fruit blends. Ask for today's flavors.", price: "TODO" },
+      { name: "Spirits & Cocktails", desc: "Ask the bar for today's specials.", price: "TODO" },
+      { name: "Coffee & Tea", desc: "Brewed local coffee, iced coffee, hot tea.", price: "TODO" },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Nalu Snack Bar — Nalu Surf Camp | Baler, Aurora"
+  description="All-day dining at the Nalu Snack Bar, Sabang Beach, Baler. Filipino comfort food, complimentary breakfast 7:30–10AM, cold drinks, and the Pacific in front of you."
+  client={client}
+>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <img
+      src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1600&q=80"
+      alt="Nalu Snack Bar dining"
+      class="page-hero__img"
+    />
+    <div class="page-hero__overlay">
+      <p class="eyebrow">Nalu Snack Bar</p>
+      <h1>Eat Well.<br />Drink Cold.</h1>
+      <p>
+        All-day Filipino comfort food and cold drinks at the beach.<br />
+        Open to guests and walk-ins. Complimentary breakfast 7:30–10AM.
+      </p>
+    </div>
+  </section>
+
+  <!-- MENU NOTICE -->
+  <section class="menu-notice container">
+    <p class="todo-notice">⚠ Prices below are placeholders — TODO: update with real menu and pricing before conversion.</p>
+  </section>
+
+  <!-- MENU -->
+  <section class="menu container">
+    {menuSections.map((section) => (
+      <div class="menu-section">
+        <div class="menu-section__header">
+          <h2 class="menu-section__title">{section.title}</h2>
+          {section.note && <p class="menu-section__note">{section.note}</p>}
+        </div>
+        <div class="menu-items">
+          {section.items.map((item) => (
+            <div class="menu-item">
+              <div class="menu-item__info">
+                <h3 class="menu-item__name">{item.name}</h3>
+                <p class="menu-item__desc">{item.desc}</p>
+              </div>
+              <span class={`menu-item__price${item.price === "Included" ? " included" : item.price === "TODO" ? " todo" : ""}`}>
+                {item.price === "TODO" ? "TODO: price" : item.price}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    ))}
+  </section>
+
+  <!-- BONFIRE BAND -->
+  <section class="bonfire-band">
+    <div class="bonfire-band__inner container">
+      <span class="bonfire-band__icon">🔥</span>
+      <h2>Free Bonfire. Every Night.</h2>
+      <p>
+        The Nalu night starts after dinner. Gather around the bonfire,
+        meet fellow surfers, listen to acoustic music, and let the Pacific do the rest.
+        No extra charge. Just show up.
+      </p>
+    </div>
+  </section>
+
+  <!-- WALK-IN & EVENTS -->
+  <section class="walk-in container">
+    <div class="walk-in__inner">
+      <h2>Walk-ins Welcome</h2>
+      <p>
+        Not staying at Nalu? The Snack Bar is open to everyone.
+        Drop by for a cold beer, a meal after the waves, or just a coffee with the ocean view.
+      </p>
+      <p>
+        Hosting a group? We accommodate beach functions, team dinners, and events.
+        Contact us to arrange.
+      </p>
+      <a href={`/aurora-digital-foundry/clients/${client.slug}/contact`} class="btn btn--primary">Contact Us</a>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+.container { max-width: 1100px; margin: 0 auto; padding: 4rem 1.5rem; }
+.eyebrow { color: #fbbf24; font-size: .8rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 .4rem; display: block; }
+.btn { display: inline-block; padding: .75rem 1.75rem; border-radius: 6px; font-weight: 700; font-size: .95rem; text-decoration: none; transition: opacity .15s; }
+.btn:hover { opacity: .85; }
+.btn--primary { background: #0ea5e9; color: #fff; }
+.todo { color: #f59e0b; font-style: italic; }
+.todo-notice { background: #fefce8; border: 1px solid #fbbf24; color: #92400e; border-radius: 6px; padding: .6rem 1rem; font-size: .85rem; display: inline-block; }
+
+/* PAGE HERO */
+.page-hero { position: relative; min-height: 55vh; display: flex; align-items: flex-end; overflow: hidden; }
+.page-hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.page-hero__overlay {
+  position: relative; z-index: 2;
+  background: linear-gradient(to top, rgba(0,0,0,.75) 0%, transparent 100%);
+  width: 100%; padding: 3rem 2rem 4rem; color: #fff;
+}
+.page-hero__overlay h1 { font-size: clamp(2.2rem, 6vw, 4rem); font-weight: 900; line-height: 1.05; margin: .4rem 0 1rem; }
+.page-hero__overlay p { color: rgba(255,255,255,.85); font-size: 1rem; line-height: 1.6; }
+
+.menu-notice { padding-bottom: 0; }
+
+/* MENU */
+.menu-section { margin-bottom: 3rem; }
+.menu-section__header { border-bottom: 2px solid #0ea5e9; padding-bottom: .75rem; margin-bottom: 1.25rem; }
+.menu-section__title { font-size: 1.3rem; font-weight: 900; margin: 0 0 .2rem; }
+.menu-section__note { font-size: .83rem; color: #0ea5e9; font-weight: 600; margin: 0; }
+
+.menu-items { display: flex; flex-direction: column; gap: 0; }
+.menu-item { display: flex; justify-content: space-between; align-items: flex-start; padding: .9rem 0; border-bottom: 1px solid #f1f5f9; gap: 1rem; }
+.menu-item__name { font-size: 1rem; font-weight: 700; margin: 0 0 .2rem; }
+.menu-item__desc { font-size: .87rem; color: #64748b; margin: 0; line-height: 1.5; }
+.menu-item__price { font-weight: 800; font-size: .95rem; white-space: nowrap; flex-shrink: 0; }
+.menu-item__price.included { color: #16a34a; }
+.menu-item__price.todo { color: #f59e0b; font-style: italic; font-size: .82rem; }
+
+/* BONFIRE BAND */
+.bonfire-band { background: #0c1a2e; color: #fff; text-align: center; }
+.bonfire-band__inner { padding: 4rem 1.5rem; max-width: 700px; margin: 0 auto; }
+.bonfire-band__icon { font-size: 3rem; display: block; margin-bottom: 1rem; }
+.bonfire-band__inner h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 900; margin: 0 0 1rem; }
+.bonfire-band__inner p { color: rgba(255,255,255,.8); font-size: 1rem; line-height: 1.7; margin: 0; }
+
+/* WALK-IN */
+.walk-in__inner {
+  background: #f0f9ff; border: 1px solid #bae6fd;
+  border-radius: 12px; padding: 2.5rem;
+}
+.walk-in__inner h2 { font-size: 1.5rem; font-weight: 900; margin: 0 0 .75rem; }
+.walk-in__inner p { color: #475569; line-height: 1.65; margin: 0 0 .75rem; }
+.walk-in__inner p:last-of-type { margin-bottom: 1.5rem; }
+</style>

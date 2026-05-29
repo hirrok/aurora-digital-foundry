@@ -1,0 +1,214 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const client = {
+  name: "Nalu Surf Camp",
+  address: "57A Labasin St., Brgy. Sabang, Baler, Aurora",
+  phone: "+63 917 817 2606",
+  hours: "Check-in 14:00 · Check-out 12:00 · Front Desk 24hrs",
+  facebook: "https://facebook.com/NaluSurfCamp",
+  messenger: "https://m.me/NaluSurfCamp",
+  slug: "nalu-surf-camp",
+};
+
+const packages = [
+  {
+    icon: "🌊",
+    level: "Beginner",
+    title: "Learn to Surf",
+    description: "First time on a board? Our instructors start you from absolute zero — ocean safety, stance, paddling, pop-up, and your first real wave. Everyone catches their first wave at Nalu.",
+    includes: ["Surfboard rental", "Certified instructor (1-on-1 or small group)", "Life vest", "1–2 hour session", "Beach briefing"],
+    note: "All ages welcome. Kids and first-timers are our specialty.",
+  },
+  {
+    icon: "🏄",
+    level: "Intermediate",
+    title: "Improve Your Ride",
+    description: "You can stand up consistently. Now let's work on wave reading, timing your pop-up, turns, and increasing your session count. Focused coaching for real progress.",
+    includes: ["Board selection guidance", "Focused technique coaching", "Wave reading drills", "2-hour session", "TODO: Video feedback — confirm with client"],
+    note: null,
+  },
+  {
+    icon: "🔥",
+    level: "Advanced",
+    title: "Sharpen Your Surfing",
+    description: "You surf regularly and want to push your level. Advanced lessons focus on trimming, cutbacks, carves, and positioning in the lineup at Sabang and surrounding breaks.",
+    includes: ["Performance coaching", "Break-specific strategy", "Maneuver drills", "2–3 hour session"],
+    note: null,
+  },
+  {
+    icon: "🎓",
+    level: "Instructor",
+    title: "Instructor Training",
+    description: "Aspiring to teach? Nalu offers instructor-level training for those ready to learn surf coaching fundamentals, safety protocols, and student progression methods.",
+    includes: ["Instructor fundamentals", "Safety & rescue basics", "Student progression coaching", "TODO: Confirm full curriculum with client"],
+    note: "TODO: Confirm certification details with client before publishing.",
+  },
+];
+
+const faqs = [
+  {
+    q: "Do I need experience to take lessons?",
+    a: "No. Beginner lessons start from absolute zero. We've taught all ages and all fitness levels.",
+  },
+  {
+    q: "What's the best time to surf at Sabang?",
+    a: "Baler is best July to November for consistent Pacific swell. Year-round surfing is possible — conditions vary by season.",
+  },
+  {
+    q: "How old do you need to be?",
+    a: "We welcome all ages. Kids and seniors have all learned here. TODO: confirm minimum age with client.",
+  },
+  {
+    q: "Can I rent a board without a lesson?",
+    a: "Yes. Board rentals are available for those who already surf.",
+  },
+  {
+    q: "What should I bring?",
+    a: "Rash guard, swimwear, sunscreen, and water. We provide boards, leashes, and life vests.",
+  },
+  {
+    q: "Do you offer group lessons?",
+    a: "Yes. We accommodate barkada groups, families, and corporate team outings. Contact us for group packages.",
+  },
+];
+---
+
+<BaseLayout
+  title="Surf Lessons — Nalu Surf Camp | Baler, Aurora"
+  description="Surf lessons at Nalu Surf Camp, Sabang Beach, Baler — Beginner through Instructor level. Board rentals available. Certified instructors."
+  client={client}
+>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <img
+      src="https://images.unsplash.com/photo-1455729552865-3658a5d39692?auto=format&fit=crop&w=1600&q=80"
+      alt="Surfing Sabang Beach Baler"
+      class="page-hero__img"
+    />
+    <div class="page-hero__overlay">
+      <p class="eyebrow">Surf School</p>
+      <h1>Learn to Surf<br />at Sabang.</h1>
+      <p>Certified instructors. Beginner through Instructor level.<br />Board rentals available. First-timers always welcome.</p>
+    </div>
+  </section>
+
+  <!-- PACKAGES -->
+  <section class="packages container">
+    <p class="todo-notice">⚠ Prices below are placeholders — TODO: update with real pricing before conversion.</p>
+    <div class="packages__grid">
+      {packages.map((pkg) => (
+        <div class="pkg-card">
+          <div class="pkg-card__top">
+            <span class="pkg-card__icon">{pkg.icon}</span>
+            <span class="pkg-card__level">{pkg.level}</span>
+          </div>
+          <h2 class="pkg-card__title">{pkg.title}</h2>
+          <p class="pkg-card__desc">{pkg.description}</p>
+          <ul class="pkg-card__includes">
+            {pkg.includes.map((item) => (
+              <li class={item.startsWith("TODO") ? "todo-item" : ""}>✓ {item}</li>
+            ))}
+          </ul>
+          {pkg.note && <p class="pkg-card__note">{pkg.note}</p>}
+          <div class="pkg-card__footer">
+            <p class="price todo">TODO: Add price — placeholder</p>
+            <a href={`/aurora-digital-foundry/clients/${client.slug}/contact`} class="btn btn--primary">Book Now</a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- BOARD RENTAL -->
+  <section class="rental-band">
+    <div class="rental-band__inner container">
+      <div class="rental-band__copy">
+        <span class="rental-band__icon">🤙</span>
+        <h2>Board Rental</h2>
+        <p>You know what you're doing. Just grab a board and go.</p>
+        <ul class="rental-list">
+          <li>✓ Shortboard · Longboard · Funboard</li>
+          <li>✓ Per hour or full day</li>
+          <li>✓ Leash included</li>
+        </ul>
+        <p class="price todo">TODO: Add rental price — placeholder</p>
+        <a href={`/aurora-digital-foundry/clients/${client.slug}/contact`} class="btn btn--primary">Book a Board</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq container">
+    <h2 class="section-title">Common Questions</h2>
+    <div class="faq__list">
+      {faqs.map((item) => (
+        <details class="faq__item">
+          <summary class="faq__q">{item.q}</summary>
+          <p class={`faq__a${item.a.startsWith("TODO") ? " todo" : ""}`}>{item.a}</p>
+        </details>
+      ))}
+    </div>
+    <div class="faq__cta">
+      <a href={`/aurora-digital-foundry/clients/${client.slug}/contact`} class="btn btn--primary">Book a Lesson</a>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+.container { max-width: 1100px; margin: 0 auto; padding: 4rem 1.5rem; }
+.eyebrow { color: #fbbf24; font-size: .8rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 .4rem; display: block; }
+.section-title { font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 900; margin: 0 0 2rem; }
+.btn { display: inline-block; padding: .75rem 1.75rem; border-radius: 6px; font-weight: 700; font-size: .95rem; text-decoration: none; transition: opacity .15s; }
+.btn:hover { opacity: .85; }
+.btn--primary { background: #0ea5e9; color: #fff; }
+.todo { color: #f59e0b; font-style: italic; }
+.todo-notice { background: #fefce8; border: 1px solid #fbbf24; color: #92400e; border-radius: 6px; padding: .6rem 1rem; font-size: .85rem; display: inline-block; margin-bottom: 2rem; }
+
+/* PAGE HERO */
+.page-hero { position: relative; min-height: 55vh; display: flex; align-items: flex-end; overflow: hidden; }
+.page-hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.page-hero__overlay {
+  position: relative; z-index: 2;
+  background: linear-gradient(to top, rgba(0,0,0,.75) 0%, transparent 100%);
+  width: 100%; padding: 3rem 2rem 4rem;
+  color: #fff;
+}
+.page-hero__overlay h1 { font-size: clamp(2.2rem, 6vw, 4rem); font-weight: 900; line-height: 1.05; margin: .4rem 0 1rem; }
+.page-hero__overlay p { color: rgba(255,255,255,.85); font-size: 1rem; line-height: 1.6; }
+
+/* PACKAGES */
+.packages__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+.pkg-card { background: #fff; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 10px rgba(0,0,0,.08); display: flex; flex-direction: column; }
+.pkg-card__top { display: flex; align-items: center; gap: .75rem; margin-bottom: .6rem; }
+.pkg-card__icon { font-size: 1.8rem; }
+.pkg-card__level { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: #0ea5e9; }
+.pkg-card__title { font-size: 1.2rem; font-weight: 900; margin: 0 0 .6rem; }
+.pkg-card__desc { font-size: .9rem; color: #475569; line-height: 1.6; margin: 0 0 1.1rem; }
+.pkg-card__includes { list-style: none; padding: 0; margin: 0 0 1rem; }
+.pkg-card__includes li { font-size: .87rem; color: #334155; padding: .2rem 0; }
+.pkg-card__includes .todo-item { color: #f59e0b; font-style: italic; }
+.pkg-card__note { font-size: .82rem; color: #f59e0b; font-style: italic; margin: 0 0 1rem; }
+.pkg-card__footer { margin-top: auto; display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
+.price { font-weight: 700; font-size: .95rem; margin: 0; }
+
+/* RENTAL BAND */
+.rental-band { background: #0c1a2e; color: #fff; }
+.rental-band__inner { padding: 4rem 1.5rem; }
+.rental-band__icon { font-size: 2.5rem; display: block; margin-bottom: .75rem; }
+.rental-band__copy h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 900; margin: 0 0 .75rem; }
+.rental-band__copy p { color: rgba(255,255,255,.8); line-height: 1.6; margin-bottom: 1rem; }
+.rental-list { list-style: none; padding: 0; margin: 0 0 1rem; }
+.rental-list li { font-size: .93rem; color: rgba(255,255,255,.8); padding: .25rem 0; }
+
+/* FAQ */
+.faq__list { border-top: 1px solid #e2e8f0; }
+.faq__item { border-bottom: 1px solid #e2e8f0; }
+.faq__q { padding: 1.1rem 0; font-size: 1rem; font-weight: 700; cursor: pointer; list-style: none; display: flex; justify-content: space-between; }
+.faq__q::after { content: "+"; font-size: 1.2rem; color: #0ea5e9; }
+details[open] .faq__q::after { content: "−"; }
+.faq__a { padding: 0 0 1.1rem; color: #475569; font-size: .93rem; line-height: 1.65; margin: 0; }
+.faq__cta { margin-top: 2.5rem; }
+</style>
