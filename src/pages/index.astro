@@ -1,23 +1,39 @@
 ---
-// Aurora Digital Foundry — Demo Index
+// Aurora Digital Foundry — Demo Dashboard
 const base = import.meta.env.BASE_URL.replace(/\/$/, '') + '/';
 
 const demos = [
   {
-    name:     'Aliya Surf Camp',
-    town:     'Baler, Aurora',
-    url:      base + 'clients/aliya-surf-camp/',
-    status:   'Demo',
+    name: 'Aliya Surf Camp',
+    town: 'Baler, Aurora',
+    url: base + 'clients/aliya-surf-camp/',
+    status: 'Demo',
     vertical: 'Tourism · Stay · Surf',
     template: 'Tide',
   },
   {
-    name:     'Ecopetrol Aurora',
-    town:     'Maria Aurora, Aurora',
-    url:      base + 'clients/ecopetrol-aurora/',
-    status:   'Pre-Demo',
+    name: 'Ecopetrol Aurora',
+    town: 'Maria Aurora, Aurora',
+    url: base + 'clients/ecopetrol-aurora/',
+    status: 'Pre-Demo',
     vertical: 'Energy · Fuel · LPG',
     template: 'Volt',
+  },
+  {
+    name: 'Nalu Surf Camp',
+    town: 'Baler, Aurora',
+    url: base + 'clients/nalu-surf-camp/',
+    status: 'Demo',
+    vertical: 'Tourism · Stay · Surf',
+    template: 'Tide',
+  },
+  {
+    name: 'Aurora Digital Foundry HQ',
+    town: 'Foundry · Internal',
+    url: base + 'foundry-hq.html',
+    status: 'Foundry',
+    vertical: 'Business Infrastructure',
+    template: 'HQ',
   },
 ];
 ---
@@ -43,6 +59,7 @@ const demos = [
     .badge { display: inline-block; font-size: 0.65rem; font-weight: 700; padding: 0.2rem 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
     .badge-demo { background: #f77f00; color: #fff; }
     .badge-predemo { background: #333; color: #aaa; }
+    .badge-foundry { background: #00c9a7; color: #0a0a12; }
     .btn { display: block; text-align: center; background: #003566; color: #fff; padding: 0.75rem; font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 700; text-decoration: none; text-transform: uppercase; letter-spacing: 0.15em; transition: background 0.2s; }
     .btn:hover { background: #0077b6; }
     .add-card { border: 1px dashed #333; padding: 1.5rem; display: flex; align-items: center; justify-content: center; color: #444; font-size: 0.85rem; }
@@ -58,7 +75,7 @@ const demos = [
         <p class="card-town">{d.town}</p>
         <p class="card-vertical">{d.vertical}</p>
         <p class="card-template">Template: {d.template}</p>
-        <span class={`badge ${d.status === 'Demo' ? 'badge-demo' : 'badge-predemo'}`}>{d.status}</span>
+        <span class={`badge ${d.status === 'Demo' ? 'badge-demo' : d.status === 'Foundry' ? 'badge-foundry' : 'badge-predemo'}`}>{d.status}</span>
         <a href={d.url} class="btn">View Demo →</a>
       </div>
     ))}
