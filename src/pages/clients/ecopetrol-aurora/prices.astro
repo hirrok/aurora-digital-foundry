@@ -1,40 +1,60 @@
-﻿---
+---
 import ShellLayout from '../../../layouts/ShellLayout.astro';
 const base = "/aurora-digital-foundry/clients/ecopetrol-aurora";
 ---
 <ShellLayout title="Fuel Prices — Ecopetrol Aurora" description="Today's pump prices at Ecopetrol branches across Aurora Province.">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Barlow:wght@400;500;600&display=swap');
-  :root { --blue:#005BAC; --charcoal:#111; --off-white:#F5F8FC; --gray:#444; --border:#D0DCE8; --white:#fff; --fd:'Barlow Condensed',sans-serif; --fb:'Barlow',sans-serif; }
+  :root { --blue:#005BAC; --navy:#002D6E; --charcoal:#111; --off-white:#F5F8FC; --gray:#444; --border:#D0DCE8; --white:#fff; --fd:'Barlow Condensed',sans-serif; --fb:'Barlow',sans-serif; }
   * { box-sizing:border-box; margin:0; padding:0; }
   body { font-family:var(--fb); color:var(--charcoal); }
-  nav { background:var(--charcoal); display:flex; align-items:center; justify-content:space-between; padding:0 2rem; height:64px; border-bottom:3px solid var(--blue); }
+  nav { background:var(--navy); display:flex; align-items:center; justify-content:space-between; padding:0 2rem; height:64px; border-bottom:3px solid var(--blue); }
   .logo { font-family:var(--fd); font-size:1.4rem; font-weight:900; color:var(--white); text-decoration:none; display:flex; align-items:center; gap:0.4rem; }
   .logo .dot { color:var(--blue); font-size:2rem; line-height:0; }
   .nav-links { display:flex; gap:1.5rem; list-style:none; }
   .nav-links a { color:#CCC; text-decoration:none; font-family:var(--fd); font-size:0.9rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; }
   .nav-links .cta { background:var(--blue); color:var(--white)!important; padding:0.4rem 1rem; }
-  .page-hero { background:var(--charcoal); color:var(--white); padding:4rem 2rem; }
-  .page-hero-inner { max-width:900px; margin:0 auto; }
+  .page-hero { background:var(--navy); color:var(--white); padding:4rem 2rem; }
+  .page-hero-inner { max-width:960px; margin:0 auto; }
   .eyebrow { font-family:var(--fd); font-size:0.75rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--blue); margin-bottom:0.75rem; display:flex; align-items:center; gap:0.5rem; }
   .eyebrow::before { content:''; display:block; width:1.5rem; height:2px; background:var(--blue); }
   h1 { font-family:var(--fd); font-size:clamp(2.5rem,5vw,4rem); font-weight:900; text-transform:uppercase; line-height:0.95; }
-  .last-updated { font-size:0.85rem; color:#888; margin-top:0.75rem; }
-  .section { padding:4rem 2rem; }
-  .section-inner { max-width:900px; margin:0 auto; }
-  .doe-notice { background:#FFF8E1; border:1px solid #F5C518; padding:1rem 1.25rem; font-size:0.9rem; color:#6D4C00; margin-bottom:2.5rem; line-height:1.6; }
+  .hero-meta { display:flex; gap:2rem; margin-top:1.25rem; flex-wrap:wrap; }
+  .meta-item { display:flex; flex-direction:column; gap:0.2rem; }
+  .meta-label { font-family:var(--fd); font-size:0.7rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); }
+  .meta-value { font-family:var(--fd); font-size:1rem; font-weight:700; color:var(--white); }
+  .section { padding:3rem 2rem 5rem; }
+  .section-inner { max-width:960px; margin:0 auto; }
+  .doe-notice { background:#FFF8E1; border-left:4px solid #F5C518; padding:1rem 1.25rem; font-size:0.88rem; color:#5C4200; margin-bottom:2rem; line-height:1.6; }
   .price-table { width:100%; border-collapse:collapse; }
-  .price-table thead tr { background:var(--charcoal); color:var(--white); }
+  .price-table thead tr { background:var(--navy); color:var(--white); }
   .price-table th { font-family:var(--fd); font-size:0.8rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; padding:1rem 1.25rem; text-align:left; }
+  .price-table th:not(:first-child) { text-align:right; }
   .price-table tbody tr { border-bottom:1px solid var(--border); }
   .price-table tbody tr:nth-child(even) { background:var(--off-white); }
-  .price-table td { padding:1rem 1.25rem; font-size:1rem; }
-  .price-value { font-family:var(--fd); font-size:1.5rem; font-weight:900; color:var(--blue); }
+  .price-table tbody tr:hover { background:#EBF2FF; }
+  .price-table td { padding:1.1rem 1.25rem; font-size:1rem; vertical-align:middle; }
+  .price-table td:not(:first-child) { text-align:right; }
+  .product-name { font-weight:600; font-size:1rem; display:block; margin-bottom:0.2rem; }
+  .product-desc { font-size:0.8rem; color:#888; }
+  .price-value { font-family:var(--fd); font-size:1.8rem; font-weight:900; color:var(--blue); line-height:1; }
+  .price-unit { font-family:var(--fd); font-size:0.75rem; color:#888; font-weight:600; margin-left:0.2rem; }
+  .prev-price { font-family:var(--fd); font-size:1.1rem; color:#999; }
+  .change-up { font-family:var(--fd); font-size:1rem; font-weight:700; color:#C41E2A; }
+  .change-dn { font-family:var(--fd); font-size:1rem; font-weight:700; color:#1A7A3A; }
+  .disclaimer { margin-top:1.5rem; font-size:0.82rem; color:#888; line-height:1.6; border-top:1px solid var(--border); padding-top:1rem; }
+  .next-update { background:var(--off-white); border:1px solid var(--border); padding:1rem 1.25rem; margin-top:1.5rem; display:flex; align-items:center; gap:1rem; font-size:0.88rem; }
+  .next-update strong { font-family:var(--fd); font-size:0.85rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; }
   footer { background:#0A0A0A; color:var(--white); padding:2rem; text-align:center; }
   footer p { font-size:0.8rem; color:#555; }
   footer a { color:#555; text-decoration:none; }
-  @media (max-width:768px) { .nav-links { display:none; } }
+  @media (max-width:768px) {
+    .nav-links { display:none; }
+    .price-table th:nth-child(3), .price-table td:nth-child(3) { display:none; }
+    .price-value { font-size:1.4rem; }
+  }
 </style>
+
 <nav>
   <a href={base} class="logo"><span class="dot">&middot;</span> ECOPETROL</a>
   <ul class="nav-links">
@@ -46,38 +66,98 @@ const base = "/aurora-digital-foundry/clients/ecopetrol-aurora";
     <li><a href={`${base}/contact`} class="cta">Contact Us</a></li>
   </ul>
 </nav>
+
 <div class="page-hero">
   <div class="page-hero-inner">
     <div class="eyebrow">Price Board</div>
     <h1>Today's Pump<br>Prices.</h1>
-    <p class="last-updated">Last updated: <strong>TODO &mdash; insert date of last DOE adjustment</strong></p>
+    <div class="hero-meta">
+      <div class="meta-item">
+        <span class="meta-label">Week</span>
+        <span class="meta-value">May 26 &ndash; Jun 1, 2026</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Last Updated</span>
+        <span class="meta-value">Tuesday, May 26, 2026</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Next Update</span>
+        <span class="meta-value">Tuesday, Jun 2, 2026</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Coverage</span>
+        <span class="meta-value">All Ecopetrol Aurora Branches</span>
+      </div>
+    </div>
   </div>
 </div>
+
 <section class="section">
   <div class="section-inner">
     <div class="doe-notice">
-      &#9888; <strong>DOE Compliance Notice:</strong> Fuel prices are updated per DOE weekly price adjustment schedules. Prices shown are per liter and apply to all Ecopetrol branches unless otherwise noted.
+      &#9888;&nbsp; <strong>DOE Compliance Notice:</strong> Pump prices are updated weekly every Tuesday per DOE price adjustment schedules. Prices shown are per liter (PHP) and apply across all Ecopetrol Aurora branches. Actual pump prices may vary slightly by branch. For exact pricing, call your nearest branch directly.
     </div>
+
     <table class="price-table">
-      <thead><tr><th>Product</th><th>Price per Liter</th><th>Previous Price</th><th>Change</th></tr></thead>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Price / Liter</th>
+          <th>Previous</th>
+          <th>Change</th>
+        </tr>
+      </thead>
       <tbody>
-        {[
-          { product:'Unleaded Gasoline RON 91', desc:'Standard unleaded' },
-          { product:'Premium Gasoline RON 95', desc:'High-octane unleaded' },
-          { product:'Diesel Euro 4', desc:'Clean diesel' },
-          { product:'Kerosene', desc:'Household / commercial' },
-        ].map(p => (
-          <tr>
-            <td><strong>{p.product}</strong><br/><span style="font-size:0.8rem;color:#888;">{p.desc}</span></td>
-            <td><span class="price-value">TODO</span></td>
-            <td><span style="color:#888;">TODO</span></td>
-            <td><span style="color:#888;">TODO</span></td>
-          </tr>
-        ))}
+        <tr>
+          <td>
+            <span class="product-name">Unleaded Gasoline RON 91</span>
+            <span class="product-desc">Standard unleaded &mdash; most common passenger vehicles</span>
+          </td>
+          <td><span class="price-value">&#8369;89.50</span><span class="price-unit">/L</span></td>
+          <td><span class="prev-price">&#8369;87.90</span></td>
+          <td><span class="change-up">&#9650; +1.60</span></td>
+        </tr>
+        <tr>
+          <td>
+            <span class="product-name">Premium Gasoline RON 95</span>
+            <span class="product-desc">High-octane unleaded &mdash; performance &amp; newer engines</span>
+          </td>
+          <td><span class="price-value">&#8369;94.00</span><span class="price-unit">/L</span></td>
+          <td><span class="prev-price">&#8369;92.40</span></td>
+          <td><span class="change-up">&#9650; +1.60</span></td>
+        </tr>
+        <tr>
+          <td>
+            <span class="product-name">Diesel Euro 4</span>
+            <span class="product-desc">Clean diesel &mdash; trucks, jeepneys, SUVs, generators</span>
+          </td>
+          <td><span class="price-value">&#8369;84.50</span><span class="price-unit">/L</span></td>
+          <td><span class="prev-price">&#8369;82.54</span></td>
+          <td><span class="change-up">&#9650; +1.96</span></td>
+        </tr>
+        <tr>
+          <td>
+            <span class="product-name">Kerosene</span>
+            <span class="product-desc">Household &amp; commercial lighting, cooking, heating</span>
+          </td>
+          <td><span class="price-value">&#8369;118.50</span><span class="price-unit">/L</span></td>
+          <td><span class="prev-price">&#8369;117.05</span></td>
+          <td><span class="change-up">&#9650; +1.45</span></td>
+        </tr>
       </tbody>
     </table>
-    <p style="margin-top:1.5rem;font-size:0.85rem;color:#888;line-height:1.6;">Prices subject to DOE weekly adjustments. Call your nearest branch for the most current figures.</p>
+
+    <p class="disclaimer">
+      Prices are per liter in Philippine Peso (PHP). Weekly adjustments are based on DOE price monitoring and international oil market movements. Provincial pump prices are typically PHP 4&ndash;8 higher than NCR reference prices due to hauling costs. Ecopetrol Aurora prices reflect Aurora Province market rates. For fleet volume pricing, see <a href={`${base}/fleet`} style="color:var(--blue);font-weight:600;">Fleet Accounts</a>.
+    </p>
+
+    <div class="next-update">
+      &#128197;&nbsp; <strong>Next Price Update:</strong>&nbsp; Tuesday, June 2, 2026 &mdash; per DOE weekly adjustment schedule. Prices may change earlier during staggered implementation weeks.
+    </div>
   </div>
 </section>
-<footer><p>&copy; 2026 Ecopetrol Gasoline Station &middot; Maria Aurora, Aurora &middot; Site by <a href="https://github.com/hirrok">Aurora Digital Foundry</a></p></footer>
+
+<footer>
+  <p>&copy; 2026 Ecopetrol Gasoline Station &middot; Maria Aurora, Aurora &middot; Site by <a href="https://github.com/hirrok">Aurora Digital Foundry</a></p>
+</footer>
 </ShellLayout>
