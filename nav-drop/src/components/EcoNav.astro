@@ -1,0 +1,67 @@
+---
+const base = "/aurora-digital-foundry/clients/ecopetrol-aurora";
+---
+<style>
+  .eco-nav {
+    background: #002D6E;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 3px solid #005BAC;
+    font-family: 'Barlow Condensed', sans-serif;
+  }
+  .eco-logo {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    letter-spacing: 0.04em;
+  }
+  .eco-logo .dot { color: #005BAC; font-size: 2rem; line-height: 0; }
+  .eco-nav-links {
+    display: flex;
+    gap: 1.25rem;
+    list-style: none;
+    align-items: center;
+  }
+  .eco-nav-links a {
+    color: #AABDD8;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+    white-space: nowrap;
+  }
+  .eco-nav-links a:hover { color: #fff; }
+  .eco-nav-links .nav-cta {
+    background: #005BAC;
+    color: #fff !important;
+    padding: 0.4rem 1rem;
+    transition: background 0.2s;
+  }
+  .eco-nav-links .nav-cta:hover { background: #0066CC; }
+  @media (max-width: 900px) { .eco-nav-links { display: none; } }
+</style>
+
+<nav class="eco-nav">
+  <a href={base} class="eco-logo"><span class="dot">&middot;</span> ECOPETROL</a>
+  <ul class="eco-nav-links">
+    <li><a href={`${base}/branches`}>Branches</a></li>
+    <li><a href={`${base}/prices`}>Prices</a></li>
+    <li><a href={`${base}/lpg`}>LPG / Solane</a></li>
+    <li><a href={`${base}/fleet`}>Fleet</a></li>
+    <li><a href={`${base}/franchise`}>Franchise</a></li>
+    <li><a href={`${base}/about`}>About</a></li>
+    <li><a href={`${base}/contact`} class="nav-cta">Contact Us</a></li>
+  </ul>
+</nav>

@@ -1,0 +1,353 @@
+---
+import ShellLayout from '../../../layouts/ShellLayout.astro';
+import EcoNav from '../../../components/EcoNav.astro';
+const base = "/aurora-digital-foundry/clients/ecopetrol-aurora";
+---
+<ShellLayout title="Franchise — Ecopetrol Aurora" description="Own an Ecopetrol fuel station franchise in Aurora Province. Multi-branch network, Solane LPG partnership, full operational support.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap');
+  :root {
+    --blue:#005BAC; --blue-dark:#003D80; --navy:#002D6E; --navy-light:#0044A0;
+    --white:#FFFFFF; --off-white:#F5F8FC; --charcoal:#111111; --gray:#444444; --border:#D0DCE8;
+    --fd:'Barlow Condensed',sans-serif; --fb:'Barlow',sans-serif;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:var(--fb); color:var(--charcoal); }
+
+  /* HERO */
+  .page-hero { background:var(--navy); color:var(--white); padding:5rem 2rem 4rem; }
+  .page-hero-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center; }
+  .eyebrow { font-family:var(--fd); font-size:0.75rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--blue); margin-bottom:0.75rem; display:flex; align-items:center; gap:0.5rem; }
+  .eyebrow::before { content:''; display:block; width:1.5rem; height:2px; background:var(--blue); }
+  h1 { font-family:var(--fd); font-size:clamp(2.5rem,5vw,4.5rem); font-weight:900; text-transform:uppercase; line-height:0.92; margin-bottom:1.5rem; }
+  h1 em { color:var(--blue); font-style:normal; }
+  .hero-sub { font-size:1.05rem; color:rgba(255,255,255,0.8); line-height:1.7; margin-bottom:2rem; }
+  .hero-ctas { display:flex; gap:1rem; flex-wrap:wrap; }
+  .btn-blue { background:var(--blue); color:var(--white); font-family:var(--fd); font-size:0.95rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:0.85rem 2rem; text-decoration:none; display:inline-block; transition:background 0.2s; }
+  .btn-blue:hover { background:var(--navy-light); }
+  .btn-outline { background:transparent; color:var(--white); font-family:var(--fd); font-size:0.95rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:0.85rem 2rem; border:2px solid rgba(255,255,255,0.3); text-decoration:none; display:inline-block; transition:border-color 0.2s; }
+  .btn-outline:hover { border-color:var(--white); }
+  .hero-stats { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.1); }
+  .hero-stat { padding:1.5rem; text-align:center; background:rgba(0,45,110,0.6); }
+  .hero-stat-number { font-family:var(--fd); font-size:2.5rem; font-weight:900; color:var(--white); line-height:1; }
+  .hero-stat-label { font-family:var(--fd); font-size:0.7rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin-top:0.3rem; }
+
+  /* WHY */
+  .section { padding:4.5rem 2rem; }
+  .section-inner { max-width:1100px; margin:0 auto; }
+  .section-header { margin-bottom:3rem; }
+  .section-eyebrow { font-family:var(--fd); font-size:0.75rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--blue); margin-bottom:0.75rem; display:flex; align-items:center; gap:0.5rem; }
+  .section-eyebrow::before { content:''; display:block; width:1.5rem; height:2px; background:var(--blue); }
+  h2 { font-family:var(--fd); font-size:clamp(1.8rem,3.5vw,2.75rem); font-weight:800; text-transform:uppercase; line-height:1; }
+  .section-sub { font-size:1rem; color:var(--gray); margin-top:0.75rem; max-width:560px; line-height:1.6; }
+  .why-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:1.5rem; }
+  .why-card { background:var(--off-white); border:1px solid var(--border); border-top:3px solid var(--blue); padding:1.75rem; }
+  .why-icon { font-size:1.75rem; margin-bottom:1rem; }
+  .why-title { font-family:var(--fd); font-size:1.1rem; font-weight:800; text-transform:uppercase; margin-bottom:0.6rem; color:var(--charcoal); }
+  .why-body { font-size:0.88rem; color:var(--gray); line-height:1.6; }
+
+  /* INVESTMENT */
+  .invest-section { background:var(--navy); color:var(--white); padding:4.5rem 2rem; }
+  .invest-inner { max-width:1100px; margin:0 auto; }
+  .invest-section .section-eyebrow { color:rgba(255,255,255,0.5); }
+  .invest-section .section-eyebrow::before { background:rgba(255,255,255,0.5); }
+  .invest-section h2 { color:var(--white); }
+  .invest-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.08); margin-top:2.5rem; }
+  .invest-card { background:#001F4F; padding:2rem; }
+  .invest-tier { font-family:var(--fd); font-size:0.7rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-bottom:0.5rem; }
+  .invest-type { font-family:var(--fd); font-size:1.3rem; font-weight:800; text-transform:uppercase; color:var(--white); margin-bottom:0.5rem; }
+  .invest-amount { font-family:var(--fd); font-size:2rem; font-weight:900; color:var(--blue); line-height:1; margin-bottom:0.35rem; }
+  .invest-note { font-size:0.8rem; color:rgba(255,255,255,0.4); line-height:1.5; }
+  .invest-disclaimer { margin-top:2rem; font-size:0.82rem; color:rgba(255,255,255,0.4); line-height:1.6; border-top:1px solid rgba(255,255,255,0.08); padding-top:1.25rem; }
+
+  /* WHAT'S INCLUDED */
+  .included-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; margin-top:2.5rem; }
+  .included-col h3 { font-family:var(--fd); font-size:1rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--blue); margin-bottom:1.25rem; padding-bottom:0.75rem; border-bottom:2px solid var(--border); }
+  .included-list { list-style:none; display:flex; flex-direction:column; gap:0.75rem; }
+  .included-list li { display:flex; align-items:flex-start; gap:0.75rem; font-size:0.92rem; color:var(--gray); line-height:1.5; }
+  .included-list li::before { content:'✓'; color:var(--blue); font-weight:700; font-size:1rem; flex-shrink:0; margin-top:0.05rem; }
+
+  /* PROCESS */
+  .process-section { background:var(--off-white); padding:4.5rem 2rem; }
+  .process-steps { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:0; margin-top:2.5rem; position:relative; }
+  .process-step { padding:2rem 1.5rem; background:var(--white); border:1px solid var(--border); position:relative; }
+  .step-number { font-family:var(--fd); font-size:3rem; font-weight:900; color:var(--border); line-height:1; margin-bottom:0.75rem; }
+  .step-title { font-family:var(--fd); font-size:1rem; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:0.5rem; color:var(--charcoal); }
+  .step-body { font-size:0.85rem; color:var(--gray); line-height:1.6; }
+
+  /* FORM */
+  .form-section { padding:4.5rem 2rem; }
+  .form-inner { max-width:760px; margin:0 auto; }
+  .form-intro { font-size:1rem; color:var(--gray); line-height:1.6; margin-bottom:2rem; }
+  .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; }
+  .form-group { display:flex; flex-direction:column; gap:0.4rem; }
+  .form-group.full { grid-column:1/-1; }
+  label { font-family:var(--fd); font-size:0.72rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--gray); }
+  input, select, textarea { padding:0.75rem; border:1px solid var(--border); font-family:var(--fb); font-size:0.95rem; background:var(--white); width:100%; }
+  input:focus, select:focus, textarea:focus { outline:2px solid var(--blue); }
+  textarea { resize:vertical; min-height:120px; }
+  .form-note { font-size:0.78rem; color:#999; margin-top:0.35rem; }
+  .btn-submit { background:var(--blue); color:var(--white); font-family:var(--fd); font-size:1rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:1rem 2.5rem; border:none; cursor:pointer; transition:background 0.2s; margin-top:0.5rem; }
+  .btn-submit:hover { background:var(--navy); }
+
+  footer { background:#0A0A0A; color:var(--white); padding:2rem; text-align:center; }
+  footer p { font-size:0.8rem; color:#555; }
+  footer a { color:#555; text-decoration:none; }
+
+  @media (max-width:900px) {
+    .page-hero-inner { grid-template-columns:1fr; gap:2.5rem; }
+    .included-grid { grid-template-columns:1fr; gap:2rem; }
+    .form-grid { grid-template-columns:1fr; }
+    .section { padding:3rem 1.5rem; }
+  }
+</style>
+
+<EcoNav />
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div>
+      <div class="eyebrow">Franchise Opportunities</div>
+      <h1>Own an<br><em>Ecopetrol</em><br>Franchise.</h1>
+      <p class="hero-sub">Join Aurora Province's largest independent fuel network. We offer site support, operational training, and Solane LPG partnership access to qualified franchisees across Aurora.</p>
+      <div class="hero-ctas">
+        <a href="#apply" class="btn-blue">Apply Now</a>
+        <a href="#investment" class="btn-outline">View Investment &rarr;</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-number">8+</div>
+        <div class="hero-stat-label">Active Branches</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number">TODO</div>
+        <div class="hero-stat-label">Years Operating</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number">6+</div>
+        <div class="hero-stat-label">Municipalities</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number">Solane</div>
+        <div class="hero-stat-label">LPG Partner</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Why Ecopetrol -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">Why Franchise With Us</div>
+      <h2>Built on Aurora.<br>Proven Across the Province.</h2>
+      <p class="section-sub">Ecopetrol Aurora is the only multi-branch independent fuel operator with province-wide coverage. Franchising with us means joining an established network, not starting from zero.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">&#128205;</div>
+        <div class="why-title">Proven Locations</div>
+        <p class="why-body">8+ operational branches from Maria Aurora to Baler, San Luis, and beyond. We know where Aurora's fuel demand is highest and where the next growth pockets are.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">&#127981;</div>
+        <div class="why-title">Solane LPG Access</div>
+        <p class="why-body">Authorized Solane showroom operator status. Franchisees gain access to LPG distribution revenue — a secondary income stream retail-only stations don't have.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">&#128202;</div>
+        <div class="why-title">Fleet & Institutional Market</div>
+        <p class="why-body">Government, construction, and logistics accounts in Aurora prefer suppliers with a network. Franchisees benefit from the collective B2B pipeline and fleet relationships.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">&#9989;</div>
+        <div class="why-title">DOE Compliance Support</div>
+        <p class="why-body">Navigating DOE Certificate of Compliance requirements, price board standards, and safety officer certification is complex. We guide franchisees through the full compliance process.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Investment -->
+<section class="invest-section" id="investment">
+  <div class="invest-inner">
+    <div class="section-eyebrow">Investment Overview</div>
+    <h2>What Does It Cost to Open?</h2>
+    <div class="invest-grid">
+      <div class="invest-card">
+        <div class="invest-tier">Tier 1</div>
+        <div class="invest-type">Retail Only</div>
+        <div class="invest-amount">PHP TODO</div>
+        <p class="invest-note">Fuel retail station. Gasoline and diesel. Single location. Best for high-traffic highway or municipal entry points.</p>
+      </div>
+      <div class="invest-card">
+        <div class="invest-tier">Tier 2</div>
+        <div class="invest-type">Retail + LPG Showroom</div>
+        <div class="invest-amount">PHP TODO</div>
+        <p class="invest-note">Fuel retail plus authorized Solane LPG showroom. Dual revenue stream. Recommended for town centers and barangay hubs with residential density.</p>
+      </div>
+      <div class="invest-card">
+        <div class="invest-tier">Tier 3</div>
+        <div class="invest-type">Full Service</div>
+        <div class="invest-amount">PHP TODO</div>
+        <p class="invest-note">Fuel, LPG, and fleet account integration. Includes B2B supply documentation and fleet intake capability. Best for provincial road corridors.</p>
+      </div>
+    </div>
+    <p class="invest-disclaimer">Investment ranges are indicative and subject to site assessment, land conditions, and equipment configuration. Final investment figures are provided during the franchise evaluation process. All amounts exclude land acquisition or lease costs.</p>
+  </div>
+</section>
+
+<!-- What's Included -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">Franchise Package</div>
+      <h2>What You Get When You Franchise.</h2>
+    </div>
+    <div class="included-grid">
+      <div class="included-col">
+        <h3>Setup & Launch</h3>
+        <ul class="included-list">
+          <li>Site feasibility assessment and traffic study</li>
+          <li>DOE permit and Certificate of Compliance guidance</li>
+          <li>Equipment procurement and installation support</li>
+          <li>Safety officer certification coordination</li>
+          <li>Signage and brand identity implementation</li>
+          <li>Opening inventory and initial stock support</li>
+          <li>Price board setup (DOE compliance)</li>
+          <li>Staff hiring and pre-opening training</li>
+        </ul>
+      </div>
+      <div class="included-col">
+        <h3>Ongoing Operations</h3>
+        <ul class="included-list">
+          <li>Inclusion in Ecopetrol Aurora branch network</li>
+          <li>Solane LPG authorized showroom onboarding (Tier 2+)</li>
+          <li>Fleet account referral from provincial network</li>
+          <li>Weekly DOE price advisory coordination</li>
+          <li>Periodic compliance and safety audits</li>
+          <li>Bulk fuel procurement support</li>
+          <li>Digital presence via Aurora Digital Foundry</li>
+          <li>Access to Ecopetrol Aurora operations contacts</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Process -->
+<section class="process-section">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">Application Process</div>
+      <h2>How It Works.</h2>
+      <p class="section-sub">From inquiry to opening, the process typically takes TODO weeks depending on site conditions and permitting timelines.</p>
+    </div>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-title">Submit Application</div>
+        <p class="step-body">Fill out the franchise inquiry form below. Provide your proposed site location, capital readiness, and business background. Initial review takes TODO business days.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-title">Site Assessment</div>
+        <p class="step-body">Our team evaluates your proposed site for traffic flow, road access, municipal permits, and commercial viability. You receive a written feasibility assessment.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-title">Agreement & Setup</div>
+        <p class="step-body">Franchise agreement signing, DOE permit coordination, equipment installation, and staff training. Our operations team is on-site during setup.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-number">04</div>
+        <div class="step-title">Opening Day</div>
+        <p class="step-body">Full operational launch with initial inventory stocked, compliance documentation completed, and digital presence active. Ongoing support from Day 1.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Application Form -->
+<section class="form-section" id="apply">
+  <div class="form-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">Apply Now</div>
+      <h2>Start Your Franchise Inquiry.</h2>
+    </div>
+    <p class="form-intro">Fill out the form below and our franchise team will contact you within TODO business days to discuss your application, proposed site, and next steps.</p>
+    <form action="https://formspree.io/f/TODO_FRANCHISE_FORM_ID" method="POST">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Full Name *</label>
+          <input type="text" name="name" required placeholder="Your full name" />
+        </div>
+        <div class="form-group">
+          <label>Phone Number *</label>
+          <input type="tel" name="phone" required placeholder="+63" />
+        </div>
+        <div class="form-group">
+          <label>Email Address *</label>
+          <input type="email" name="email" required placeholder="your@email.com" />
+        </div>
+        <div class="form-group">
+          <label>Municipality / Location *</label>
+          <input type="text" name="location" required placeholder="e.g. Baler, Dipaculao, San Luis..." />
+        </div>
+        <div class="form-group">
+          <label>Proposed Site Status</label>
+          <select name="site_status">
+            <option value="">Select</option>
+            <option>I own the land</option>
+            <option>I have a lease arrangement</option>
+            <option>I'm still scouting locations</option>
+            <option>Open to site suggestions</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Franchise Tier Interest</label>
+          <select name="tier">
+            <option value="">Select</option>
+            <option>Tier 1 — Retail Only</option>
+            <option>Tier 2 — Retail + LPG Showroom</option>
+            <option>Tier 3 — Full Service</option>
+            <option>Not sure yet — need guidance</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Capital Readiness</label>
+          <select name="capital">
+            <option value="">Select range</option>
+            <option>Under PHP 1M</option>
+            <option>PHP 1M &ndash; 3M</option>
+            <option>PHP 3M &ndash; 5M</option>
+            <option>PHP 5M &ndash; 10M</option>
+            <option>PHP 10M+</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Business Background</label>
+          <select name="background">
+            <option value="">Select</option>
+            <option>First-time business owner</option>
+            <option>Existing business owner (non-fuel)</option>
+            <option>Existing fuel station operator</option>
+            <option>Investor / silent partner</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label>Tell Us About Your Proposed Location</label>
+          <textarea name="message" placeholder="Describe the site, its visibility, road access, nearby establishments, estimated daily traffic, or any other details that would help us assess the opportunity."></textarea>
+          <p class="form-note">TODO: Replace form action with real Formspree ID before launch. Confirm investment tiers and timeline with client before publishing.</p>
+        </div>
+      </div>
+      <button type="submit" class="btn-submit">Submit Franchise Application</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 Ecopetrol Gasoline Station &middot; Maria Aurora, Aurora &middot; Site by <a href="https://github.com/hirrok">Aurora Digital Foundry</a></p>
+</footer>
+</ShellLayout>

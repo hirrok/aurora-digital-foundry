@@ -1,5 +1,6 @@
-﻿---
+---
 import ShellLayout from '../../../layouts/ShellLayout.astro';
+import EcoNav from '../../../components/EcoNav.astro';
 const title = "Ecopetrol Aurora — Fuel & LPG Across Aurora Province";
 const description = "Ecopetrol Gasoline Station — 8 branches across Aurora Province. Fuel, LPG, and fleet accounts for retail and institutional customers.";
 const base = "/aurora-digital-foundry/clients/ecopetrol-aurora";
@@ -8,24 +9,16 @@ const base = "/aurora-digital-foundry/clients/ecopetrol-aurora";
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap');
   :root {
-    --blue:#005BAC; --blue-dark:#003D80; --blue-light:#1A73C8;
-    --navy:#002D6E; --white:#FFFFFF; --off-white:#F5F8FC;
-    --charcoal:#111111; --gray:#444444; --border:#D0DCE8;
+    --blue:#005BAC; --blue-dark:#003D80; --navy:#002D6E; --navy-light:#0044A0;
+    --white:#FFFFFF; --off-white:#F5F8FC; --charcoal:#111111; --gray:#444444; --border:#D0DCE8;
     --fd:'Barlow Condensed',sans-serif; --fb:'Barlow',sans-serif;
   }
   * { box-sizing:border-box; margin:0; padding:0; }
   body { font-family:var(--fb); color:var(--charcoal); }
-  nav { background:var(--charcoal); display:flex; align-items:center; justify-content:space-between; padding:0 2rem; height:64px; position:sticky; top:0; z-index:100; border-bottom:3px solid var(--blue); }
-  .logo { font-family:var(--fd); font-size:1.4rem; font-weight:900; color:var(--white); text-decoration:none; display:flex; align-items:center; gap:0.4rem; }
-  .logo .dot { color:var(--blue); font-size:2rem; line-height:0; }
-  .nav-links { display:flex; gap:1.5rem; list-style:none; align-items:center; }
-  .nav-links a { color:#CCC; text-decoration:none; font-family:var(--fd); font-size:0.9rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; transition:color 0.2s; }
-  .nav-links a:hover { color:var(--white); }
-  .nav-links .cta { background:var(--blue); color:var(--white)!important; padding:0.4rem 1rem; }
   .emergency-top { background:var(--blue-dark); color:var(--white); font-family:var(--fd); font-size:0.8rem; font-weight:600; letter-spacing:0.08em; text-align:center; padding:0.5rem 1rem; }
   .emergency-top a { color:var(--white); font-weight:700; }
-  .hero { background:var(--charcoal); color:var(--white); min-height:520px; display:grid; grid-template-columns:1fr 1fr; position:relative; overflow:hidden; }
-  .hero::before { content:''; position:absolute; inset:0; background:url('https://images.unsplash.com/photo-1545235617-9465d2a55698?auto=format&fit=crop&w=1600&q=60') center/cover no-repeat; opacity:0.15; }
+  .hero { background:var(--navy); color:var(--white); min-height:520px; display:grid; grid-template-columns:1fr 1fr; position:relative; overflow:hidden; }
+  .hero::before { content:''; position:absolute; inset:0; background:url('https://images.unsplash.com/photo-1545235617-9465d2a55698?auto=format&fit=crop&w=1600&q=60') center/cover no-repeat; opacity:0.12; }
   .hero-content { position:relative; z-index:2; padding:5rem 3rem 4rem; display:flex; flex-direction:column; justify-content:center; }
   .eyebrow { font-family:var(--fd); font-size:0.8rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--blue); margin-bottom:1rem; display:flex; align-items:center; gap:0.5rem; }
   .eyebrow::before { content:''; display:block; width:2rem; height:2px; background:var(--blue); }
@@ -33,11 +26,11 @@ const base = "/aurora-digital-foundry/clients/ecopetrol-aurora";
   .hero-title em { color:var(--blue); font-style:normal; }
   .hero-sub { font-size:1.1rem; color:#CCC; line-height:1.6; max-width:420px; margin-bottom:2.5rem; }
   .hero-ctas { display:flex; gap:1rem; flex-wrap:wrap; }
-  .btn-red { background:var(--blue); color:var(--white); font-family:var(--fd); font-size:0.95rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:0.85rem 2rem; text-decoration:none; display:inline-block; transition:background 0.2s; }
-  .btn-red:hover { background:var(--blue-light); }
+  .btn-blue { background:var(--blue); color:var(--white); font-family:var(--fd); font-size:0.95rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:0.85rem 2rem; text-decoration:none; display:inline-block; transition:background 0.2s; }
+  .btn-blue:hover { background:var(--navy-light); }
   .btn-outline { background:transparent; color:var(--white); font-family:var(--fd); font-size:0.95rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:0.85rem 2rem; border:2px solid rgba(255,255,255,0.4); text-decoration:none; display:inline-block; transition:border-color 0.2s; }
   .btn-outline:hover { border-color:var(--white); }
-  .btn-green { background:var(--white); color:var(--navy); font-family:var(--fd); font-size:0.9rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:0.8rem 1.75rem; text-decoration:none; display:inline-block; }
+  .btn-white { background:var(--white); color:var(--navy); font-family:var(--fd); font-size:0.9rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:0.8rem 1.75rem; text-decoration:none; display:inline-block; }
   .price-ticker { background:var(--blue); color:var(--white); padding:1.25rem 2rem; display:flex; align-items:center; gap:2rem; flex-wrap:wrap; justify-content:center; }
   .ticker-label { font-family:var(--fd); font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; opacity:0.8; white-space:nowrap; }
   .ticker-items { display:flex; gap:2rem; flex-wrap:wrap; justify-content:center; }
@@ -86,16 +79,16 @@ const base = "/aurora-digital-foundry/clients/ecopetrol-aurora";
   .branch-link { font-family:var(--fd); font-size:0.8rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--blue); text-decoration:none; border-bottom:1px solid var(--blue); padding-bottom:1px; }
   .lpg-callout { background:var(--navy); color:var(--white); padding:5rem 2rem; }
   .lpg-inner { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center; }
-  .lpg-inner .section-eyebrow { color:rgba(255,255,255,0.6); }
-  .lpg-inner .section-eyebrow::before { background:rgba(255,255,255,0.6); }
+  .lpg-inner .section-eyebrow { color:rgba(255,255,255,0.5); }
+  .lpg-inner .section-eyebrow::before { background:rgba(255,255,255,0.5); }
   .lpg-inner .section-title { color:var(--white); }
-  .lpg-inner .section-sub { color:rgba(255,255,255,0.8); }
-  .solane-badge { display:inline-flex; align-items:center; gap:0.75rem; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); padding:0.75rem 1.25rem; margin-bottom:2rem; }
-  .solane-badge span { font-family:var(--fd); font-size:0.8rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.8); }
+  .lpg-inner .section-sub { color:rgba(255,255,255,0.75); }
+  .solane-badge { display:inline-flex; align-items:center; gap:0.75rem; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); padding:0.75rem 1.25rem; margin-bottom:2rem; }
+  .solane-badge span { font-family:var(--fd); font-size:0.8rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.7); }
   .solane-badge strong { font-family:var(--fd); font-size:1rem; font-weight:900; color:var(--white); }
   .lpg-features { list-style:none; display:flex; flex-direction:column; gap:1rem; margin-bottom:2.5rem; }
-  .lpg-features li { display:flex; align-items:flex-start; gap:0.75rem; font-size:0.95rem; color:rgba(255,255,255,0.9); line-height:1.5; }
-  .img-placeholder { background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); height:320px; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:0.75rem; color:rgba(255,255,255,0.4); font-family:var(--fd); font-size:0.8rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; text-align:center; }
+  .lpg-features li { display:flex; align-items:flex-start; gap:0.75rem; font-size:0.95rem; color:rgba(255,255,255,0.85); line-height:1.5; }
+  .img-placeholder { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); height:320px; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:0.75rem; color:rgba(255,255,255,0.3); font-family:var(--fd); font-size:0.8rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; text-align:center; }
   .eco-footer { background:#0A0A0A; color:var(--white); padding:3rem 2rem; }
   .footer-inner { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:3rem; }
   .footer-brand-name { font-family:var(--fd); font-size:1.3rem; font-weight:900; color:var(--white); letter-spacing:0.04em; margin-bottom:0.75rem; display:block; text-decoration:none; }
@@ -118,7 +111,6 @@ const base = "/aurora-digital-foundry/clients/ecopetrol-aurora";
     .audience-card { padding:3rem 1.5rem; }
     .lpg-inner { grid-template-columns:1fr; gap:2rem; }
     .footer-inner { grid-template-columns:1fr 1fr; gap:2rem; }
-    .nav-links { display:none; }
     .section { padding:3.5rem 1.5rem; }
   }
 </style>
@@ -127,24 +119,14 @@ const base = "/aurora-digital-foundry/clients/ecopetrol-aurora";
     LPG Emergency / Safety Concern? Call your nearest branch immediately.
     &nbsp;&middot;&nbsp; <a href={`${base}/contact`}>Branch Hotlines</a>
   </div>
-  <nav>
-    <a href={base} class="logo"><span class="dot">&middot;</span> ECOPETROL</a>
-    <ul class="nav-links">
-      <li><a href={`${base}/branches`}>Branches</a></li>
-      <li><a href={`${base}/prices`}>Fuel Prices</a></li>
-      <li><a href={`${base}/lpg`}>LPG / Solane</a></li>
-      <li><a href={`${base}/fleet`}>Fleet Accounts</a></li>
-      <li><a href={`${base}/about`}>About</a></li>
-      <li><a href={`${base}/contact`} class="cta">Contact Us</a></li>
-    </ul>
-  </nav>
+  <EcoNav />
   <section class="hero">
     <div class="hero-content">
       <div class="eyebrow">Aurora Province's Fuel Network</div>
       <h1 class="hero-title">Fuel That <em>Keeps</em><br>Aurora Moving.</h1>
       <p class="hero-sub">8 branches across Aurora Province. Gasoline, diesel, and Solane LPG for retail customers, fleets, and institutional buyers.</p>
       <div class="hero-ctas">
-        <a href={`${base}/branches`} class="btn-red">Find a Branch</a>
+        <a href={`${base}/branches`} class="btn-blue">Find a Branch</a>
         <a href={`${base}/fleet`} class="btn-outline">Fleet Accounts &rarr;</a>
       </div>
     </div>
@@ -153,13 +135,13 @@ const base = "/aurora-digital-foundry/clients/ecopetrol-aurora";
     <span class="ticker-label">Today's Pump Prices</span>
     <div class="divider"></div>
     <div class="ticker-items">
-      <div class="ticker-item"><span class="ticker-product">Unleaded RON 91</span><span class="ticker-price">TODO</span></div>
-      <div class="ticker-item"><span class="ticker-product">Premium RON 95</span><span class="ticker-price">TODO</span></div>
-      <div class="ticker-item"><span class="ticker-product">Diesel Euro 4</span><span class="ticker-price">TODO</span></div>
-      <div class="ticker-item"><span class="ticker-product">Kerosene</span><span class="ticker-price">TODO</span></div>
+      <div class="ticker-item"><span class="ticker-product">Unleaded RON 91</span><span class="ticker-price">&#8369;89.50</span></div>
+      <div class="ticker-item"><span class="ticker-product">Premium RON 95</span><span class="ticker-price">&#8369;94.00</span></div>
+      <div class="ticker-item"><span class="ticker-product">Diesel Euro 4</span><span class="ticker-price">&#8369;84.50</span></div>
+      <div class="ticker-item"><span class="ticker-product">Kerosene</span><span class="ticker-price">&#8369;118.50</span></div>
     </div>
     <div class="divider"></div>
-    <span class="ticker-update">Last updated: TODO</span>
+    <span class="ticker-update">May 26, 2026</span>
     <a href={`${base}/prices`} class="ticker-link">Full Price Board &rarr;</a>
   </div>
   <div class="audience-split">
@@ -173,7 +155,7 @@ const base = "/aurora-digital-foundry/clients/ecopetrol-aurora";
         <li>Solane LPG cylinders &amp; refills</li>
         <li>Residential LPG delivery inquiry</li>
       </ul>
-      <a href={`${base}/branches`} class="btn-red" style="align-self:flex-start;">Find Your Branch</a>
+      <a href={`${base}/branches`} class="btn-blue" style="align-self:flex-start;">Find Your Branch</a>
     </div>
     <div class="audience-card b2b">
       <div class="audience-tag">For Fleets &amp; Institutions</div>
@@ -185,7 +167,7 @@ const base = "/aurora-digital-foundry/clients/ecopetrol-aurora";
         <li>Commercial LPG delivery</li>
         <li>Multi-branch account coverage</li>
       </ul>
-      <a href={`${base}/fleet`} class="btn-green">Open Fleet Account</a>
+      <a href={`${base}/fleet`} class="btn-white">Open Fleet Account</a>
     </div>
   </div>
   <div class="stats-strip">
@@ -224,7 +206,7 @@ const base = "/aurora-digital-foundry/clients/ecopetrol-aurora";
         ))}
       </div>
       <div style="margin-top:2rem;">
-        <a href={`${base}/branches`} class="btn-red">View All Branches with Maps &rarr;</a>
+        <a href={`${base}/branches`} class="btn-blue">View All Branches with Maps &rarr;</a>
       </div>
     </div>
   </section>
@@ -241,11 +223,9 @@ const base = "/aurora-digital-foundry/clients/ecopetrol-aurora";
           <li>&#128205; Multiple showroom branches across the province</li>
           <li>&#128222; Call your nearest branch to schedule delivery</li>
         </ul>
-        <a href={`${base}/lpg`} class="btn-green">LPG Inquiry &amp; Delivery</a>
+        <a href={`${base}/lpg`} class="btn-white">LPG Inquiry &amp; Delivery</a>
       </div>
-      <div class="img-placeholder">
-        TODO: Photo of LPG cylinders / Solane product display
-      </div>
+      <div class="img-placeholder">TODO: Photo of LPG cylinders / Solane product display</div>
     </div>
   </section>
   <footer class="eco-footer">
@@ -266,7 +246,7 @@ const base = "/aurora-digital-foundry/clients/ecopetrol-aurora";
         <h4>For Business</h4>
         <ul>
           <li><a href={`${base}/fleet`}>Fleet Accounts</a></li>
-          <li><a href={`${base}/lpg`}>Commercial LPG</a></li>
+          <li><a href={`${base}/franchise`}>Franchise</a></li>
           <li><a href={`${base}/contact`}>Contact Us</a></li>
         </ul>
       </div>
