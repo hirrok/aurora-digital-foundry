@@ -1,30 +1,30 @@
----
+﻿---
 import ShellLayout from '../../../layouts/ShellLayout.astro';
 const base = "/aurora-digital-foundry/clients/ecopetrol-aurora";
 ---
 <ShellLayout title="Branches — Ecopetrol Aurora" description="Find your nearest Ecopetrol branch across Aurora Province.">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Barlow:wght@400;500;600&display=swap');
-  :root { --red:#C41E2A; --green:#1A5C2A; --charcoal:#111; --off-white:#F7F7F5; --gray:#444; --border:#E0E0E0; --white:#fff; --fd:'Barlow Condensed',sans-serif; --fb:'Barlow',sans-serif; }
+  :root { --blue:#005BAC; --green:#1A5C2A; --charcoal:#111; --off-white:#F7F7F5; --gray:#444; --border:#E0E0E0; --white:#fff; --fd:'Barlow Condensed',sans-serif; --fb:'Barlow',sans-serif; }
   * { box-sizing:border-box; margin:0; padding:0; }
   body { font-family:var(--fb); color:var(--charcoal); }
-  nav { background:var(--charcoal); display:flex; align-items:center; justify-content:space-between; padding:0 2rem; height:64px; border-bottom:3px solid var(--red); }
+  nav { background:var(--charcoal); display:flex; align-items:center; justify-content:space-between; padding:0 2rem; height:64px; border-bottom:3px solid var(--blue); }
   .logo { font-family:var(--fd); font-size:1.4rem; font-weight:900; color:var(--white); text-decoration:none; display:flex; align-items:center; gap:0.4rem; }
-  .logo .dot { color:var(--red); font-size:2rem; line-height:0; }
+  .logo .dot { color:var(--blue); font-size:2rem; line-height:0; }
   .nav-links { display:flex; gap:1.5rem; list-style:none; }
   .nav-links a { color:#CCC; text-decoration:none; font-family:var(--fd); font-size:0.9rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; }
-  .nav-links .cta { background:var(--red); color:var(--white)!important; padding:0.4rem 1rem; }
+  .nav-links .cta { background:var(--blue); color:var(--white)!important; padding:0.4rem 1rem; }
   .page-hero { background:var(--charcoal); color:var(--white); padding:4rem 2rem; }
   .page-hero-inner { max-width:1200px; margin:0 auto; }
-  .eyebrow { font-family:var(--fd); font-size:0.75rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--red); margin-bottom:0.75rem; display:flex; align-items:center; gap:0.5rem; }
-  .eyebrow::before { content:''; display:block; width:1.5rem; height:2px; background:var(--red); }
+  .eyebrow { font-family:var(--fd); font-size:0.75rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--blue); margin-bottom:0.75rem; display:flex; align-items:center; gap:0.5rem; }
+  .eyebrow::before { content:''; display:block; width:1.5rem; height:2px; background:var(--blue); }
   h1 { font-family:var(--fd); font-size:clamp(2.5rem,5vw,4rem); font-weight:900; text-transform:uppercase; line-height:0.95; }
   .page-sub { font-size:1rem; color:#CCC; margin-top:1rem; max-width:560px; line-height:1.6; }
   .section { padding:4rem 2rem; }
   .section-inner { max-width:1200px; margin:0 auto; }
   .branches-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1.5rem; }
   .branch-card { background:var(--white); border:1px solid var(--border); padding:2rem; display:flex; flex-direction:column; gap:1rem; }
-  .branch-number { font-family:var(--fd); font-size:0.7rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--red); }
+  .branch-number { font-family:var(--fd); font-size:0.7rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--blue); }
   .branch-name { font-family:var(--fd); font-size:1.3rem; font-weight:800; text-transform:uppercase; }
   .branch-meta { font-size:0.85rem; color:var(--gray); line-height:1.8; }
   .tags { display:flex; gap:0.4rem; flex-wrap:wrap; }
@@ -33,7 +33,7 @@ const base = "/aurora-digital-foundry/clients/ecopetrol-aurora";
   .map-placeholder { background:var(--off-white); border:1px solid var(--border); height:180px; display:flex; align-items:center; justify-content:center; font-family:var(--fd); font-size:0.8rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:#999; }
   .branch-ctas { display:flex; gap:0.75rem; }
   .btn-sm { font-family:var(--fd); font-size:0.8rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding:0.5rem 1rem; text-decoration:none; display:inline-block; }
-  .btn-red { background:var(--red); color:var(--white); }
+  .btn-red { background:var(--blue); color:var(--white); }
   .btn-border { background:transparent; border:1px solid var(--border); color:var(--charcoal); }
   footer { background:#0A0A0A; color:var(--white); padding:2rem; text-align:center; }
   footer p { font-size:0.8rem; color:#555; }
