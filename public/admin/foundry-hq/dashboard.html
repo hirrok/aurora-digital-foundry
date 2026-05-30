@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Foundry HQ — Operator Admin</title>
+  <style>
+    :root {
+      --black:  #0a0a0a;
+      --mid:    #1a1a1a;
+      --mid2:   #242424;
+      --aurora: #00c9a7;
+      --aurora2:#845ec2;
+      --gold:   #e8c547;
+      --white:  #f5f4f0;
+      --text:   rgba(245,244,240,0.7);
+      --border: rgba(255,255,255,0.08);
+      --red:    #ff5f57;
+      --green:  #28c840;
+      --ff:     'Inter','Helvetica Neue',Arial,sans-serif;
+      --mono:   'JetBrains Mono','Fira Code',monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--ff); background: var(--black); color: var(--white); min-height: 100vh; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── LOGIN ── */
+    #login-screen {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--black);
+    }
+    .login-box {
+      background: var(--mid);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 48px 40px;
+      width: 100%; max-width: 400px;
+      text-align: center;
+    }
+    .login-logo {
+      width: 48px; height: 48px;
+      background: linear-gradient(135deg, var(--aurora), var(--aurora2));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 1rem; color: var(--black);
+      margin: 0 auto 20px;
+    }
+    .login-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 6px; }
+    .login-sub { font-size: 0.8rem; color: var(--text); font-family: var(--mono); margin-bottom: 32px; letter-spacing: 0.05em; }
+    .login-box input {
+      width: 100%; padding: 12px 16px;
+      background: var(--black); border: 1px solid var(--border);
+      border-radius: 6px; color: var(--white); font-size: 0.9rem;
+      margin-bottom: 12px; outline: none;
+    }
+    .login-box input:focus { border-color: var(--aurora); }
+    .login-btn {
+      width: 100%; padding: 13px;
+      background: var(--aurora); color: var(--black);
+      border: none; border-radius: 6px;
+      font-weight: 700; font-size: 0.9rem; cursor: pointer;
+      transition: background 0.2s;
+    }
+    .login-btn:hover { background: #00e8c1; }
+    .login-error { color: var(--red); font-size: 0.8rem; margin-top: 10px; display: none; }
+
+    /* ── SHELL ── */
+    #app { display: none; }
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 60px;
+      background: rgba(10,10,10,0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 28px;
+    }
+    .topbar-left { display: flex; align-items: center; gap: 12px; }
+    .topbar-mark {
+      width: 30px; height: 30px;
+      background: linear-gradient(135deg, var(--aurora), var(--aurora2));
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 0.7rem; color: var(--black);
+    }
+    .topbar-name { font-size: 0.88rem; font-weight: 700; }
+    .topbar-name span { color: var(--aurora); }
+    .topbar-badge {
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--aurora);
+      border: 1px solid var(--aurora); padding: 3px 10px; border-radius: 2px;
+    }
+    .topbar-right { display: flex; align-items: center; gap: 16px; }
+    .logout-btn {
+      font-size: 0.75rem; color: var(--text); cursor: pointer;
+      font-family: var(--mono); letter-spacing: 0.05em;
+      padding: 6px 14px; border: 1px solid var(--border); border-radius: 4px;
+      background: none; transition: all 0.2s;
+    }
+    .logout-btn:hover { border-color: var(--red); color: var(--red); }
+
+    /* ── SIDEBAR ── */
+    .layout { display: flex; margin-top: 60px; min-height: calc(100vh - 60px); }
+    .sidebar {
+      width: 220px; flex-shrink: 0;
+      background: var(--mid); border-right: 1px solid var(--border);
+      padding: 28px 16px;
+      position: fixed; top: 60px; bottom: 0;
+      overflow-y: auto;
+    }
+    .sidebar-section {
+      font-family: var(--mono); font-size: 0.58rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(245,244,240,0.35); margin-bottom: 8px; padding: 0 10px;
+    }
+    .nav-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 12px; border-radius: 6px; cursor: pointer;
+      font-size: 0.83rem; color: var(--text);
+      transition: all 0.15s; margin-bottom: 2px;
+      border: none; background: none; width: 100%; text-align: left;
+    }
+    .nav-item:hover { background: var(--mid2); color: var(--white); }
+    .nav-item.active { background: rgba(0,201,167,0.12); color: var(--aurora); }
+    .nav-icon { font-size: 1rem; }
+    .sidebar-divider { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+
+    /* ── MAIN ── */
+    .main { margin-left: 220px; padding: 36px 40px; flex: 1; }
+    .panel { display: none; }
+    .panel.active { display: block; }
+    .panel-title {
+      font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+    .panel-sub { font-size: 0.85rem; color: var(--text); margin-bottom: 32px; }
+
+    /* ── FORM CARD ── */
+    .form-card {
+      background: var(--mid); border: 1px solid var(--border);
+      border-radius: 10px; padding: 32px; max-width: 680px;
+      margin-bottom: 32px;
+    }
+    .form-card-title {
+      font-family: var(--mono); font-size: 0.65rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--aurora); margin-bottom: 24px;
+      padding-bottom: 12px; border-bottom: 1px solid var(--border);
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .form-row.single { grid-template-columns: 1fr; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label {
+      font-size: 0.75rem; font-weight: 600;
+      color: var(--text); letter-spacing: 0.02em;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      background: var(--black); border: 1px solid var(--border);
+      border-radius: 6px; padding: 10px 14px;
+      color: var(--white); font-size: 0.85rem; font-family: var(--ff);
+      outline: none; transition: border-color 0.2s;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: var(--aurora);
+    }
+    .form-group select option { background: var(--mid); }
+    .submit-btn {
+      margin-top: 8px; padding: 12px 28px;
+      background: var(--aurora); color: var(--black);
+      border: none; border-radius: 6px;
+      font-weight: 700; font-size: 0.85rem; cursor: pointer;
+      transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px;
+    }
+    .submit-btn:hover { background: #00e8c1; transform: translateY(-1px); }
+    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .form-msg {
+      margin-top: 12px; font-size: 0.8rem; font-family: var(--mono);
+      padding: 8px 14px; border-radius: 4px; display: none;
+    }
+    .form-msg.ok  { background: rgba(40,200,64,0.12); color: var(--green); border: 1px solid rgba(40,200,64,0.3); }
+    .form-msg.err { background: rgba(255,95,87,0.12);  color: var(--red);   border: 1px solid rgba(255,95,87,0.3); }
+
+    /* ── TABLE ── */
+    .data-table-wrap { overflow-x: auto; }
+    .data-table {
+      width: 100%; border-collapse: collapse; font-size: 0.82rem;
+    }
+    .data-table th {
+      padding: 10px 16px; text-align: left;
+      font-family: var(--mono); font-size: 0.6rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text); border-bottom: 1px solid var(--border);
+      background: rgba(0,0,0,0.3);
+    }
+    .data-table td {
+      padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.04);
+      color: rgba(245,244,240,0.85);
+    }
+    .data-table tr:hover td { background: rgba(0,201,167,0.04); }
+    .pill {
+      display: inline-block; padding: 3px 10px; border-radius: 20px;
+      font-size: 0.68rem; font-weight: 600;
+    }
+    .pill-hot     { background:rgba(232,197,71,0.15);  color:var(--gold);   border:1px solid rgba(232,197,71,0.3); }
+    .pill-warm    { background:rgba(0,201,167,0.12);   color:var(--aurora); border:1px solid rgba(0,201,167,0.3); }
+    .pill-cold    { background:rgba(255,255,255,0.06); color:var(--text);   border:1px solid var(--border); }
+    .pill-won     { background:rgba(40,200,64,0.15);   color:var(--green);  border:1px solid rgba(40,200,64,0.3); }
+    .pill-pending { background:rgba(132,94,194,0.15);  color:#845ec2;       border:1px solid rgba(132,94,194,0.3); }
+    .pill-active  { background:rgba(0,201,167,0.12);   color:var(--aurora); border:1px solid rgba(0,201,167,0.3); }
+    .pill-new     { background:rgba(232,197,71,0.15);  color:var(--gold);   border:1px solid rgba(232,197,71,0.3); }
+
+    /* ── KPI STRIP ── */
+    .kpi-strip { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-bottom: 32px; }
+    .kpi-card {
+      background: var(--mid); border: 1px solid var(--border);
+      border-radius: 10px; padding: 20px 22px;
+    }
+    .kpi-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text); margin-bottom: 8px; }
+    .kpi-val { font-size: 1.6rem; font-weight: 800; letter-spacing: -0.02em; }
+    .kpi-val.green { color: var(--aurora); }
+    .kpi-val.gold  { color: var(--gold); }
+    .refresh-btn {
+      font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.08em;
+      padding: 7px 16px; border: 1px solid var(--border);
+      border-radius: 4px; background: none; color: var(--text);
+      cursor: pointer; transition: all 0.2s; margin-bottom: 20px;
+    }
+    .refresh-btn:hover { border-color: var(--aurora); color: var(--aurora); }
+  </style>
+</head>
+<body>
+
+<!-- ── LOGIN ─────────────────────────────────────────────────────────── -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">ADF</div>
+    <div class="login-title">Operator Admin</div>
+    <div class="login-sub">Aurora Digital Foundry · Internal</div>
+    <input type="password" id="pw-input" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()" />
+    <button class="login-btn" onclick="doLogin()">Enter</button>
+    <div class="login-error" id="login-err">Incorrect password.</div>
+  </div>
+</div>
+
+<!-- ── APP ───────────────────────────────────────────────────────────── -->
+<div id="app">
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-mark">ADF</div>
+      <div class="topbar-name">Aurora <span>Digital</span> Foundry</div>
+      <div class="topbar-badge">Operator Admin</div>
+    </div>
+    <div class="topbar-right">
+      <button class="logout-btn" onclick="doLogout()">Log Out</button>
+    </div>
+  </div>
+
+  <div class="layout">
+    <div class="sidebar">
+      <div class="sidebar-section">Overview</div>
+      <button class="nav-item active" onclick="switchPanel('dashboard')">
+        <span class="nav-icon">⬡</span> Dashboard
+      </button>
+      <hr class="sidebar-divider">
+      <div class="sidebar-section">Add Data</div>
+      <button class="nav-item" onclick="switchPanel('add-lead')">
+        <span class="nav-icon">👤</span> Add Lead
+      </button>
+      <button class="nav-item" onclick="switchPanel('add-job')">
+        <span class="nav-icon">🔧</span> Add Job
+      </button>
+      <button class="nav-item" onclick="switchPanel('add-revenue')">
+        <span class="nav-icon">₱</span> Log Revenue
+      </button>
+      <hr class="sidebar-divider">
+      <div class="sidebar-section">Inbound</div>
+      <button class="nav-item" onclick="switchPanel('recon-requests')">
+        <span class="nav-icon">📥</span> Recon Requests
+      </button>
+      <hr class="sidebar-divider">
+      <div class="sidebar-section">Links</div>
+      <button class="nav-item" onclick="window.open('https://hirrok.github.io/aurora-digital-foundry/foundry-hq.html','_blank')">
+        <span class="nav-icon">🌐</span> Live HQ
+      </button>
+    </div>
+
+    <div class="main">
+
+      <!-- DASHBOARD -->
+      <div class="panel active" id="panel-dashboard">
+        <div class="panel-title">Ops Dashboard</div>
+        <div class="panel-sub">Live data from your Google Sheet backend.</div>
+        <button class="refresh-btn" onclick="loadDashboard()">↻ Refresh</button>
+        <div class="kpi-strip" id="dash-kpis">
+          <div class="kpi-card"><div class="kpi-label">Active Leads</div><div class="kpi-val green" id="kpi-leads">—</div></div>
+          <div class="kpi-card"><div class="kpi-label">Revenue MTD</div><div class="kpi-val" id="kpi-rev">—</div></div>
+          <div class="kpi-card"><div class="kpi-label">Open Jobs</div><div class="kpi-val gold" id="kpi-jobs">—</div></div>
+          <div class="kpi-card"><div class="kpi-label">Hot Pipeline</div><div class="kpi-val green" id="kpi-pipeline">—</div></div>
+        </div>
+        <div class="form-card">
+          <div class="form-card-title">Recent Leads</div>
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Contact</th><th>Business</th><th>Source</th><th>Value</th><th>Stage</th><th>Last Touch</th></tr></thead>
+              <tbody id="dash-leads-body"><tr><td colspan="6" style="color:var(--text);padding:20px;">Loading…</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="form-card">
+          <div class="form-card-title">Active Jobs</div>
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Job</th><th>Type</th><th>Due</th><th>Value</th><th>Status</th></tr></thead>
+              <tbody id="dash-jobs-body"><tr><td colspan="5" style="color:var(--text);padding:20px;">Loading…</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ADD LEAD -->
+      <div class="panel" id="panel-add-lead">
+        <div class="panel-title">Add Lead</div>
+        <div class="panel-sub">Log a new prospect into the pipeline.</div>
+        <div class="form-card">
+          <div class="form-card-title">Lead Details</div>
+          <form id="form-lead" onsubmit="submitForm(event,'lead')">
+            <div class="form-row">
+              <div class="form-group"><label>Contact Name *</label><input name="contact" required placeholder="Maria Santos" /></div>
+              <div class="form-group"><label>Business Name *</label><input name="business" required placeholder="Santos Trading Co." /></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Source</label>
+                <select name="source">
+                  <option>Referral</option><option>Facebook</option><option>Instagram</option>
+                  <option>Google</option><option>Direct</option><option>Walk-in</option><option>Other</option>
+                </select>
+              </div>
+              <div class="form-group"><label>Deal Value (₱)</label><input name="value" type="number" placeholder="24000" /></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Stage</label>
+                <select name="stage">
+                  <option>Hot</option><option>Warm</option><option>Proposal</option>
+                  <option selected>Cold</option><option>Won</option><option>Lost</option>
+                </select>
+              </div>
+              <div class="form-group"><label>Last Touch Date</label><input name="lastTouch" type="date" /></div>
+            </div>
+            <div class="form-row single">
+              <div class="form-group"><label>Notes</label><textarea name="notes" rows="3" placeholder="Context, next action, referrer…"></textarea></div>
+            </div>
+            <button type="submit" class="submit-btn">Add Lead ↗</button>
+            <div class="form-msg" id="msg-lead"></div>
+          </form>
+        </div>
+      </div>
+
+      <!-- ADD JOB -->
+      <div class="panel" id="panel-add-job">
+        <div class="panel-title">Add Job</div>
+        <div class="panel-sub">Log a new active build or project.</div>
+        <div class="form-card">
+          <div class="form-card-title">Job Details</div>
+          <form id="form-job" onsubmit="submitForm(event,'job')">
+            <div class="form-row single">
+              <div class="form-group"><label>Job Name *</label><input name="name" required placeholder="Ecopetrol Aurora — Phase 2" /></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Type</label>
+                <select name="jobType">
+                  <option>Infrastructure Build</option><option>Layer 1–2 Deploy</option>
+                  <option>Form Backend + CRM</option><option>Ops Dashboard</option>
+                  <option>Recon / Discovery</option><option>Maintenance</option><option>Other</option>
+                </select>
+              </div>
+              <div class="form-group"><label>Status</label>
+                <select name="status">
+                  <option>In Progress</option><option>Active</option>
+                  <option selected>Scheduled</option><option>Complete</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Start Date</label><input name="startDate" type="date" /></div>
+              <div class="form-group"><label>Due Date</label><input name="dueDate" type="date" /></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Value (₱)</label><input name="value" type="number" placeholder="45000" /></div>
+              <div class="form-group"><label>Client</label><input name="notes" placeholder="Ecopetrol Aurora" /></div>
+            </div>
+            <button type="submit" class="submit-btn">Add Job ↗</button>
+            <div class="form-msg" id="msg-job"></div>
+          </form>
+        </div>
+      </div>
+
+      <!-- LOG REVENUE -->
+      <div class="panel" id="panel-add-revenue">
+        <div class="panel-title">Log Revenue</div>
+        <div class="panel-sub">Record collected payments and completed invoices.</div>
+        <div class="form-card">
+          <div class="form-card-title">Revenue Entry</div>
+          <form id="form-revenue" onsubmit="submitForm(event,'revenue')">
+            <div class="form-row">
+              <div class="form-group"><label>Date *</label><input name="date" type="date" required /></div>
+              <div class="form-group"><label>Amount (₱) *</label><input name="amount" type="number" required placeholder="45000" /></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Category</label>
+                <select name="category">
+                  <option>Infrastructure Builds</option>
+                  <option>Retainer / Maintenance</option>
+                  <option>Add-ons & Systems</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="form-group"><label>Client *</label><input name="client" required placeholder="Ecopetrol Aurora" /></div>
+            </div>
+            <div class="form-row single">
+              <div class="form-group"><label>Notes</label><textarea name="notes" rows="2" placeholder="Invoice #, payment method, partial payment…"></textarea></div>
+            </div>
+            <button type="submit" class="submit-btn">Log Revenue ↗</button>
+            <div class="form-msg" id="msg-revenue"></div>
+          </form>
+        </div>
+      </div>
+
+      <!-- RECON REQUESTS -->
+      <div class="panel" id="panel-recon-requests">
+        <div class="panel-title">Recon Requests</div>
+        <div class="panel-sub">Inbound requests from the Foundry HQ contact form.</div>
+        <button class="refresh-btn" onclick="loadReconRequests()">↻ Refresh</button>
+        <div class="form-card">
+          <div class="form-card-title">All Submissions</div>
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Date</th><th>Name</th><th>Business</th><th>Industry</th><th>Email</th><th>Phone</th><th>Status</th></tr></thead>
+              <tbody id="recon-body"><tr><td colspan="7" style="color:var(--text);padding:20px;">Loading…</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /main -->
+  </div><!-- /layout -->
+</div><!-- /app -->
+
+<script>
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxBeAlrKs5Vhn3dgfKHs-61tiYU034NSboF78NakWapc4Vhlquq7oqMsB_QrCJz8Lkr/exec';
+  const ADMIN_PW   = 'foundry2026'; // ← change this
+
+  // ── AUTH ──────────────────────────────────────────────────────────────────
+  function doLogin() {
+    const pw = document.getElementById('pw-input').value;
+    if (pw === ADMIN_PW) {
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('app').style.display = 'block';
+      loadDashboard();
+    } else {
+      document.getElementById('login-err').style.display = 'block';
+      document.getElementById('pw-input').value = '';
+    }
+  }
+  function doLogout() {
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('app').style.display = 'none';
+    document.getElementById('pw-input').value = '';
+  }
+  document.getElementById('pw-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') doLogin();
+  });
+
+  // ── NAV ───────────────────────────────────────────────────────────────────
+  function switchPanel(name) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.getElementById('panel-' + name).classList.add('active');
+    event.currentTarget.classList.add('active');
+    if (name === 'recon-requests') loadReconRequests();
+  }
+
+  // ── DASHBOARD DATA ────────────────────────────────────────────────────────
+  async function loadDashboard() {
+    try {
+      const res  = await fetch(SCRIPT_URL);
+      const data = await res.json();
+
+      // KPIs
+      const k = data.kpis || {};
+      document.getElementById('kpi-leads').textContent    = k.activeLeads ?? '—';
+      document.getElementById('kpi-rev').textContent      = k.revMTD ? '₱' + Number(k.revMTD).toLocaleString() : '—';
+      document.getElementById('kpi-jobs').textContent     = k.openJobs ?? '—';
+      document.getElementById('kpi-pipeline').textContent = k.hotPipeline ? '₱' + Number(k.hotPipeline).toLocaleString() : '—';
+
+      // Leads table
+      const lbody = document.getElementById('dash-leads-body');
+      if (data.leads && data.leads.length) {
+        lbody.innerHTML = data.leads.slice(0,10).map(l => `
+          <tr>
+            <td><strong>${l.contact}</strong></td>
+            <td>${l.business}</td>
+            <td>${l.source}</td>
+            <td>₱${Number(l.value).toLocaleString()}</td>
+            <td>${pillFor(l.stage)}</td>
+            <td>${l.lastTouch}</td>
+          </tr>`).join('');
+      } else {
+        lbody.innerHTML = '<tr><td colspan="6" style="color:var(--text);padding:20px;">No leads yet. Add your first one →</td></tr>';
+      }
+
+      // Jobs table
+      const jbody = document.getElementById('dash-jobs-body');
+      if (data.jobs && data.jobs.length) {
+        jbody.innerHTML = data.jobs.map(j => `
+          <tr>
+            <td><strong>${j.name}</strong></td>
+            <td>${j.type}</td>
+            <td>${j.due}</td>
+            <td>₱${Number(j.value).toLocaleString()}</td>
+            <td>${pillFor(j.status)}</td>
+          </tr>`).join('');
+      } else {
+        jbody.innerHTML = '<tr><td colspan="5" style="color:var(--text);padding:20px;">No jobs yet. Add your first one →</td></tr>';
+      }
+    } catch (err) {
+      document.getElementById('kpi-leads').textContent = 'Err';
+      console.error(err);
+    }
+  }
+
+  // ── RECON REQUESTS ────────────────────────────────────────────────────────
+  async function loadReconRequests() {
+    const tbody = document.getElementById('recon-body');
+    tbody.innerHTML = '<tr><td colspan="7" style="color:var(--text);padding:20px;">Loading…</td></tr>';
+    try {
+      const res  = await fetch(SCRIPT_URL + '?sheet=recon');
+      const data = await res.json();
+      // The doGet doesn't return recon data yet — handled by showing Sheet link
+      tbody.innerHTML = `<tr><td colspan="7" style="color:var(--text);padding:20px 16px;">
+        View live in your Google Sheet →
+        <a href="https://docs.google.com/spreadsheets/d/${data.sheetId || ''}/edit#gid=0"
+           target="_blank" style="color:var(--aurora);margin-left:8px;">Open Sheet ↗</a>
+      </td></tr>`;
+    } catch {
+      tbody.innerHTML = '<tr><td colspan="7" style="color:var(--text);padding:20px;">Could not load. Check Apps Script.</td></tr>';
+    }
+  }
+
+  // ── FORM SUBMIT ───────────────────────────────────────────────────────────
+  async function submitForm(e, type) {
+    e.preventDefault();
+    const form = e.target;
+    const btn  = form.querySelector('button[type="submit"]');
+    const msg  = document.getElementById('msg-' + type);
+
+    const payload = { type };
+    new FormData(form).forEach((v, k) => payload[k] = v);
+
+    btn.disabled = true;
+    btn.textContent = 'Saving…';
+    msg.style.display = 'none';
+
+    try {
+      const res  = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload) });
+      const data = await res.json();
+
+      if (data.status === 'ok') {
+        msg.className = 'form-msg ok';
+        msg.textContent = '✓ ' + data.message;
+        form.reset();
+        if (type === 'lead' || type === 'job') {
+          // Set today's date back in date fields
+          form.querySelectorAll('input[type="date"]').forEach(f => {
+            f.value = new Date().toISOString().slice(0,10);
+          });
+        }
+      } else {
+        msg.className = 'form-msg err';
+        msg.textContent = '✗ ' + (data.message || 'Error. Try again.');
+      }
+    } catch (err) {
+      msg.className = 'form-msg err';
+      msg.textContent = '✗ Network error. Check your connection.';
+    }
+
+    msg.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = type === 'lead' ? 'Add Lead ↗' : type === 'job' ? 'Add Job ↗' : 'Log Revenue ↗';
+  }
+
+  // ── HELPERS ───────────────────────────────────────────────────────────────
+  function pillFor(stage) {
+    const map = {
+      'Hot':'pill-hot','Warm':'pill-warm','Cold':'pill-cold',
+      'Won':'pill-won','Lost':'pill-cold','Proposal':'pill-pending',
+      'In Progress':'pill-active','Active':'pill-warm',
+      'Scheduled':'pill-pending','Complete':'pill-won',
+      'New':'pill-new',
+    };
+    return `<span class="pill ${map[stage]||'pill-cold'}">${stage}</span>`;
+  }
+
+  // Set today's date as default on date inputs
+  document.querySelectorAll('input[type="date"]').forEach(f => {
+    f.value = new Date().toISOString().slice(0,10);
+  });
+</script>
+
+</body>
+</html>
