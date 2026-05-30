@@ -1521,24 +1521,18 @@
           <div class="ops-live-badge">● LIVE</div>
         </div>
         <div class="ops-kpi-strip">
-          <div class="ops-kpi"><div class="ops-kpi-label">Active Leads</div><div class="ops-kpi-val green">24</div><div class="ops-kpi-delta">↑ 6 this week</div></div>
-          <div class="ops-kpi"><div class="ops-kpi-label">Revenue MTD</div><div class="ops-kpi-val">₱148,500</div><div class="ops-kpi-delta">↑ 18% vs last month</div></div>
-          <div class="ops-kpi"><div class="ops-kpi-label">Open Jobs</div><div class="ops-kpi-val gold">7</div><div class="ops-kpi-delta">2 due this week</div></div>
-          <div class="ops-kpi"><div class="ops-kpi-label">Conversion Rate</div><div class="ops-kpi-val green">68%</div><div class="ops-kpi-delta">↑ 4pts from baseline</div></div>
+          <div class="ops-kpi"><div class="ops-kpi-label">Active Leads</div><div class="ops-kpi-val green" id="hud-leads">—</div><div class="ops-kpi-delta">In pipeline</div></div>
+          <div class="ops-kpi"><div class="ops-kpi-label">Revenue MTD</div><div class="ops-kpi-val" id="hud-rev">—</div><div class="ops-kpi-delta">This month</div></div>
+          <div class="ops-kpi"><div class="ops-kpi-label">Open Jobs</div><div class="ops-kpi-val gold" id="hud-jobs">—</div><div class="ops-kpi-delta" id="hud-jobs-sub"> </div></div>
+          <div class="ops-kpi"><div class="ops-kpi-label">Hot Pipeline</div><div class="ops-kpi-val green" id="hud-pipeline">—</div><div class="ops-kpi-delta">Active leads</div></div>
         </div>
         <div class="ops-table-wrap">
           <table class="ops-table">
-            <thead><tr><th>Action Item</th><th>Priority</th><th>Owner</th><th>Due</th><th>Status</th></tr></thead>
-            <tbody>
-              <tr><td>Follow up: Santos inquiry (₱24k scope)</td><td>🔴 High</td><td>Hirro</td><td>Today</td><td><span class="status-pill pill-hot">Urgent</span></td></tr>
-              <tr><td>Send proposal: Dela Cruz Bakery</td><td>🟡 Medium</td><td>Hirro</td><td>Jun 2</td><td><span class="status-pill pill-warm">Drafted</span></td></tr>
-              <tr><td>Verify Ecopetrol branch addresses</td><td>🟡 Medium</td><td>H</td><td>Jun 3</td><td><span class="status-pill pill-pending">Pending</span></td></tr>
-              <tr><td>Review Aliya Surf Camp room rates</td><td>🟢 Low</td><td>Hirro</td><td>Jun 7</td><td><span class="status-pill pill-cold">Waiting</span></td></tr>
-              <tr><td>Deploy Nalu Surf Camp contact form</td><td>🟢 Low</td><td>H</td><td>Jun 10</td><td><span class="status-pill pill-cold">Queued</span></td></tr>
-            </tbody>
+            <thead><tr><th>Active Job</th><th>Type</th><th>Due</th><th>Value</th><th>Status</th></tr></thead>
+            <tbody id="hud-jobs-body"><tr><td colspan="5" style="color:var(--text);padding:16px;">Loading…</td></tr></tbody>
           </table>
         </div>
-        <div class="ops-notice">⬡ MOCK DATA — Aurora Operator Suite Demo · Live builds connect to real backend</div>
+        <div class="ops-notice" id="ops-notice-hud">⬡ Loading live data…</div>
       </div>
     </div>
 
@@ -1622,23 +1616,17 @@
           <div class="ops-kpi"><div class="ops-kpi-label">This Week Value</div><div class="ops-kpi-val">₱86,500</div><div class="ops-kpi-delta">↑ 22% vs last week</div></div>
           <div class="ops-kpi"><div class="ops-kpi-label">Capacity Used</div><div class="ops-kpi-val green">74%</div><div class="ops-kpi-delta">3 slots remaining</div></div>
         </div>
-        <div class="ops-booking-grid">
+        <div class="ops-booking-grid" id="booking-grid">
           <div class="ops-booking-col">
             <div class="ops-booking-col-title">Active Jobs</div>
-            <div class="booking-card"><div class="booking-name">Ecopetrol Aurora — Phase 2</div><div class="booking-meta">Infrastructure Build · Started May 20</div><div class="booking-footer"><span class="status-pill pill-active">In Progress</span><span class="booking-val">₱45,000</span></div></div>
-            <div class="booking-card"><div class="booking-name">Aliya Surf Camp — Finalization</div><div class="booking-meta">Layer 1–2 Deploy · Due Jun 5</div><div class="booking-footer"><span class="status-pill pill-active">In Progress</span><span class="booking-val">₱18,500</span></div></div>
-            <div class="booking-card"><div class="booking-name">Nalu Surf Camp — Contact Systems</div><div class="booking-meta">Form Backend + CRM · Due Jun 10</div><div class="booking-footer"><span class="status-pill pill-pending">Scheduled</span><span class="booking-val">₱12,000</span></div></div>
-            <div class="booking-card"><div class="booking-name">Santos Trading Co. — Recon</div><div class="booking-meta">Discovery Phase · Due Jun 2</div><div class="booking-footer"><span class="status-pill pill-warm">Active</span><span class="booking-val">₱8,000</span></div></div>
+            <div id="booking-active"><div style="color:var(--text);font-size:0.82rem;padding:12px 0;">Loading…</div></div>
           </div>
           <div class="ops-booking-col">
             <div class="ops-booking-col-title">Pending Confirmation</div>
-            <div class="booking-card"><div class="booking-name">Reyes Resort Panglao</div><div class="booking-meta">Full Infrastructure · Scope ₱95,000</div><div class="booking-footer"><span class="status-pill pill-pending">Awaiting Deposit</span><span class="booking-val">₱95,000</span></div></div>
-            <div class="booking-card"><div class="booking-name">Tan Fuel Services</div><div class="booking-meta">Layer 1–3 Build · Scope ₱48,000</div><div class="booking-footer"><span class="status-pill pill-pending">Proposal Sent</span><span class="booking-val">₱48,000</span></div></div>
-            <div class="booking-card"><div class="booking-name">Dela Cruz Bakery</div><div class="booking-meta">Presence + Lead Capture · Scope ₱18,500</div><div class="booking-footer"><span class="status-pill pill-hot">Hot — Follow Up</span><span class="booking-val">₱18,500</span></div></div>
-            <div class="booking-card"><div class="booking-name">Lim Hardware Supply</div><div class="booking-meta">Ops Dashboard · Scope ₱32,000</div><div class="booking-footer"><span class="status-pill pill-warm">Reviewing Proposal</span><span class="booking-val">₱32,000</span></div></div>
+            <div id="booking-pending"><div style="color:var(--text);font-size:0.82rem;padding:12px 0;">Loading…</div></div>
           </div>
         </div>
-        <div class="ops-notice">⬡ MOCK DATA — Aurora Operator Suite Demo · Live builds connect to real backend</div>
+        <div class="ops-notice" id="ops-notice-booking">⬡ Loading live data…</div>
       </div>
     </div>
 
@@ -1914,10 +1902,74 @@
     document.querySelectorAll('.ops-panel').forEach((p, i) => p.classList.toggle('active', i === index));
   }
 
-  // Boot: fetch data then render
+  function renderHUD() {
+    if (!OPS_DATA) return;
+    const k = OPS_DATA.kpis || {};
+    const el = id => document.getElementById(id);
+
+    el('hud-leads').textContent    = k.activeLeads ?? '—';
+    el('hud-rev').textContent      = k.revMTD ? fmt(k.revMTD) : '—';
+    el('hud-jobs').textContent     = k.openJobs ?? '—';
+    el('hud-pipeline').textContent = k.hotPipeline ? fmt(k.hotPipeline) : '—';
+
+    const jobs = (OPS_DATA.jobs || []).filter(j => j.status !== 'Complete');
+    const tbody = el('hud-jobs-body');
+    if (jobs.length) {
+      tbody.innerHTML = jobs.map(j => `
+        <tr>
+          <td><strong>${j.name}</strong></td>
+          <td>${j.type}</td>
+          <td>${j.due}</td>
+          <td>${fmt(j.value)}</td>
+          <td>${stagePill(j.status)}</td>
+        </tr>`).join('');
+    } else {
+      tbody.innerHTML = '<tr><td colspan="5" style="color:var(--text);padding:16px;">No active jobs. Add one via the admin panel.</td></tr>';
+    }
+    el('ops-notice-hud').textContent = '⬡ LIVE DATA — Aurora Operator Suite · Powered by Google Sheets';
+  }
+
+  function renderBookingQueue() {
+    if (!OPS_DATA) return;
+    const jobs = OPS_DATA.jobs || [];
+    const activeStatuses  = ['In Progress', 'Active'];
+    const pendingStatuses = ['Scheduled', 'Awaiting Deposit', 'Proposal Sent'];
+
+    const active  = jobs.filter(j => activeStatuses.includes(j.status));
+    const pending = jobs.filter(j => pendingStatuses.includes(j.status));
+
+    function card(j) {
+      return `<div class="booking-card">
+        <div class="booking-name">${j.name}</div>
+        <div class="booking-meta">${j.type}${j.due !== '—' ? ' · Due ' + j.due : ''}</div>
+        <div class="booking-footer">${stagePill(j.status)}<span class="booking-val">${fmt(j.value)}</span></div>
+      </div>`;
+    }
+
+    const aWrap = document.getElementById('booking-active');
+    const pWrap = document.getElementById('booking-pending');
+
+    aWrap.innerHTML = active.length  ? active.map(card).join('')  : '<div style="color:var(--text);font-size:0.82rem;padding:12px 0;">No active jobs.</div>';
+    pWrap.innerHTML = pending.length ? pending.map(card).join('') : '<div style="color:var(--text);font-size:0.82rem;padding:12px 0;">No pending jobs.</div>';
+
+    // Update KPI strip for booking panel dynamically
+    const kpis = document.querySelectorAll('#ops-panel-3 .ops-kpi-val');
+    const totalActive = active.length;
+    const totalPending = pending.length;
+    const weekVal = [...active, ...pending].reduce((s, j) => s + (parseFloat(j.value) || 0), 0);
+    if (kpis[0]) kpis[0].textContent = totalActive;
+    if (kpis[1]) kpis[1].textContent = totalPending;
+    if (kpis[2]) kpis[2].textContent = weekVal ? fmt(weekVal) : '—';
+
+    document.getElementById('ops-notice-booking').textContent = '⬡ LIVE DATA — Aurora Operator Suite · Powered by Google Sheets';
+  }
+
+  // Boot: fetch data then render all panels
   loadOpsData().then(() => {
+    renderHUD();
     renderCRM();
     renderRevenue();
+    renderBookingQueue();
   });
 
   /* ─── RECON FORM ─────────────────────────────────────────────────── */
