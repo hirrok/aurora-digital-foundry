@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <meta name="theme-color" content="#0D9E8A"/>
+  <title>Foundry Ops — Aurora Digital Foundry Internal</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230D9E8A'/><text y='24' x='4' font-size='22' font-family='Arial' font-weight='bold' fill='%23F4F8F7'>F</text></svg>"/>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    html, body, #root { margin: 0; padding: 0; min-height: 100vh; }
+    body { background: #F4F8F7; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+
+// ── TOKENS ────────────────────────────────────────────────────────────────────
+const T = {
+  // ── Sierra Teal Light — Aurora Province brand system ──
+  // Same teal, inverted surface. Seafoam paper in full daylight.
+  bg:"#F4F8F7",       surface:"#FFFFFF",   raised:"#EBF3F1",
+  border:"#D0E4E0",   borderHi:"#A8CEC8",
+  amber:"#0D9E8A",    amberLo:"#0A7A6A",   amberBg:"rgba(13,158,138,0.09)",
+  amberGlow:"rgba(13,158,138,0.09)",        amberSub:"rgba(13,158,138,0.05)",
+  green:"#0A8A40",    greenBg:"rgba(10,138,64,0.08)",
+  red:"#CC2222",      redBg:"rgba(204,34,34,0.08)",
+  blue:"#1A60A8",     blueBg:"rgba(26,96,168,0.08)",
+  steel:"#4A7070",    steelLo:"#8AACAA",
+  white:"#0E1C1A",    dim:"#4A6A68",
+  muted:"#4A6A68",
+};
+const F = {
+  mono:"'DM Mono','Courier New',monospace",
+  display:"'Bebas Neue','Impact',sans-serif",
+  serif:"'Lora','Georgia',serif",
+  body:"'Barlow',sans-serif",
+};
+
+// ── GRAIN (brand texture — matches public site) ───────────────────────────────
+function Grain() {
+  return (
+    <div style={{
+      position:"fixed", inset:0, pointerEvents:"none", zIndex:999, opacity:0.18,
+      backgroundImage:`url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E")`,
+      mixBlendMode:"multiply",
+    }}/>
+  );
+}
+
+// ── SPINE URL ─────────────────────────────────────────────────────────────────
+// Single source of truth — same value used by both Operator Suite and Public Site.
+// Paste your deployed Apps Script Web App URL here.
+const SPINE_URL = "";
+
+const adapter = {
+  async read(sheet) {
+    if (!SPINE_URL) return null; // offline — caller uses mock
+    try {
+      const r = await fetch(`${SPINE_URL}?sheet=${sheet}`);
+      const j = await r.json();
+      return j.ok ? j.data : null;
+    } catch { return null; }
+  },
+  async append(sheet, data) {
+    if (!SPINE_URL) return { ok:false, offline:true };
+    try {
+      const r = await fetch(SPINE_URL, {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({ action:"append", sheet, data }),
+      });
+      return await r.json();
+    } catch(e) { return { ok:false, error:e.message }; }
+  },
+  async updateRow(sheet, id, data) {
+    if (!SPINE_URL) return { ok:false, offline:true };
+    try {
+      const r = await fetch(SPINE_URL, {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({ action:"updateRow", sheet, id, data }),
+      });
+      return await r.json();
+    } catch(e) { return { ok:false, error:e.message }; }
+  },
+  async updateCell(sheet, id, field, value) {
+    if (!SPINE_URL) return { ok:false, offline:true };
+    try {
+      const r = await fetch(SPINE_URL, {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({ action:"update", sheet, id, field, value }),
+      });
+      return await r.json();
+    } catch(e) { return { ok:false, error:e.message }; }
+  },
+};
+
+// ── MOCK DATA (fallback when SPINE_URL is empty) ──────────────────────────────
+const MOCK_LEADS = [
+  { lead_id:"aliya-001",    name:"Aliya Surf Camp",      vertical:"Tourism·Surf",     location:"Sabang, Baler",    status:"DEMO",      stage:5, priority:"HIGH",   contact:"TODO",               estimated_fee:17500, next_action:"Collect rates + contact info", follow_up_date:"2026-06-02", notes:"5 pages live." },
+  { lead_id:"ecopetrol-001",name:"Ecopetrol Aurora",     vertical:"Energy Retail",    location:"Maria Aurora",     status:"DEMO",      stage:5, priority:"HIGH",   contact:"Jherico Aragon Lara", estimated_fee:40000, next_action:"Book presentation",            follow_up_date:"2026-06-02", notes:"8 pages. Pro." },
+  { lead_id:"nalu-001",     name:"Nalu Surf Camp",       vertical:"Tourism·Surf",     location:"Sabang, Baler",    status:"QUEUED",    stage:4, priority:"HIGH",   contact:"TODO",               estimated_fee:17500, next_action:"Finish demo → walk-in",        follow_up_date:"2026-06-03", notes:"Scratch build." },
+  { lead_id:"rosita-001",   name:"Hotel Rosita",         vertical:"Hospitality",      location:"Lucena City",      status:"PITCH",     stage:6, priority:"HIGH",   contact:"Manager on duty",    estimated_fee:24000, next_action:"72hr follow-up — decide",      follow_up_date:"2026-06-01", notes:"Pitch done." },
+  { lead_id:"qm-001",       name:"Queen Margarette",     vertical:"Food·Hospitality", location:"Lucena City",      status:"PITCH",     stage:6, priority:"HIGH",   contact:"Manager on duty",    estimated_fee:17500, next_action:"Close — v5 approved",          follow_up_date:"2026-06-01", notes:"v5 approved." },
+  { lead_id:"iron-001",     name:"Iron Tribe Fitness",   vertical:"Fitness",          location:"Malvar, Batangas", status:"STRATEGIC", stage:5, priority:"LOW",    contact:"Third / Louie",      estimated_fee:0,     next_action:"Debrief feedback",             follow_up_date:"2026-06-03", notes:"Family." },
+  { lead_id:"catalino-001", name:"Catalino's Restaurant",vertical:"Food",             location:"Lucena City",      status:"PROSPECT",  stage:1, priority:"MEDIUM", contact:"TODO",               estimated_fee:20000, next_action:"Build Ember demo",             follow_up_date:"2026-06-07", notes:"Landmark." },
+  { lead_id:"brothers-001", name:"Brothers Seafood",     vertical:"Food",             location:"Lucena City",      status:"PROSPECT",  stage:1, priority:"MEDIUM", contact:"TODO",               estimated_fee:15000, next_action:"Build Ember demo",             follow_up_date:"2026-06-07", notes:"Top-ranked." },
+  { lead_id:"palaisdaan-001",name:"Palaisdaan",          vertical:"Food",             location:"Lucena City",      status:"PROSPECT",  stage:1, priority:"MEDIUM", contact:"TODO",               estimated_fee:20000, next_action:"Recon + demo",                 follow_up_date:"2026-06-10", notes:"Fish pond restaurant." },
+];
+
+const MOCK_FOLLOWUPS = [
+  { followup_id:"fu-001", lead_id:"rosita-001",    client_name:"Hotel Rosita",      type:"72HR",    due_date:"2026-06-01", action:"Confirm decision on demo", status:"OVERDUE" },
+  { followup_id:"fu-002", lead_id:"qm-001",        client_name:"Queen Margarette",  type:"72HR",    due_date:"2026-06-01", action:"Close — v5 approved. Get the sig.", status:"OVERDUE" },
+  { followup_id:"fu-003", lead_id:"aliya-001",     client_name:"Aliya Surf Camp",   type:"7DAY",    due_date:"2026-06-02", action:"Collect rates, phone, email", status:"PENDING" },
+  { followup_id:"fu-004", lead_id:"ecopetrol-001", client_name:"Ecopetrol Aurora",  type:"24HR",    due_date:"2026-06-02", action:"Book presentation slot", status:"PENDING" },
+  { followup_id:"fu-005", lead_id:"nalu-001",      client_name:"Nalu Surf Camp",    type:"BUILD",   due_date:"2026-06-03", action:"Ship demo — walk-in ready", status:"PENDING" },
+  { followup_id:"fu-006", lead_id:"iron-001",      client_name:"Iron Tribe Fitness",type:"DEBRIEF", due_date:"2026-06-03", action:"Get feedback from Third & Louie", status:"PENDING" },
+];
+
+// ── UTILS ─────────────────────────────────────────────────────────────────────
+function useIsMobile() {
+  const [m, setM] = useState(window.innerWidth < 680);
+  useEffect(() => {
+    const h = () => setM(window.innerWidth < 680);
+    window.addEventListener("resize", h);
+    return () => window.removeEventListener("resize", h);
+  }, []);
+  return m;
+}
+
+function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+
+function statusColor(s) {
+  return { DEMO:T.amber, PITCH:T.green, QUEUED:T.blue, STRATEGIC:T.steel, PROSPECT:T.steelLo, OVERDUE:T.red, PENDING:T.dim, BUILDING:T.blue }[s] || T.steelLo;
+}
+function priorityColor(p) { return { HIGH:T.red, MEDIUM:T.amber, LOW:T.steelLo }[p] || T.steelLo; }
+
+// ── ATOMS ─────────────────────────────────────────────────────────────────────
+function Badge({ label, color }) {
+  return <span style={{ fontFamily:F.mono, fontSize:8, letterSpacing:2, color, border:`1px solid ${color}`, padding:"2px 6px", whiteSpace:"nowrap", flexShrink:0 }}>{label}</span>;
+}
+
+function Field({ label, children }) {
+  return (
+    <div>
+      <div style={{ fontFamily:F.mono, fontSize:8, color:T.steelLo, letterSpacing:2, marginBottom:3 }}>{label}</div>
+      <div style={{ fontSize:12, color:T.white }}>{children}</div>
+    </div>
+  );
+}
+
+function SaveIndicator({ state }) {
+  if (!state) return null;
+  const cfg = { saving:{ color:T.amber, text:"SAVING…" }, saved:{ color:T.green, text:"SAVED ✓" }, error:{ color:T.red, text:"ERROR ✗" }, offline:{ color:T.steel, text:"OFFLINE — mock only" } }[state];
+  if (!cfg) return null;
+  return <span style={{ fontFamily:F.mono, fontSize:8, letterSpacing:2, color:cfg.color, marginLeft:8 }}>{cfg.text}</span>;
+}
+
+function SectionHead({ title, count, saveState }) {
+  return (
+    <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:16 }}>
+      <div style={{ fontFamily:F.mono, fontSize:9, letterSpacing:3, color:T.amber, textTransform:"uppercase" }}>{title}</div>
+      {count !== undefined && <span style={{ fontFamily:F.mono, fontSize:9, color:T.steelLo, background:T.raised, border:`1px solid ${T.border}`, padding:"1px 7px" }}>{count}</span>}
+      <SaveIndicator state={saveState} />
+      {!SPINE_URL && <span style={{ fontFamily:F.mono, fontSize:7, color:T.steelLo, letterSpacing:2, marginLeft:"auto" }}>MOCK MODE</span>}
+    </div>
+  );
+}
+
+function Inp({ label, value, onChange, type="text", placeholder="" }) {
+  return (
+    <div>
+      {label && <div style={{ fontFamily:F.mono, fontSize:8, color:T.steelLo, letterSpacing:2, marginBottom:4 }}>{label}</div>}
+      <input type={type} value={value} onChange={onChange} placeholder={placeholder}
+        style={{ width:"100%", background:T.surface, border:`1px solid ${T.border}`, color:T.white, fontFamily:F.mono, fontSize:12, padding:"8px 10px", outline:"none" }}
+      />
+    </div>
+  );
+}
+
+function Sel({ label, value, onChange, options }) {
+  return (
+    <div>
+      {label && <div style={{ fontFamily:F.mono, fontSize:8, color:T.steelLo, letterSpacing:2, marginBottom:4 }}>{label}</div>}
+      <select value={value} onChange={onChange}
+        style={{ width:"100%", background:T.surface, border:`1px solid ${T.border}`, color:T.white, fontFamily:F.mono, fontSize:12, padding:"8px 10px", outline:"none" }}>
+        {options.map(o => <option key={o} value={o}>{o}</option>)}
+      </select>
+    </div>
+  );
+}
+
+function ProgressBar({ value, max, color }) {
+  const pct = max > 0 ? Math.min(100, Math.round((value / max) * 100)) : 0;
+  return (
+    <div style={{ height:3, background:T.border, width:"100%" }}>
+      <div style={{ height:3, width:`${pct}%`, background:color || T.amber, transition:"width 0.4s" }}/>
+    </div>
+  );
+}
+
+// ── LEADS MODULE ──────────────────────────────────────────────────────────────
+function Leads() {
+  const [leads, setLeads]         = useState(MOCK_LEADS);
+  const [filter, setFilter]       = useState("ALL");
+  const [selected, setSelected]   = useState(null);
+  const [editing, setEditing]     = useState(null);  // lead_id being edited
+  const [addOpen, setAddOpen]     = useState(false);
+  const [saveState, setSaveState] = useState(null);
+
+  // Load from spine on mount
+  useEffect(() => {
+    adapter.read("Leads").then(data => { if (data && data.length) setLeads(data); });
+  }, []);
+
+  const statuses = ["ALL","PITCH","DEMO","QUEUED","PROSPECT","STRATEGIC"];
+  const visible  = filter === "ALL" ? leads : leads.filter(l => l.status === filter);
+  const lead     = selected ? leads.find(l => l.lead_id === selected) : null;
+
+  // Inline edit a field on the selected lead
+  const [editBuf, setEditBuf] = useState({});
+
+  function startEdit(l) {
+    setEditing(l.lead_id);
+    setEditBuf({ ...l });
+  }
+
+  async function saveEdit() {
+    setSaveState("saving");
+    const res = await adapter.updateRow("Leads", editBuf.lead_id, { ...editBuf, updated_at: new Date().toISOString() });
+    if (res.offline) setSaveState("offline");
+    else if (res.ok)  setSaveState("saved");
+    else              setSaveState("error");
+    setLeads(ls => ls.map(l => l.lead_id === editBuf.lead_id ? { ...editBuf } : l));
+    setEditing(null);
+    setTimeout(() => setSaveState(null), 2500);
+  }
+
+  // Add new lead
+  const blankLead = { lead_id:"", name:"", vertical:"", location:"", status:"PROSPECT", stage:1, priority:"MEDIUM", contact:"", estimated_fee:0, next_action:"", follow_up_date:"", notes:"", source:"Manual" };
+  const [newLead, setNewLead] = useState({ ...blankLead });
+
+  async function submitNewLead() {
+    const row = { ...newLead, lead_id: "lead-" + uid(), created_at: new Date().toISOString(), updated_at: new Date().toISOString() };
+    setSaveState("saving");
+    const res = await adapter.append("Leads", row);
+    if (res.offline) setSaveState("offline");
+    else if (res.ok)  setSaveState("saved");
+    else              setSaveState("error");
+    setLeads(ls => [...ls, row]);
+    setNewLead({ ...blankLead });
+    setAddOpen(false);
+    setTimeout(() => setSaveState(null), 2500);
+  }
+
+  const setNL = k => e => setNL2({ ...newLead, [k]: e.target.value });
+  function setNL2(v) { setNewLead(v); }
+
+  return (
+    <div>
+      <SectionHead title="Lead Inbox" count={leads.length} saveState={saveState} />
+
+      {/* Controls */}
+      <div style={{ display:"flex", gap:2, marginBottom:12, overflowX:"auto", paddingBottom:2 }}>
+        {statuses.map(f => (
+          <button key={f} onClick={() => setFilter(f)} style={{
+            background:filter===f?T.amber:T.raised, color:filter===f?T.bg:T.dim,
+            border:`1px solid ${filter===f?T.amber:T.border}`,
+            fontFamily:F.mono, fontSize:8, letterSpacing:2,
+            padding:"5px 10px", cursor:"pointer", whiteSpace:"nowrap", flexShrink:0,
+          }}>{f}</button>
+        ))}
+        <button onClick={() => { setAddOpen(o => !o); setSelected(null); setEditing(null); }} style={{
+          marginLeft:"auto", background:T.green, color:T.bg, border:"none",
+          fontFamily:F.mono, fontSize:8, letterSpacing:2, padding:"5px 12px", cursor:"pointer", flexShrink:0,
+        }}>+ ADD LEAD</button>
+      </div>
+
+      {/* Add form */}
+      {addOpen && (
+        <div style={{ background:T.raised, border:`1px solid ${T.green}`, padding:16, marginBottom:14 }}>
+          <div style={{ fontFamily:F.mono, fontSize:9, color:T.green, letterSpacing:2, marginBottom:12 }}>NEW LEAD</div>
+          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10, marginBottom:12 }}>
+            <Inp label="BUSINESS NAME"  value={newLead.name}          onChange={e => setNewLead(v=>({...v,name:e.target.value}))} />
+            <Inp label="VERTICAL"       value={newLead.vertical}      onChange={e => setNewLead(v=>({...v,vertical:e.target.value}))} />
+            <Inp label="LOCATION"       value={newLead.location}      onChange={e => setNewLead(v=>({...v,location:e.target.value}))} />
+            <Inp label="CONTACT"        value={newLead.contact}       onChange={e => setNewLead(v=>({...v,contact:e.target.value}))} />
+            <Sel label="STATUS"         value={newLead.status}        onChange={e => setNewLead(v=>({...v,status:e.target.value}))}   options={["PROSPECT","DEMO","QUEUED","PITCH","STRATEGIC"]} />
+            <Sel label="PRIORITY"       value={newLead.priority}      onChange={e => setNewLead(v=>({...v,priority:e.target.value}))} options={["HIGH","MEDIUM","LOW"]} />
+            <Inp label="EST. FEE (PHP)" value={newLead.estimated_fee} onChange={e => setNewLead(v=>({...v,estimated_fee:e.target.value}))} type="number" />
+            <Inp label="FOLLOW-UP DATE" value={newLead.follow_up_date}onChange={e => setNewLead(v=>({...v,follow_up_date:e.target.value}))} type="date" />
+            <div style={{ gridColumn:"1/-1" }}>
+              <Inp label="NEXT ACTION"  value={newLead.next_action}   onChange={e => setNewLead(v=>({...v,next_action:e.target.value}))} />
+            </div>
+            <div style={{ gridColumn:"1/-1" }}>
+              <Inp label="NOTES"        value={newLead.notes}         onChange={e => setNewLead(v=>({...v,notes:e.target.value}))} />
+            </div>
+          </div>
+          <div style={{ display:"flex", gap:8 }}>
+            <button onClick={submitNewLead} style={{ background:T.green, color:T.bg, border:"none", fontFamily:F.mono, fontSize:9, letterSpacing:2, padding:"8px 16px", cursor:"pointer" }}>SAVE TO SPINE</button>
+            <button onClick={() => setAddOpen(false)} style={{ background:"none", border:`1px solid ${T.border}`, color:T.dim, fontFamily:F.mono, fontSize:9, letterSpacing:2, padding:"8px 12px", cursor:"pointer" }}>CANCEL</button>
+          </div>
+        </div>
+      )}
+
+      {/* Edit form */}
+      {editing && (
+        <div style={{ background:T.raised, border:`1px solid ${T.amber}`, padding:16, marginBottom:14 }}>
+          <div style={{ fontFamily:F.mono, fontSize:9, color:T.amber, letterSpacing:2, marginBottom:12 }}>EDITING: {editBuf.name}</div>
+          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10, marginBottom:12 }}>
+            <Sel label="STATUS"         value={editBuf.status}        onChange={e => setEditBuf(v=>({...v,status:e.target.value}))}   options={["PROSPECT","DEMO","QUEUED","PITCH","STRATEGIC","WON","LOST"]} />
+            <Sel label="PRIORITY"       value={editBuf.priority}      onChange={e => setEditBuf(v=>({...v,priority:e.target.value}))} options={["HIGH","MEDIUM","LOW"]} />
+            <Inp label="CONTACT"        value={editBuf.contact}       onChange={e => setEditBuf(v=>({...v,contact:e.target.value}))} />
+            <Inp label="EST. FEE (PHP)" value={editBuf.estimated_fee} onChange={e => setEditBuf(v=>({...v,estimated_fee:e.target.value}))} type="number" />
+            <Inp label="FOLLOW-UP DATE" value={editBuf.follow_up_date}onChange={e => setEditBuf(v=>({...v,follow_up_date:e.target.value}))} type="date" />
+            <div style={{ gridColumn:"1/-1" }}>
+              <Inp label="NEXT ACTION"  value={editBuf.next_action}   onChange={e => setEditBuf(v=>({...v,next_action:e.target.value}))} />
+            </div>
+            <div style={{ gridColumn:"1/-1" }}>
+              <Inp label="NOTES"        value={editBuf.notes}         onChange={e => setEditBuf(v=>({...v,notes:e.target.value}))} />
+            </div>
+          </div>
+          <div style={{ display:"flex", gap:8 }}>
+            <button onClick={saveEdit} style={{ background:T.amber, color:T.bg, border:"none", fontFamily:F.mono, fontSize:9, letterSpacing:2, padding:"8px 16px", cursor:"pointer" }}>SAVE TO SPINE</button>
+            <button onClick={() => setEditing(null)} style={{ background:"none", border:`1px solid ${T.border}`, color:T.dim, fontFamily:F.mono, fontSize:9, letterSpacing:2, padding:"8px 12px", cursor:"pointer" }}>CANCEL</button>
+          </div>
+        </div>
+      )}
+
+      {/* Detail panel */}
+      {lead && !editing && (
+        <div style={{ background:T.raised, border:`1px solid ${T.amber}`, padding:16, marginBottom:14 }}>
+          <div style={{ display:"flex", justifyContent:"space-between", marginBottom:12 }}>
+            <div style={{ fontFamily:F.display, fontSize:20, letterSpacing:1, color:T.white }}>{lead.name}</div>
+            <div style={{ display:"flex", gap:8 }}>
+              <button onClick={() => startEdit(lead)} style={{ background:T.amberBg, border:`1px solid ${T.amberLo}`, color:T.amber, fontFamily:F.mono, fontSize:8, letterSpacing:2, padding:"4px 10px", cursor:"pointer" }}>EDIT</button>
+              <button onClick={() => setSelected(null)} style={{ background:"none", border:"none", color:T.steel, cursor:"pointer", fontFamily:F.mono, fontSize:10 }}>✕</button>
+            </div>
+          </div>
+          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10, marginBottom:12 }}>
+            <Field label="VERTICAL">{lead.vertical}</Field>
+            <Field label="LOCATION">{lead.location}</Field>
+            <Field label="STATUS"><Badge label={lead.status} color={statusColor(lead.status)}/></Field>
+            <Field label="PRIORITY"><Badge label={lead.priority} color={priorityColor(lead.priority)}/></Field>
+            <Field label="CONTACT">{lead.contact}</Field>
+            <Field label="EST. FEE">{lead.estimated_fee > 0 ? `₱${Number(lead.estimated_fee).toLocaleString()}` : "Strategic"}</Field>
+            <Field label="FOLLOW-UP DUE">{lead.follow_up_date}</Field>
+            <Field label="SOURCE">{lead.source}</Field>
+          </div>
+          <div style={{ background:T.surface, border:`1px solid ${T.border}`, padding:"10px 12px" }}>
+            <div style={{ fontFamily:F.mono, fontSize:8, color:T.amber, letterSpacing:2, marginBottom:4 }}>NEXT ACTION</div>
+            <div style={{ fontSize:12, color:T.white }}>{lead.next_action}</div>
+          </div>
+          {lead.notes && <div style={{ marginTop:8, fontSize:11, color:T.dim, fontStyle:"italic" }}>{lead.notes}</div>}
+        </div>
+      )}
+
+      {/* Lead list */}
+      <div style={{ display:"grid", gap:2 }}>
+        {visible.map(l => (
+          <div key={l.lead_id} onClick={() => { setSelected(selected===l.lead_id?null:l.lead_id); setEditing(null); setAddOpen(false); }}
+            style={{
+              background:selected===l.lead_id?T.raised:T.surface,
+              border:`1px solid ${selected===l.lead_id?T.amber:T.border}`,
+              borderLeft:`3px solid ${priorityColor(l.priority)}`,
+              padding:"11px 13px", cursor:"pointer", transition:"all 0.15s",
+            }}>
+            <div style={{ display:"flex", justifyContent:"space-between", gap:8, flexWrap:"wrap" }}>
+              <div style={{ minWidth:0 }}>
+                <div style={{ fontSize:13, color:T.white, marginBottom:2 }}>{l.name}</div>
+                <div style={{ fontFamily:F.mono, fontSize:9, color:T.steel }}>{l.vertical} · {l.location}</div>
+              </div>
+              <div style={{ display:"flex", gap:6, alignItems:"center", flexShrink:0 }}>
+                <Badge label={l.status} color={statusColor(l.status)}/>
+                {Number(l.estimated_fee) > 0 && <span style={{ fontFamily:F.mono, fontSize:9, color:T.amber }}>₱{(Number(l.estimated_fee)/1000).toFixed(0)}K</span>}
+              </div>
+            </div>
+            <div style={{ marginTop:7, fontSize:11, color:T.dim, borderTop:`1px solid ${T.border}`, paddingTop:6 }}>{l.next_action}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ── FOLLOW-UPS MODULE ─────────────────────────────────────────────────────────
+function FollowUps() {
+  const [items, setItems]       = useState(MOCK_FOLLOWUPS);
+  const [addOpen, setAddOpen]   = useState(false);
+  const [saveState, setSaveState] = useState(null);
+  const [newFU, setNewFU]       = useState({ client_name:"", type:"24HR", due_date:"", action:"", status:"PENDING" });
+
+  useEffect(() => {
+    adapter.read("FollowUps").then(data => { if (data && data.length) setItems(data); });
+  }, []);
+
+  async function markDone(id) {
+    const now = new Date().toISOString();
+    setSaveState("saving");
+    const res = await adapter.updateRow("FollowUps", id, { status:"DONE", completed_at:now });
+    if (res.offline) setSaveState("offline"); else if (res.ok) setSaveState("saved"); else setSaveState("error");
+    setItems(is => is.map(i => i.followup_id === id ? { ...i, status:"DONE", completed_at:now } : i));
+    setTimeout(() => setSaveState(null), 2000);
+  }
+
+  async function addFollowUp() {
+    const row = { ...newFU, followup_id:"fu-"+uid(), lead_id:"", completed_at:"", notes:"" };
+    setSaveState("saving");
+    const res = await adapter.append("FollowUps", row);
+    if (res.offline) setSaveState("offline"); else if (res.ok) setSaveState("saved"); else setSaveState("error");
+    setItems(is => [...is, row]);
+    setNewFU({ client_name:"", type:"24HR", due_date:"", action:"", status:"PENDING" });
+    setAddOpen(false);
+    setTimeout(() => setSaveState(null), 2000);
+  }
+
+  const active = items.filter(i => i.status !== "DONE");
+  const done   = items.filter(i => i.status === "DONE");
+
+  return (
+    <div>
+      <SectionHead title="Follow-Up Queue" count={active.length} saveState={saveState} />
+      <div style={{ fontFamily:F.mono, fontSize:9, color:T.dim, marginBottom:12, letterSpacing:1 }}>CADENCE: 24HR → 72HR → 7DAY · NO EXCEPTIONS</div>
+
+      <button onClick={() => setAddOpen(o=>!o)} style={{
+        background:T.green, color:T.bg, border:"none",
+        fontFamily:F.mono, fontSize:8, letterSpacing:2, padding:"6px 14px", cursor:"pointer", marginBottom:12,
+      }}>+ ADD FOLLOW-UP</button>
+
+      {addOpen && (
+        <div style={{ background:T.raised, border:`1px solid ${T.green}`, padding:14, marginBottom:12 }}>
+          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10, marginBottom:10 }}>
+            <Inp label="CLIENT NAME" value={newFU.client_name} onChange={e=>setNewFU(v=>({...v,client_name:e.target.value}))} />
+            <Sel label="TYPE" value={newFU.type} onChange={e=>setNewFU(v=>({...v,type:e.target.value}))} options={["24HR","72HR","7DAY","BUILD","DEBRIEF","CUSTOM"]} />
+            <Inp label="DUE DATE" value={newFU.due_date} onChange={e=>setNewFU(v=>({...v,due_date:e.target.value}))} type="date" />
+            <div style={{ gridColumn:"1/-1" }}>
+              <Inp label="ACTION" value={newFU.action} onChange={e=>setNewFU(v=>({...v,action:e.target.value}))} />
+            </div>
+          </div>
+          <div style={{ display:"flex", gap:8 }}>
+            <button onClick={addFollowUp} style={{ background:T.green, color:T.bg, border:"none", fontFamily:F.mono, fontSize:9, letterSpacing:2, padding:"7px 14px", cursor:"pointer" }}>SAVE TO SPINE</button>
+            <button onClick={() => setAddOpen(false)} style={{ background:"none", border:`1px solid ${T.border}`, color:T.dim, fontFamily:F.mono, fontSize:9, letterSpacing:2, padding:"7px 12px", cursor:"pointer" }}>CANCEL</button>
+          </div>
+        </div>
+      )}
+
+      <div style={{ display:"grid", gap:2 }}>
+        {active.map(f => (
+          <div key={f.followup_id} style={{
+            background: f.status==="OVERDUE" ? T.redBg : T.raised,
+            border:`1px solid ${f.status==="OVERDUE"?T.red:T.border}`,
+            padding:"11px 13px",
+          }}>
+            <div style={{ display:"flex", justifyContent:"space-between", gap:8 }}>
+              <div style={{ flex:1, minWidth:0 }}>
+                <div style={{ display:"flex", gap:8, alignItems:"center", marginBottom:4, flexWrap:"wrap" }}>
+                  <Badge label={f.type} color={f.status==="OVERDUE"?T.red:T.amber}/>
+                  <span style={{ fontSize:13, color:T.white }}>{f.client_name}</span>
+                </div>
+                <div style={{ fontSize:11, color:T.dim }}>{f.action}</div>
+                <div style={{ fontFamily:F.mono, fontSize:9, color:f.status==="OVERDUE"?T.red:T.steelLo, marginTop:3 }}>
+                  {f.status==="OVERDUE"?"⚠ OVERDUE":"DUE"} · {f.due_date}
+                </div>
+              </div>
+              <button onClick={() => markDone(f.followup_id)} style={{
+                background:T.green, border:"none", color:T.bg,
+                fontFamily:F.mono, fontSize:8, letterSpacing:2,
+                padding:"6px 10px", cursor:"pointer", flexShrink:0, alignSelf:"flex-start",
+              }}>DONE ✓</button>
+            </div>
+          </div>
+        ))}
+        {done.length > 0 && (
+          <div style={{ fontFamily:F.mono, fontSize:9, color:T.steelLo, letterSpacing:2, marginTop:8 }}>
+            {done.length} COMPLETED
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ── SNAPSHOT ──────────────────────────────────────────────────────────────────
+function Snapshot({ leads, followups }) {
+  const overdue    = followups.filter(f => f.status === "OVERDUE").length;
+  const pitching   = leads.filter(l => l.status === "PITCH").length;
+  const pipeline   = leads.reduce((s,l) => s + (Number(l.estimated_fee)||0), 0);
+  const demosLive  = leads.filter(l => l.status === "DEMO").length;
+
+  return (
+    <div>
+      <SectionHead title="Today's Snapshot" />
+
+      {overdue > 0 && (
+        <div style={{ background:T.redBg, border:`1px solid ${T.red}`, padding:"11px 14px", marginBottom:14, display:"flex", alignItems:"center", gap:10 }}>
+          <div style={{ width:6, height:6, borderRadius:"50%", background:T.red, flexShrink:0 }}/>
+          <div style={{ fontFamily:F.mono, fontSize:11, color:T.red }}>{overdue} OVERDUE FOLLOW-UP{overdue>1?"S":""} — ACT NOW</div>
+        </div>
+      )}
+
+      <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(120px,1fr))", gap:2, marginBottom:16 }}>
+        {[
+          { label:"Prospects",   value:leads.length    },
+          { label:"Demos Live",  value:demosLive,       accent:T.amber },
+          { label:"In Pitch",    value:pitching,        accent:T.green },
+          { label:"Pipeline",    value:`₱${(pipeline/1000).toFixed(0)}K`, accent:T.amber },
+          { label:"Setup Rev",   value:"₱0",            sub:"target ₱100K" },
+          { label:"MRR",         value:"₱0",            sub:"target ₱25K" },
+        ].map((s,i) => (
+          <div key={i} style={{ background:T.raised, border:`1px solid ${T.border}`, padding:"12px 14px" }}>
+            <div style={{ fontFamily:F.mono, fontSize:8, color:T.steel, letterSpacing:3, marginBottom:5 }}>{s.label}</div>
+            <div style={{ fontFamily:F.display, fontSize:26, color:s.accent||T.white, letterSpacing:1, lineHeight:1 }}>{s.value}</div>
+            {s.sub && <div style={{ fontFamily:F.mono, fontSize:8, color:T.steelLo, marginTop:3 }}>{s.sub}</div>}
+          </div>
+        ))}
+      </div>
+
+      <div style={{ background:T.raised, border:`1px solid ${T.border}`, padding:"13px 15px", marginBottom:14 }}>
+        <div style={{ fontFamily:F.mono, fontSize:8, letterSpacing:3, color:T.steel, marginBottom:10 }}>REVENUE TARGETS — WEEK 1/8</div>
+        {[
+          { label:"Setup Revenue", val:0, max:100000, color:T.amber },
+          { label:"MRR Booked",    val:0, max:25000,  color:T.green },
+        ].map((r,i) => (
+          <div key={i} style={{ marginBottom:i===0?12:0 }}>
+            <div style={{ display:"flex", justifyContent:"space-between", marginBottom:3 }}>
+              <div style={{ fontSize:11, color:T.dim }}>{r.label}</div>
+              <div style={{ fontFamily:F.mono, fontSize:9, color:T.steelLo }}>₱0 / ₱{(r.max/1000).toFixed(0)}K</div>
+            </div>
+            <ProgressBar value={r.val} max={r.max} color={r.color}/>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ background:T.raised, border:`1px solid ${T.border}`, padding:"13px 15px" }}>
+        <div style={{ fontFamily:F.mono, fontSize:8, letterSpacing:3, color:T.steel, marginBottom:10 }}>NEXT BEST ACTIONS</div>
+        {[
+          { urgent:true,  text:"Close Hotel Rosita — 72hr follow-up overdue" },
+          { urgent:true,  text:"Close Queen Margarette — v5 approved, no signature yet" },
+          { urgent:false, text:"Ship Nalu demo — same-strip walk-in opportunity" },
+          { urgent:false, text:"Book Ecopetrol presentation with Jherico Lara" },
+          { urgent:false, text:"Register auroradigitalfoundry.com at Porkbun" },
+        ].map((a,i) => (
+          <div key={i} style={{ display:"flex", gap:8, alignItems:"flex-start", marginBottom:9 }}>
+            <div style={{ width:5, height:5, borderRadius:"50%", background:a.urgent?T.red:T.steelLo, marginTop:4, flexShrink:0 }}/>
+            <div style={{ fontSize:12, color:a.urgent?T.white:T.dim, lineHeight:1.5 }}>{a.text}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ── AI CONSOLE ────────────────────────────────────────────────────────────────
+function AIConsole({ leads, followups }) {
+  const [loading, setLoading] = useState(false);
+  const [output, setOutput]   = useState(null);
+  const [custom, setCustom]   = useState("");
+  const [active, setActive]   = useState(null);
+
+  const pipeline = leads.reduce((s,l) => s+(Number(l.estimated_fee)||0), 0);
+  const overdue  = followups.filter(f=>f.status==="OVERDUE").map(f=>f.client_name).join(", ");
+
+  const ACTIONS = [
+    "Analyze leads — find highest-probability close",
+    "Draft 72hr follow-up for Hotel Rosita",
+    "Draft close message for Queen Margarette",
+    "Generate this week's Foundry owner brief",
+    "Identify revenue gaps in the pipeline",
+    "Write Nalu Surf Camp demo intro walk-in script",
+    "Draft Ecopetrol presentation opening",
+    "Suggest 3 next prospects to target after Lucena",
+  ];
+
+  async function run(prompt) {
+    setLoading(true); setOutput(null);
+    const context = `Current Foundry pipeline:
+- Total prospects: ${leads.length}
+- Demos live: ${leads.filter(l=>l.status==="DEMO").length}
+- In pitch: ${leads.filter(l=>l.status==="PITCH").length} (${overdue || "none overdue"})
+- Pipeline value: ₱${(pipeline/1000).toFixed(0)}K unbooked
+- 0 closes so far
+- Setup revenue target: PHP 100K in 8 weeks
+- MRR target: PHP 25K in 8 weeks`;
+
+    try {
+      const r = await fetch("https://api.anthropic.com/v1/messages", {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({
+          model:"claude-sonnet-4-20250514",
+          max_tokens:1000,
+          system:`You are the AI action console for Aurora Digital Foundry — a business infrastructure agency in Baler, Aurora Province, Philippines. Be direct, operator-grade, no filler. Produce useful artifacts: draft messages, ranked lists, action plans. Use PHP for currency.\n\n${context}`,
+          messages:[{ role:"user", content:prompt }],
+        }),
+      });
+      const d = await r.json();
+      setOutput(d.content?.map(b=>b.text||"").join("\n") || "No response.");
+    } catch(e) { setOutput("Error: " + e.message); }
+    setLoading(false);
+  }
+
+  return (
+    <div>
+      <SectionHead title="AI Action Console" />
+      <div style={{ fontFamily:F.mono, fontSize:9, color:T.dim, marginBottom:12, letterSpacing:1 }}>CLAUDE · FOUNDRY CONTEXT LIVE</div>
+
+      <div style={{ display:"grid", gap:2, marginBottom:12 }}>
+        {ACTIONS.map((a,i) => (
+          <button key={i} onClick={() => { setActive(i); run(a); }} style={{
+            background:active===i?T.amberBg:T.raised,
+            border:`1px solid ${active===i?T.amber:T.border}`,
+            color:active===i?T.amber:T.dim,
+            fontFamily:F.mono, fontSize:10, letterSpacing:1,
+            padding:"10px 13px", cursor:"pointer", textAlign:"left", transition:"all 0.12s",
+          }}>{a}</button>
+        ))}
+      </div>
+
+      <div style={{ display:"flex", gap:2, marginBottom:12 }}>
+        <input value={custom} onChange={e=>setCustom(e.target.value)} onKeyDown={e=>{ if(e.key==="Enter"){ setActive(null); run(custom); }}}
+          placeholder="Type a command…"
+          style={{ flex:1, background:T.surface, border:`1px solid ${T.border}`, color:T.white, fontFamily:F.mono, fontSize:11, padding:"9px 12px", outline:"none" }}
+        />
+        <button onClick={() => { setActive(null); run(custom); }} style={{
+          background:T.amber, color:T.bg, border:"none",
+          fontFamily:F.display, fontSize:14, letterSpacing:2,
+          padding:"9px 16px", cursor:"pointer",
+        }}>RUN</button>
+      </div>
+
+      {loading && (
+        <div style={{ background:T.raised, border:`1px solid ${T.border}`, padding:14 }}>
+          <div style={{ fontFamily:F.mono, fontSize:10, color:T.amber, letterSpacing:2 }}>PROCESSING<span style={{ animation:"blink 1s infinite" }}>_</span></div>
+        </div>
+      )}
+      {output && !loading && (
+        <div style={{ background:T.raised, border:`1px solid ${T.amber}`, padding:14 }}>
+          <div style={{ fontFamily:F.mono, fontSize:8, letterSpacing:3, color:T.amber, marginBottom:8 }}>OUTPUT</div>
+          <div style={{ fontSize:12, color:T.white, lineHeight:1.7, whiteSpace:"pre-wrap" }}>{output}</div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── SETTINGS ──────────────────────────────────────────────────────────────────
+function Settings() {
+  const spineConnected = Boolean(SPINE_URL);
+  return (
+    <div>
+      <SectionHead title="Foundry Settings" />
+      <div style={{ background: spineConnected?T.greenBg:T.redBg, border:`1px solid ${spineConnected?T.green:T.red}`, padding:"11px 14px", marginBottom:14 }}>
+        <div style={{ fontFamily:F.mono, fontSize:10, color:spineConnected?T.green:T.red, letterSpacing:2 }}>
+          {spineConnected ? "✓ DATA SPINE CONNECTED" : "⚠ DATA SPINE NOT CONNECTED — MOCK MODE"}
+        </div>
+        {!spineConnected && (
+          <div style={{ fontSize:11, color:T.dim, marginTop:6 }}>
+            Deploy the Apps Script Web App, copy the URL, paste into SPINE_URL at the top of this file.
+          </div>
+        )}
+      </div>
+      <div style={{ display:"grid", gap:2 }}>
+        {[
+          { key:"Operator",         value:"Hirro Kuizon" },
+          { key:"GitHub Org",       value:"hirrok/aurora-digital-foundry" },
+          { key:"Domain",           value:"auroradigitalfoundry.com — PENDING REGISTRATION",  warn:true },
+          { key:"Hosting",          value:"GitHub Pages — free tier" },
+          { key:"Data Spine",       value:spineConnected ? "Google Sheets — CONNECTED" : "Google Sheets — NOT CONNECTED", warn:!spineConnected },
+          { key:"Form Backend",     value:"Formspree — NOT CONFIGURED",   warn:true },
+          { key:"GBP",              value:"NOT CREATED",                  warn:true },
+          { key:"Search Console",   value:"NOT SET UP",                   warn:true },
+          { key:"Analytics",        value:"NOT INSTALLED",                warn:true },
+          { key:"Campaign Week",    value:"1 / 8" },
+          { key:"Setup Rev Target", value:"PHP 100,000 / 8 weeks" },
+          { key:"MRR Target",       value:"PHP 25,000 / 8 weeks" },
+        ].map((s,i) => (
+          <div key={i} style={{ background:T.raised, border:`1px solid ${T.border}`, padding:"9px 13px", display:"flex", justifyContent:"space-between", gap:12, flexWrap:"wrap" }}>
+            <div style={{ fontFamily:F.mono, fontSize:9, color:T.steel, letterSpacing:2 }}>{s.key}</div>
+            <div style={{ fontFamily:F.mono, fontSize:10, color:s.warn?T.red:T.white, textAlign:"right" }}>{s.value}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ── ROOT ──────────────────────────────────────────────────────────────────────
+const MODULES = [
+  { id:"snapshot",  label:"Snapshot",   icon:"◈" },
+  { id:"leads",     label:"Leads",      icon:"◎" },
+  { id:"followups", label:"Follow-Ups", icon:"⏱" },
+  { id:"ai",        label:"AI Console", icon:"⚡" },
+  { id:"settings",  label:"Settings",   icon:"⚙" },
+];
+
+export default function FoundryOps() {
+  const [active, setActive]     = useState("snapshot");
+  const [leads, setLeads]       = useState(MOCK_LEADS);
+  const [followups, setFollowups] = useState(MOCK_FOLLOWUPS);
+  const isMobile = useIsMobile();
+  const overdue = followups.filter(f => f.status === "OVERDUE").length;
+
+  // Hydrate shared state from spine on mount
+  useEffect(() => {
+    adapter.read("Leads").then(d => { if (d && d.length) setLeads(d); });
+    adapter.read("FollowUps").then(d => { if (d && d.length) setFollowups(d); });
+  }, []);
+
+  const renderModule = () => ({
+    snapshot:  <Snapshot leads={leads} followups={followups} />,
+    leads:     <Leads />,
+    followups: <FollowUps />,
+    ai:        <AIConsole leads={leads} followups={followups} />,
+    settings:  <Settings />,
+  }[active]);
+
+  return (
+    <div style={{ background:T.bg, minHeight:"100vh", color:T.white, fontFamily:F.body, display:"flex", flexDirection:"column" }}>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400&family=Lora:ital@1&family=Barlow:wght@300;400;500&family=Barlow+Condensed:wght@400;600&display=swap');
+        *{box-sizing:border-box;margin:0;padding:0}
+        ::-webkit-scrollbar{width:2px;height:2px;background:${T.surface}}
+        ::-webkit-scrollbar-thumb{background:${T.border}}
+        ::placeholder{color:${T.steelLo}}
+        input:focus,select:focus{border-color:${T.amber}!important;outline:none}
+        @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+        button,select{-webkit-tap-highlight-color:transparent}
+      `}</style>
+
+      <Grain/>
+
+      {/* Top bar */}
+      <div style={{ background:T.surface, borderBottom:`1px solid ${T.border}`, boxShadow:`0 1px 4px rgba(0,0,0,0.06)`, padding:isMobile?"10px 14px":"10px 20px", display:"flex", justifyContent:"space-between", alignItems:"center", flexShrink:0 }}>
+        <div>
+          <div style={{ fontFamily:F.display, fontSize:isMobile?13:16, letterSpacing:3, color:T.white }}>FOUNDRY OPS</div>
+          <div style={{ fontFamily:F.mono, fontSize:7, color:T.amberLo, letterSpacing:3 }}>AURORA DIGITAL FOUNDRY · INTERNAL · {SPINE_URL?"SPINE LIVE":"MOCK MODE"}</div>
+        </div>
+        <div style={{ display:"flex", gap:8, alignItems:"center" }}>
+          {overdue > 0 && (
+            <button onClick={() => setActive("followups")} style={{ background:T.redBg, border:`1px solid ${T.red}`, fontFamily:F.mono, fontSize:8, letterSpacing:2, color:T.red, padding:"4px 8px", cursor:"pointer" }}>
+              ⚠ {overdue} OVERDUE
+            </button>
+          )}
+          <div style={{ display:"flex", alignItems:"center", gap:5 }}>
+            <div style={{ width:5, height:5, borderRadius:"50%", background:SPINE_URL?T.green:T.amber }}/>
+            <span style={{ fontFamily:F.mono, fontSize:7, color:T.steelLo, letterSpacing:2 }}>{SPINE_URL?"LIVE":"MOCK"}</span>
+          </div>
+        </div>
+      </div>
+
+      <div style={{ display:"flex", flex:1, overflow:"hidden", flexDirection:isMobile?"column":"row" }}>
+        {/* Sidebar / bottom nav */}
+        {!isMobile ? (
+          <div style={{ width:150, background:T.surface, borderRight:`1px solid ${T.border}`, boxShadow:`1px 0 4px rgba(0,0,0,0.04)`, display:"flex", flexDirection:"column", flexShrink:0 }}>
+            {MODULES.map(m => (
+              <button key={m.id} onClick={() => setActive(m.id)} style={{
+                background:active===m.id?T.amberBg:"none", border:"none",
+                borderLeft:`3px solid ${active===m.id?T.amber:"transparent"}`,
+                borderBottom:`1px solid ${T.border}`,
+                color:active===m.id?T.amber:T.steel,
+                fontFamily:F.mono, fontSize:9, letterSpacing:2,
+                padding:"13px 13px", cursor:"pointer", textAlign:"left",
+                display:"flex", alignItems:"center", gap:8, transition:"all 0.12s",
+              }}>
+                <span style={{ fontSize:11 }}>{m.icon}</span>
+                {m.label.toUpperCase()}
+                {m.id==="followups" && overdue>0 && (
+                  <span style={{ marginLeft:"auto", background:T.red, color:"#fff", fontFamily:F.mono, fontSize:7, padding:"1px 5px" }}>{overdue}</span>
+                )}
+              </button>
+            ))}
+          </div>
+        ) : (
+          <div style={{ order:2, background:T.surface, borderTop:`1px solid ${T.border}`, display:"flex", overflowX:"auto", flexShrink:0 }}>
+            {MODULES.map(m => (
+              <button key={m.id} onClick={() => setActive(m.id)} style={{
+                background:active===m.id?T.amberBg:"none", border:"none",
+                borderBottom:`2px solid ${active===m.id?T.amber:"transparent"}`,
+                color:active===m.id?T.amber:T.steel,
+                fontFamily:F.mono, fontSize:7, letterSpacing:1,
+                padding:"9px 12px", cursor:"pointer",
+                display:"flex", flexDirection:"column", alignItems:"center", gap:3,
+                flexShrink:0, transition:"all 0.12s",
+              }}>
+                <span style={{ fontSize:13 }}>{m.icon}</span>
+                <span>{m.label.toUpperCase()}</span>
+                {m.id==="followups" && overdue>0 && (
+                  <span style={{ background:T.red, color:"#fff", fontFamily:F.mono, fontSize:6, padding:"1px 4px" }}>{overdue}</span>
+                )}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {/* Main */}
+        <div style={{ flex:1, overflowY:"auto", padding:isMobile?"14px":"22px", order:1 }}>
+          {renderModule()}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(React.createElement(FoundryOps));
+  </script>
+</body>
+</html>
